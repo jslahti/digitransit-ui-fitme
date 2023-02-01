@@ -1,6 +1,6 @@
 #!/bin/bash
 LOGFILE="/home/fituser/logs/log.log"
-DTDirectory="/home/fituser/digitransit-ui/"
+DTDirectory="/home/fituser/digitransit-ui-fitme/"
 
 cd $DTDirectory
 
@@ -8,10 +8,5 @@ docker build -t jslahti/digitransit-ui-fitme:latest .
 
 echo "$(date "+%m%d%Y %T") : build done OK"
 
-screen -S DTUI -X quit
-
-/usr/bin/screen -dmS DTUI bash -c 'cd /home/fituser/git/digitransit-ui; /home/openuser/digitransit-ui/run.sh; exec bash'
-
-echo "$(date "+%m%d%Y %T") : All Done OK"
 
 

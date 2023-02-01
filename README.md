@@ -37,3 +37,6 @@ More information about [testing](docs/Tests.md).
 * [Navigation](docs/Navigation.md)
 * [Themes](docs/Themes.md)
 * [GeoJSON](docs/GeoJson.md)
+
+## Custom code for POIs
+Here we will add documentation about our custom POI extension to Digitransit-ui.

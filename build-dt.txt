@@ -1,16 +1,16 @@
 #!/bin/bash
-LOGFILE="/home/openuser/log/log.log"
-DTDirectory="/home/openuser/git/digitransit-ui/"
+LOGFILE="/home/fituser/logs/log.log"
+DTDirectory="/home/fituser/digitransit-ui/"
 
 cd $DTDirectory
 
-docker build -t hsldevcom/digitransit-ui:latest .
+docker build -t jslahti/digitransit-ui-fitme:latest .
 
 echo "$(date "+%m%d%Y %T") : build done OK"
 
 screen -S DTUI -X quit
 
-/usr/bin/screen -dmS DTUI bash -c 'cd /home/openuser/git/digitransit-ui; /home/openuser/digitransit-ui/run.sh; exec bash'
+/usr/bin/screen -dmS DTUI bash -c 'cd /home/fituser/git/digitransit-ui; /home/openuser/digitransit-ui/run.sh; exec bash'
 
 echo "$(date "+%m%d%Y %T") : All Done OK"
 

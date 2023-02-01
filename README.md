@@ -4,6 +4,9 @@
 
 Digitransit-ui is a mobile friendly User interface built to work with Digitransit platform
 
+##
+This is FITME!-project fork of the HSL's Digitransit UI
+
 ## Licensing
 The source code of the platform is dual-licensed under the EUPL v1.2 and AGPLv3 licenses.
 

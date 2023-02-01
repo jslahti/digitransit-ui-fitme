@@ -11,8 +11,4 @@ echo "$(date "+%m%d%Y %T") : build script done"
 /bin/bash /home/fituser/digitransit-ui-fitme/run-dt.sh
 
 echo "$(date "+%m%d%Y %T") : run script done"
-
 echo "$(date "+%m%d%Y %T") : All ok"
-
-
-

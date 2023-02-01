@@ -1,0 +1,14 @@
+#!/bin/bash
+LOGFILE="/home/openuser/log/log.log"
+DTDirectory="/home/openuser/git/digitransit-ui/"
+
+cd $DTDirectory
+
+screen -S DTUI -X quit
+
+/usr/bin/screen -dmS DTUI bash -c 'cd /home/openuser/git/digitransit-ui; /home/openuser/digitransit-ui/docker run -p 8080:8080 -e CONFIG=hsl hsldevcom/digitransit-ui:latest; exec bash'
+
+echo "$(date "+%m%d%Y %T") : run done OK"
+
+
+

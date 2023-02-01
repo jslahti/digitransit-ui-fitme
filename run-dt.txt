@@ -4,6 +4,8 @@ DTDirectory="/home/openuser/digitransit-ui-fitme/"
 
 cd $DTDirectory
 
+docker rm -f 
+
 /home/fituser/digitransit-ui-fitme/docker run -d -p 8080:8080 -e CONFIG=matka jslahti/digitransit-ui-fitme:latest
 
 echo "$(date "+%m%d%Y %T") : run done OK"

@@ -1879,12 +1879,18 @@ class SummaryPage extends React.Component {
       mwtProps.bounds = getBounds(filteredItineraries, from, to, viaPoints);
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
+    // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+    console.log(['viaPoints=',viaPoints]);
+    // Generate HARDCODED example of one POI in Espoo.
+    const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
+    // FITME: END
     return (
       <ItineraryPageMap
         {...mwtProps}
         from={from}
         to={to}
         viaPoints={viaPoints}
+        pois={pois}
         zoom={POINT_FOCUS_ZOOM}
         mapLayers={this.props.mapLayers}
         mapLayerOptions={this.props.mapLayerOptions}

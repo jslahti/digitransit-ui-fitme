@@ -17,6 +17,9 @@ function ItineraryPageMap(
     from,
     to,
     viaPoints,
+    // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+    pois,
+    // FITME: END
     breakpoint,
     showVehicles,
     topics,
@@ -74,7 +77,13 @@ function ItineraryPageMap(
   viaPoints.forEach((via, i) => {
     leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
   });
-
+  // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+  // NOTE: We might want to create a new type "poi", but use now "via" for simplicity
+  pois.forEach((poi, i) => {
+    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="via"/>);
+  });
+  // FITME: END
+  
   // max 5 viapoints
   const locationPopup =
     config.viaPointsEnabled && viaPoints.length < 5
@@ -111,6 +120,9 @@ ItineraryPageMap.propTypes = {
   from: PropTypes.object.isRequired,
   to: PropTypes.object.isRequired,
   viaPoints: PropTypes.array.isRequired,
+  // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+  pois: PropTypes.array,
+  // FITME: END
   onlyHasWalkingItineraries: PropTypes.bool,
   loading: PropTypes.bool,
 };

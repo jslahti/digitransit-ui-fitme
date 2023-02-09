@@ -955,7 +955,9 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-
+    // FITME
+    console.log(['makeWalkAndBikeQueries planParams=',planParams]);
+    // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams)
       .then(result => {
         this.setState(
@@ -1095,6 +1097,9 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
+    // FITME
+    console.log(['makeQueryWithAllModes planParams=',planParams]);
+    // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams, {
       force: true,
     }).then(({ plan: results }) => {
@@ -1154,7 +1159,9 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-
+    // FITME
+    console.log(['onLater planParams=',params]);
+    // FITME
     const tunedParams = {
       wheelchair: null,
       ...params,
@@ -1264,7 +1271,9 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-
+    // FITME
+    console.log(['onEarlier planParams=',params]);
+    // FITME
     const tunedParams = {
       wheelchair: null,
       ...params,
@@ -2022,6 +2031,9 @@ class SummaryPage extends React.Component {
                 this.context.match.params,
                 this.context.match,
               );
+              // FITME
+              console.log(['internalSetOffcanvas planParams=',planParams]);
+              // FITME
               this.makeWalkAndBikeQueries();
               this.props.relay.refetch(planParams, null, () => {
                 this.setState(

@@ -13,6 +13,7 @@ import MapLayerStore from './store/MapLayerStore';
 import GeoJsonStore from './store/GeoJsonStore';
 import CanceledLegsBarStore from './store/CanceledLegsBarStore';
 import ViaPointStore from './store/ViaPointStore';
+import PoiStore from './store/PoiStore';
 import UserStore from './store/UserStore';
 import FavouriteStore from './store/FavouriteStore';
 import RoutingSettingsStore from './store/RoutingSettingsStore';
@@ -35,6 +36,7 @@ export default config => {
   app.registerStore(GeoJsonStore);
   app.registerStore(CanceledLegsBarStore);
   app.registerStore(ViaPointStore);
+  app.registerStore(PoiStore);
   app.registerStore(UserStore);
   app.registerStore(FavouriteStore);
   app.registerStore(RoutingSettingsStore);

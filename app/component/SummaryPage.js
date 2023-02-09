@@ -1891,16 +1891,16 @@ class SummaryPage extends React.Component {
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
     //console.log(['viaPoints=',viaPoints]);
     //console.log(['renderMap combinedItineraries=',combinedItineraries]);
-    console.log(['renderMap filteredItineraries=',filteredItineraries]);
-    filteredItineraries.forEach(iti=>{
-        if (iti.legs && iti.legs.length > 0) {
-            iti.legs.forEach(leg=>{
-                console.log(['leg=',leg]);
-            });
-        }
-    });
+    //console.log(['renderMap filteredItineraries=',filteredItineraries]);
+    //filteredItineraries.forEach(iti=>{
+    //    if (iti.legs && iti.legs.length > 0) {
+    //        iti.legs.forEach(leg=>{
+    //            console.log(['leg=',leg]);
+    //        });
+    //    }
+    //});
     // Generate HARDCODED example of one POI in Espoo.
-    const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
+    //const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
     // FITME: END
     return (
       <ItineraryPageMap
@@ -2437,7 +2437,10 @@ class SummaryPage extends React.Component {
       this.state.loading === false && (error || this.props.loading === false);
     const waitForBikeAndWalk = () =>
       planHasNoItineraries && this.state.isFetchingWalkAndBike;
+    
+    // FITME: maybe insert something here: to check itinaries?
     if (this.props.breakpoint === 'large') {
+      
       let content;
       if (
         loadingPublicDone &&

@@ -34,6 +34,7 @@ function ItineraryPageMap(
   
   const fitmeExtractPOIs = legs => {
     let retu = [];
+    console.log(['legs=',legs]);
     retu.push({address:'Kera, Espoo',lat:60.217992,lon:24.75494});
     return retu;
   };
@@ -54,6 +55,8 @@ function ItineraryPageMap(
             passive
           />,
         );
+        const fitmePOIs = fitmeExtractPOIs(itinerary.legs);
+        console.log(['FIRST CASE fitmePOIs=',fitmePOIs]);
       }
     });
   }
@@ -70,9 +73,9 @@ function ItineraryPageMap(
         loading={loading}
       />,
     );
+    const fitmePOIs = fitmeExtractPOIs(itineraries[active].legs);
+    console.log(['SECOND CASE fitmePOIs=',fitmePOIs]);
   }
-  const fitmePOIs = fitmeExtractPOIs(itineraries[active].legs);
-  console.log(['fitmeExtractPOIs fitmePOIs=',fitmePOIs]);
   
   if (from.lat && from.lon) {
     leafletObjs.push(

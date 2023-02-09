@@ -1900,7 +1900,7 @@ class SummaryPage extends React.Component {
     //    }
     //});
     // Generate HARDCODED example of one POI in Espoo.
-    //const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
+    const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
     // FITME: END
     return (
       <ItineraryPageMap

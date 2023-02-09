@@ -255,6 +255,9 @@ const SummaryRow = (
     ) {
       intermediateSlack += leg.startTime - compressedLegs[i - 1].endTime; // calculate time spent at each intermediate place
     }
+    // FITME
+    console.log(['SummaryRow leg=',leg]);
+    // FITME
   });
   const durationWithoutSlack = duration - intermediateSlack; // don't include time spent at intermediate places in calculations for bar lengths
   let renderBarThreshold = 6;

@@ -32,12 +32,12 @@ function ItineraryPageMap(
   const { hash } = match.params;
   const leafletObjs = [];
   
-  const fitmeExtractPOIs = legs => {
-    let retu = [];
-    console.log(['legs=',legs]);
-    retu.push({address:'Kera, Espoo',lat:60.217992,lon:24.75494});
-    return retu;
-  };
+  //const fitmeExtractPOIs = legs => {
+  //  let retu = [];
+  //  console.log(['legs=',legs]);
+  //  retu.push({address:'Kera, Espoo',lat:60.217992,lon:24.75494});
+  //  return retu;
+  //};
   
   if (showVehicles) {
     leafletObjs.push(
@@ -55,8 +55,8 @@ function ItineraryPageMap(
             passive
           />,
         );
-        const fitmePOIs = fitmeExtractPOIs(itinerary.legs);
-        console.log(['FIRST CASE fitmePOIs=',fitmePOIs]);
+        //const fitmePOIs = fitmeExtractPOIs(itinerary.legs);
+        //console.log(['FIRST CASE fitmePOIs=',fitmePOIs]);
       }
     });
   }
@@ -73,8 +73,8 @@ function ItineraryPageMap(
         loading={loading}
       />,
     );
-    const fitmePOIs = fitmeExtractPOIs(itineraries[active].legs);
-    console.log(['SECOND CASE fitmePOIs=',fitmePOIs]);
+    //const fitmePOIs = fitmeExtractPOIs(itineraries[active].legs);
+    //console.log(['SECOND CASE fitmePOIs=',fitmePOIs]);
   }
   
   if (from.lat && from.lon) {

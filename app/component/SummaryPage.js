@@ -956,7 +956,7 @@ class SummaryPage extends React.Component {
       this.context.match,
     );
     // FITME
-    console.log(['makeWalkAndBikeQueries planParams=',planParams]);
+    //console.log(['makeWalkAndBikeQueries planParams=',planParams]);
     // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams)
       .then(result => {
@@ -1098,7 +1098,7 @@ class SummaryPage extends React.Component {
       this.context.match,
     );
     // FITME
-    console.log(['makeQueryWithAllModes planParams=',planParams]);
+    //console.log(['makeQueryWithAllModes planParams=',planParams]);
     // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams, {
       force: true,
@@ -1160,7 +1160,7 @@ class SummaryPage extends React.Component {
       this.context.match,
     );
     // FITME
-    console.log(['onLater planParams=',params]);
+    //console.log(['onLater planParams=',params]);
     // FITME
     const tunedParams = {
       wheelchair: null,
@@ -1272,7 +1272,7 @@ class SummaryPage extends React.Component {
       this.context.match,
     );
     // FITME
-    console.log(['onEarlier planParams=',params]);
+    //console.log(['onEarlier planParams=',params]);
     // FITME
     const tunedParams = {
       wheelchair: null,
@@ -1889,9 +1889,16 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
-    console.log(['viaPoints=',viaPoints]);
-    console.log(['combinedItineraries=',combinedItineraries]);
-    console.log(['filteredItineraries=',filteredItineraries]);
+    //console.log(['viaPoints=',viaPoints]);
+    //console.log(['renderMap combinedItineraries=',combinedItineraries]);
+    console.log(['renderMap filteredItineraries=',filteredItineraries]);
+    filteredItineraries.forEach(iti=>{
+        if (iti.legs && iti.legs.length > 0) {
+            iti.legs.forEach(leg=>{
+                console.log(['leg=',leg]);
+            });
+        }
+    });
     // Generate HARDCODED example of one POI in Espoo.
     const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
     // FITME: END
@@ -2032,7 +2039,7 @@ class SummaryPage extends React.Component {
                 this.context.match,
               );
               // FITME
-              console.log(['internalSetOffcanvas planParams=',planParams]);
+              //console.log(['internalSetOffcanvas planParams=',planParams]);
               // FITME
               this.makeWalkAndBikeQueries();
               this.props.relay.refetch(planParams, null, () => {

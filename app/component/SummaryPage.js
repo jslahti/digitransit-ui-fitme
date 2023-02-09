@@ -1881,6 +1881,8 @@ class SummaryPage extends React.Component {
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
     console.log(['viaPoints=',viaPoints]);
+    console.log(['combinedItineraries=',combinedItineraries]);
+    console.log(['filteredItineraries=',filteredItineraries]);
     // Generate HARDCODED example of one POI in Espoo.
     const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
     // FITME: END

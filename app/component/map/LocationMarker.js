@@ -6,6 +6,10 @@ import Icon from '../Icon';
 import IconMarker from './IconMarker';
 import ViaPointPopup from './popups/ViaPointPopup';
 
+// FITME: BEGIN insert some code to test if POIs can be shown in the map.
+import PoiPopup from './popups/PoiPopup';
+// FITME: END
+
 export default function LocationMarker({
   position,
   className,
@@ -19,6 +23,10 @@ export default function LocationMarker({
         return 'from';
       case 'to':
         return 'to';
+      // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+      case 'poi':
+        return 'poi';
+      // FITME: END
       case 'via':
       default:
         return 'via';
@@ -58,7 +66,9 @@ LocationMarker.propTypes = {
   position: IconMarker.propTypes.position,
   className: PropTypes.string,
   isLarge: PropTypes.bool,
-  type: PropTypes.oneOf(['from', 'via', 'to', 'favourite']),
+  // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+  type: PropTypes.oneOf(['from', 'via', 'poi', 'to', 'favourite']),
+  // FITME: END
   disabled: PropTypes.bool,
 };
 

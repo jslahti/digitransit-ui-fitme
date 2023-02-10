@@ -244,6 +244,9 @@ const SummaryRow = (
   }));
   let intermediateSlack = 0;
   let transitLegCount = 0;
+  // FITME
+  console.log(['SummaryRow IS CALLED AGAIN at ',moment().format()]);
+  // FITME
   compressedLegs.forEach((leg, i) => {
     if (isTransitLeg(leg)) {
       noTransitLegs = false;
@@ -256,7 +259,7 @@ const SummaryRow = (
       intermediateSlack += leg.startTime - compressedLegs[i - 1].endTime; // calculate time spent at each intermediate place
     }
     // FITME
-    console.log(['SummaryRow leg=',leg]);
+    console.log(['SummaryRow mode=',leg.mode,' transitLegCount=',transitLegCount,' intermediateSlack=',intermediateSlack,' leg=',leg]);
     // FITME
   });
   const durationWithoutSlack = duration - intermediateSlack; // don't include time spent at intermediate places in calculations for bar lengths

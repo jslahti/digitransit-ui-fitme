@@ -5,7 +5,6 @@ import React from 'react';
 import Icon from '../Icon';
 import IconMarker from './IconMarker';
 import ViaPointPopup from './popups/ViaPointPopup';
-
 // FITME: BEGIN insert some code to test if POIs can be shown in the map.
 import PoiPopup from './popups/PoiPopup';
 // FITME: END
@@ -59,7 +58,7 @@ export default function LocationMarker({
         />
       )}
       {validType === 'poi' && (
-        <PoiPointPopup
+        <PoiPopup
           lat={position.lat}
           lon={position.lon}
           key={`${position.lat}${position.lon}`}

@@ -1889,7 +1889,7 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
-    //console.log(['viaPoints=',viaPoints]);
+    console.log(['viaPoints=',viaPoints]);
     //console.log(['renderMap combinedItineraries=',combinedItineraries]);
     //console.log(['renderMap filteredItineraries=',filteredItineraries]);
     //filteredItineraries.forEach(iti=>{

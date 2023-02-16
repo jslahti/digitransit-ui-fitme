@@ -87,7 +87,14 @@ function ItinerarySummaryListContainer(
           if (waitTime > waitThreshold) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              console.log(['waitingTimeinMin=',waitingTimeinMin]);
+              console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+              /*const wo = {
+                waitingTimeinMin:waitingTimeinMin,
+                name:leg.from.name,
+                lat:leg.from.lat,
+                lon:leg.from.lon
+              };
+              legsFitMePOICandidates.push(wo);*/
             }
           }
         }

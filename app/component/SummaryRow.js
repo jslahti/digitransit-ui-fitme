@@ -252,15 +252,9 @@ const SummaryRow = (
       noTransitLegs = false;
       transitLegCount += 1;
     }
-    if (
-      leg.intermediatePlace ||
-      connectsFromViaPoint(leg, intermediatePlaces)
-    ) {
+    if (leg.intermediatePlace || connectsFromViaPoint(leg, intermediatePlaces)) {
       intermediateSlack += leg.startTime - compressedLegs[i - 1].endTime; // calculate time spent at each intermediate place
     }
-    // FITME
-    console.log(['SummaryRow mode=',leg.mode,' transitLegCount=',transitLegCount,' intermediateSlack=',intermediateSlack,' leg=',leg]);
-    // FITME
   });
   const durationWithoutSlack = duration - intermediateSlack; // don't include time spent at intermediate places in calculations for bar lengths
   let renderBarThreshold = 6;
@@ -287,6 +281,7 @@ const SummaryRow = (
   let showRentalBikeDurationWarning = false;
   const citybikeNetworks = new Set();
   let citybikeicon;
+  
   compressedLegs.forEach((leg, i) => {
     let interliningWithRoute;
     let renderBar = true;
@@ -303,21 +298,21 @@ const SummaryRow = (
 
     const longName = !leg?.route?.shortName || leg?.route?.shortName.length > 5;
 
-    if (
-      nextLeg &&
-      !nextLeg.intermediatePlace &&
-      !connectsFromViaPoint(nextLeg, intermediatePlaces)
-    ) {
+    if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
       // don't show waiting in intermediate places
       waitTime = nextLeg.startTime - leg.endTime;
       waitLength = (waitTime / durationWithoutSlack) * 100;
       if (waitTime > waitThreshold && waitLength > renderBarThreshold) {
         // if waittime is long enough, render a waiting bar
         waiting = true;
+        // FITME
+        console.log(['WAITING TRUE waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
+        // FITME
       } else {
-        legLength =
-          ((leg.endTime - leg.startTime + waitTime) / durationWithoutSlack) *
-          100; // otherwise add the waiting to the current legs length
+        legLength = ((leg.endTime - leg.startTime + waitTime) / durationWithoutSlack) * 100; // otherwise add the waiting to the current legs length
+        // FITME
+        console.log(['WAITING FALSE legLength=',legLength,' waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
+        // FITME
       }
     }
 

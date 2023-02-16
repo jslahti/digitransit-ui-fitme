@@ -5,7 +5,7 @@ import { matchShape, routerShape } from 'found';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 
 import PoiStore from '../../../store/PoiStore';
-//import { setViaPoints } from '../../../action/ViaPointActions';
+import { setPoiPoints } from '../../../action/PoiPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
 import Card from '../../Card';

@@ -316,7 +316,7 @@ const SummaryRow = (
           lat:leg.from.lat,
           lon:leg.from.lon
         };
-        legsFitMePOICandidates.push(wo};
+        legsFitMePOICandidates.push(wo);
         // FITME
       } else {
         legLength = ((leg.endTime - leg.startTime + waitTime) / durationWithoutSlack) * 100; // otherwise add the waiting to the current legs length

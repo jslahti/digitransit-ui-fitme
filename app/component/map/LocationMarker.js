@@ -58,6 +58,13 @@ export default function LocationMarker({
           key={`${position.lat}${position.lon}`}
         />
       )}
+      {validType === 'poi' && (
+        <PoiPointPopup
+          lat={position.lat}
+          lon={position.lon}
+          key={`${position.lat}${position.lon}`}
+        />
+      )}
     </IconMarker>
   );
 }

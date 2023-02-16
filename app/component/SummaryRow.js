@@ -239,7 +239,7 @@ const SummaryRow = (
   const mobile = bp => !(bp === 'large');
   const legs = [];
   // FITME
-  const legsFitMePOICandidates = [];
+  //const legsFitMePOICandidates = [];
   // FITME
   let noTransitLegs = true;
   const compressedLegs = compressLegs(data.legs).map(leg => ({
@@ -248,7 +248,7 @@ const SummaryRow = (
   let intermediateSlack = 0;
   let transitLegCount = 0;
   // FITME
-  console.log(['SummaryRow IS CALLED AGAIN at ',moment().format()]);
+  //console.log(['SummaryRow IS CALLED AGAIN at ',moment().format()]);
   // FITME
   compressedLegs.forEach((leg, i) => {
     if (isTransitLeg(leg)) {
@@ -310,13 +310,13 @@ const SummaryRow = (
         waiting = true;
         // FITME
         //console.log(['WAITING TRUE waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
-        const wo = {
+        /*const wo = {
           waitTime:waitTime,
           name:leg.from.name,
           lat:leg.from.lat,
           lon:leg.from.lon
         };
-        legsFitMePOICandidates.push(wo);
+        legsFitMePOICandidates.push(wo);*/
         // FITME
       } else {
         legLength = ((leg.endTime - leg.startTime + waitTime) / durationWithoutSlack) * 100; // otherwise add the waiting to the current legs length
@@ -544,7 +544,7 @@ const SummaryRow = (
   });
   
   // FITME
-  console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
+  //console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
   // FITME
   
   const normalLegs = legs.length - onlyIconLegs;

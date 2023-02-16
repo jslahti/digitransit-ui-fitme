@@ -20,6 +20,22 @@ import { getCurrentSettings, getDefaultSettings } from '../util/planParamUtil';
 import { ItinerarySummarySubtitle } from './ItinerarySummarySubtitle';
 import Loading from './Loading';
 
+// FITME!
+import { compressLegs } from '../util/legUtils';
+
+const getViaPointIndex = (leg, intermediatePlaces) => {
+  if (!leg || !Array.isArray(intermediatePlaces)) {
+    return -1;
+  }
+  return intermediatePlaces.findIndex(
+    place => place.lat === leg.from.lat && place.lon === leg.from.lon,
+  );
+};
+
+const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
+  getViaPointIndex(currLeg, intermediatePlaces) > -1;
+// FITME!
+
 function ItinerarySummaryListContainer(
   {
     activeIndex,
@@ -55,9 +71,29 @@ function ItinerarySummaryListContainer(
     itineraries.length > 0 &&
     !itineraries.includes(undefined)
   ) {
-    
-    console.log(['ItinerarySummaryListContainer itineraries=',itineraries]);
-    
+    // FITME!
+    const waitThreshold = 180000; // 3 mins
+    itineraries.forEach((itinerary, i) => {
+      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+        ...leg,
+      }));
+      compressedLegs.forEach((leg, i) => {
+        let waitTime;
+        const nextLeg = compressedLegs[i + 1];
+        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
+          // don't show waiting in intermediate places
+          waitTime = nextLeg.startTime - leg.endTime;
+          //console.log(['waitTime=',waitTime]);
+          if (waitTime > waitThreshold) {
+            if (!nextLeg?.interlineWithPreviousLeg) {
+              const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
+              console.log(['waitingTimeinMin=',waitingTimeinMin]);
+            }
+          }
+        }
+      });
+    });
+    // FITME!
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow
         refTime={searchTime}

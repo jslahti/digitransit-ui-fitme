@@ -55,6 +55,9 @@ function ItinerarySummaryListContainer(
     itineraries.length > 0 &&
     !itineraries.includes(undefined)
   ) {
+    
+    console.log(['ItinerarySummaryListContainer itineraries=',itineraries]);
+    
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow
         refTime={searchTime}

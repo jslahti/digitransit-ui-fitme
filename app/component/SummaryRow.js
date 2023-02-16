@@ -238,6 +238,9 @@ const SummaryRow = (
 
   const mobile = bp => !(bp === 'large');
   const legs = [];
+  // FITME
+  const legsFitMePOICandidates = [];
+  // FITME
   let noTransitLegs = true;
   const compressedLegs = compressLegs(data.legs).map(leg => ({
     ...leg,
@@ -306,12 +309,19 @@ const SummaryRow = (
         // if waittime is long enough, render a waiting bar
         waiting = true;
         // FITME
-        console.log(['WAITING TRUE waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
+        //console.log(['WAITING TRUE waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
+        const wo = {
+          waitTime:waitTime,
+          name:leg.from.name,
+          lat:leg.from.lat,
+          lon:leg.from.lon
+        };
+        legsFitMePOICandidates.push(wo};
         // FITME
       } else {
         legLength = ((leg.endTime - leg.startTime + waitTime) / durationWithoutSlack) * 100; // otherwise add the waiting to the current legs length
         // FITME
-        console.log(['WAITING FALSE legLength=',legLength,' waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
+        //console.log(['WAITING FALSE legLength=',legLength,' waitTime=',waitTime,' leg.endTime=',leg.endTime,' nextLeg.startTime=',nextLeg.startTime,' leg=',leg]);
         // FITME
       }
     }
@@ -532,6 +542,11 @@ const SummaryRow = (
       );
     }
   });
+  
+  // FITME
+  console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
+  // FITME
+  
   const normalLegs = legs.length - onlyIconLegs;
   // how many pixels to take from each 'normal' leg to give room for the icons
   const iconLegsInPixels = (24 * onlyIconLegs) / normalLegs;

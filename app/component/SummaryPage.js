@@ -67,7 +67,27 @@ import { mapLayerShape } from '../store/MapLayerStore';
 import { getMapLayerOptions } from '../util/mapLayerUtils';
 import { mapLayerOptionsShape } from '../util/shapes';
 
+// FITME!
+import { compressLegs } from '../util/legUtils';
+import { setPoiPoints } from '../action/PoiPointActions';
+// FITME!
+
 const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
+
+
+// FITME!
+const getViaPointIndex = (leg, intermediatePlaces) => {
+  if (!leg || !Array.isArray(intermediatePlaces)) {
+    return -1;
+  }
+  return intermediatePlaces.findIndex(
+    place => place.lat === leg.from.lat && place.lon === leg.from.lon,
+  );
+};
+const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
+  getViaPointIndex(currLeg, intermediatePlaces) > -1;
+// FITME!
+
 
 /**
 /**
@@ -1890,6 +1910,7 @@ class SummaryPage extends React.Component {
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
     console.log(['viaPoints=',viaPoints]);
+    
     //console.log(['renderMap combinedItineraries=',combinedItineraries]);
     //console.log(['renderMap filteredItineraries=',filteredItineraries]);
     //filteredItineraries.forEach(iti=>{
@@ -1900,7 +1921,8 @@ class SummaryPage extends React.Component {
     //    }
     //});
     // Generate HARDCODED example of one POI in Espoo.
-    const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
+    //const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
+    const pois = [];
     // FITME: END
     return (
       <ItineraryPageMap
@@ -2439,6 +2461,47 @@ class SummaryPage extends React.Component {
       planHasNoItineraries && this.state.isFetchingWalkAndBike;
     
     // FITME: maybe insert something here: to check itinaries?
+    // combinedItineraries
+    // this is part of render()
+    console.log(['SummaryPage combinedItineraries=',combinedItineraries]);
+    
+    // FITME!
+    const legsFitMePOICandidates = [];
+    const waitThreshold = 180000; // 3 mins
+    combinedItineraries.forEach((itinerary, i) => {
+      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+        ...leg,
+      }));
+      compressedLegs.forEach((leg, i) => {
+        let waitTime;
+        const nextLeg = compressedLegs[i + 1];
+        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
+          // don't show waiting in intermediate places
+          waitTime = nextLeg.startTime - leg.endTime;
+          //console.log(['waitTime=',waitTime]);
+          if (waitTime > waitThreshold) {
+            if (!nextLeg?.interlineWithPreviousLeg) {
+              const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
+              console.log(['SummaryPage waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+              const wo = {
+                waiting:waitingTimeinMin,
+                address:leg.from.name,
+                lat:leg.from.lat,
+                lon:leg.from.lon
+              };
+              legsFitMePOICandidates.push(wo);
+            }
+          }
+        }
+      });
+    });
+    // Can we somehow get the stored POI points and check if we already have them in our store?
+    console.log(['SummaryPage legsFitMePOICandidates=',legsFitMePOICandidates]);
+    //console.log(['context=',context]);
+    //context.executeAction(setPoiPoints, legsFitMePOICandidates);
+    // FITME!
+
+
     if (this.props.breakpoint === 'large') {
       
       let content;
@@ -2678,7 +2741,6 @@ class SummaryPage extends React.Component {
 
     let content;
     let isLoading = false;
-
     if (
       waitForBikeAndWalk() ||
       (!error && (!this.selectedPlan || this.props.loading === true)) ||

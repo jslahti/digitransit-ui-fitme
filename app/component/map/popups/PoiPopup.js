@@ -75,6 +75,7 @@ const connectedComponent = connectToStores(
   [PoiStore],
   ({ getStore }) => {
     const poiPoints = getStore(PoiStore).getPoiPoints();
+    console.log(['PoiPopup connectedComponent poiPoints=', poiPoints]);
     return { poiPoints };
   },
 );

@@ -28,16 +28,6 @@ import { setPoiPoints } from '../action/PoiPointActions';
 To do:
 
 We need a "connectToStores" thing here so that we always can check what POI points we have at store.
-See: 
-https://fluxible.io/addons/connectToStores.html
-and 
-https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
-
-
-Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014
-https://www.youtube.com/watch?v=4anAwXYqLG8
-
-
 
 */
 
@@ -81,8 +71,9 @@ function ItinerarySummaryListContainer(
   context,
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
-  const { config, match } = context;
-
+  // FITME! Add executeAction here => enable to access it?
+  const { config, match, executeAction } = context;
+  // FITME!
   if (
     !error &&
     itineraries &&
@@ -494,6 +485,10 @@ ItinerarySummaryListContainer.defaultProps = {
 ItinerarySummaryListContainer.contextTypes = {
   config: PropTypes.object.isRequired,
   match: matchShape.isRequired,
+  // FITME! Can I just add this here?
+  // And then it is available here just like that?!?
+  executeAction: PropTypes.func.isRequired
+  // FITME!
 };
 
 const containerComponent = createFragmentContainer(

@@ -21,8 +21,8 @@ import { ItinerarySummarySubtitle } from './ItinerarySummarySubtitle';
 import Loading from './Loading';
 
 // FITME!
-import { compressLegs } from '../util/legUtils';
-import { setPoiPoints } from '../action/PoiPointActions';
+//import { compressLegs } from '../util/legUtils';
+//import { setPoiPoints } from '../action/PoiPointActions';
 
 /*
 To do:
@@ -30,7 +30,7 @@ To do:
 We need a "connectToStores" thing here so that we always can check what POI points we have at store.
 
 */
-
+/*
 const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
     return -1;
@@ -42,6 +42,7 @@ const getViaPointIndex = (leg, intermediatePlaces) => {
 
 const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
   getViaPointIndex(currLeg, intermediatePlaces) > -1;
+*/
 // FITME!
 
 function ItinerarySummaryListContainer(
@@ -72,7 +73,8 @@ function ItinerarySummaryListContainer(
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
   // FITME! Add executeAction here => enable to access it?
-  const { config, match, executeAction } = context;
+  //const { config, match, executeAction } = context;
+  const { config, match } = context;
   // FITME!
   if (
     !error &&
@@ -80,6 +82,7 @@ function ItinerarySummaryListContainer(
     itineraries.length > 0 &&
     !itineraries.includes(undefined)
   ) {
+    /*
     // FITME!
     const legsFitMePOICandidates = [];
     const waitThreshold = 180000; // 3 mins
@@ -116,6 +119,7 @@ function ItinerarySummaryListContainer(
     console.log(['context=',context]);
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
+    */
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow
         refTime={searchTime}
@@ -484,10 +488,10 @@ ItinerarySummaryListContainer.defaultProps = {
 
 ItinerarySummaryListContainer.contextTypes = {
   config: PropTypes.object.isRequired,
-  match: matchShape.isRequired,
+  match: matchShape.isRequired
   // FITME! Can I just add this here?
   // And then it is available here just like that?!?
-  executeAction: PropTypes.func.isRequired
+  //executeAction: PropTypes.func.isRequired
   // FITME!
 };
 

@@ -22,6 +22,24 @@ import Loading from './Loading';
 
 // FITME!
 import { compressLegs } from '../util/legUtils';
+import { setPoiPoints } from '../action/PoiPointActions';
+
+/*
+To do:
+
+We need a "connectToStores" thing here so that we always can check what POI points we have at store.
+See: 
+https://fluxible.io/addons/connectToStores.html
+and 
+https://medium.com/@dan_abramov/mixins-are-dead-long-live-higher-order-components-94a0d2f9e750
+
+
+Sebastian Markbage: Minimal API Surface Area | JSConf EU 2014
+https://www.youtube.com/watch?v=4anAwXYqLG8
+
+
+
+*/
 
 const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
@@ -72,11 +90,13 @@ function ItinerarySummaryListContainer(
     !itineraries.includes(undefined)
   ) {
     // FITME!
+    const legsFitMePOICandidates = [];
     const waitThreshold = 180000; // 3 mins
     itineraries.forEach((itinerary, i) => {
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,
       }));
+      // FITME
       compressedLegs.forEach((leg, i) => {
         let waitTime;
         const nextLeg = compressedLegs[i + 1];
@@ -88,18 +108,22 @@ function ItinerarySummaryListContainer(
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
-              /*const wo = {
-                waitingTimeinMin:waitingTimeinMin,
-                name:leg.from.name,
+              const wo = {
+                waiting:waitingTimeinMin,
+                address:leg.from.name,
                 lat:leg.from.lat,
                 lon:leg.from.lon
               };
-              legsFitMePOICandidates.push(wo);*/
+              legsFitMePOICandidates.push(wo);
             }
           }
         }
       });
     });
+    // Can we somehow get the stored POI points and check if we already have them in our store?
+    console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
+    console.log(['context=',context]);
+    //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow

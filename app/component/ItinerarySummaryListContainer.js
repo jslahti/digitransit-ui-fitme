@@ -114,7 +114,7 @@ function ItinerarySummaryListContainer(
     // Can we somehow get the stored POI points and check if we already have them in our store?
     console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
     console.log(['context=',context]);
-    //context.executeAction(setPoiPoints, legsFitMePOICandidates);
+    context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow

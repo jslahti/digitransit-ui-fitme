@@ -2450,11 +2450,13 @@ class SummaryPage extends React.Component {
     const legsFitMePOICandidates = [];
     
     const waitThreshold = 180000; // 3 mins
-    combinedItineraries.forEach((itinerary, i) => {
-      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+    /*combinedItineraries.forEach((itinerary, i) => {
+      //const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,
-      }));
-      compressedLegs.forEach((leg, i) => {
+      }));*/
+    combinedItineraries.forEach( itinerary => {
+      itinerary.forEach((leg, i) => {
+      //compressedLegs.forEach((leg, i) => {
         let waitTime;
         console.log(['SummaryPage i=',i,' leg=',leg]);
         const nextLeg = compressedLegs[i + 1];
@@ -2462,7 +2464,7 @@ class SummaryPage extends React.Component {
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, viaPoints)) {
           // don't show waiting in intermediate places
           waitTime = nextLeg.startTime - leg.endTime;
-          //console.log(['waitTime=',waitTime]);
+          console.log(['waitTime=',waitTime]);
           if (waitTime > waitThreshold) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);

@@ -74,8 +74,8 @@ function ItinerarySummaryListContainer(
   const [showCancelled, setShowCancelled] = useState(false);
   // FITME! Add executeAction here => enable to access it?
   //const { config, match, executeAction } = context;
-  const { config, match } = context;
   // FITME!
+  const { config, match } = context;
   if (
     !error &&
     itineraries &&

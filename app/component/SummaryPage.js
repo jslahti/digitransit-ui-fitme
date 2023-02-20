@@ -2455,7 +2455,7 @@ class SummaryPage extends React.Component {
         ...leg,
       }));*/
     combinedItineraries.forEach( itinerary => {
-      itinerary.forEach((leg, i) => {
+      itinerary.legs.forEach((leg, i) => {
       //compressedLegs.forEach((leg, i) => {
         let waitTime;
         console.log(['SummaryPage i=',i,' leg=',leg]);

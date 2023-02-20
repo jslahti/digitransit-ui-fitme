@@ -68,7 +68,7 @@ import { getMapLayerOptions } from '../util/mapLayerUtils';
 import { mapLayerOptionsShape } from '../util/shapes';
 
 // FITME!
-import { compressLegs } from '../util/legUtils';
+//import { compressLegs } from '../util/legUtils';
 //import { setPoiPoints } from '../action/PoiPointActions';
 // FITME!
 
@@ -76,7 +76,7 @@ const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
 
 
 // FITME!
-const getViaPointIndex = (leg, intermediatePlaces) => {
+/*const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
     return -1;
   }
@@ -86,6 +86,7 @@ const getViaPointIndex = (leg, intermediatePlaces) => {
 };
 const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
   getViaPointIndex(currLeg, intermediatePlaces) > -1;
+*/
 // FITME!
 
 
@@ -1909,7 +1910,7 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     // FITME: BEGIN insert some code to test if POIs can be shown in the map.
-    console.log(['viaPoints=',viaPoints]);
+    //console.log(['viaPoints=',viaPoints]);
     //console.log(['renderMap combinedItineraries=',combinedItineraries]);
     //console.log(['renderMap filteredItineraries=',filteredItineraries]);
     //filteredItineraries.forEach(iti=>{
@@ -2446,6 +2447,7 @@ class SummaryPage extends React.Component {
     //
     // combinedItineraries
     // this is part of render()
+    /*
     console.log(['SummaryPage combinedItineraries=',combinedItineraries]);
     const legsFitMePOICandidates = [];
     
@@ -2487,7 +2489,8 @@ class SummaryPage extends React.Component {
     //console.log(['context=',context]);
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
-
+    */
+    const pois = [];
     let map = this.renderMap(from, to, viaPoints, pois);
 
     let earliestStartTime;

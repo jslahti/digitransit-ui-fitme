@@ -21,7 +21,7 @@ import { ItinerarySummarySubtitle } from './ItinerarySummarySubtitle';
 import Loading from './Loading';
 
 // FITME!
-//import { compressLegs } from '../util/legUtils';
+import { compressLegs } from '../util/legUtils';
 //import { setPoiPoints } from '../action/PoiPointActions';
 
 /*
@@ -30,7 +30,7 @@ To do:
 We need a "connectToStores" thing here so that we always can check what POI points we have at store.
 
 */
-/*
+
 const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
     return -1;
@@ -42,7 +42,7 @@ const getViaPointIndex = (leg, intermediatePlaces) => {
 
 const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
   getViaPointIndex(currLeg, intermediatePlaces) > -1;
-*/
+
 // FITME!
 
 function ItinerarySummaryListContainer(
@@ -82,7 +82,7 @@ function ItinerarySummaryListContainer(
     itineraries.length > 0 &&
     !itineraries.includes(undefined)
   ) {
-    /*
+    
     // FITME!
     const legsFitMePOICandidates = [];
     const waitThreshold = 180000; // 3 mins
@@ -97,7 +97,7 @@ function ItinerarySummaryListContainer(
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
           // don't show waiting in intermediate places
           waitTime = nextLeg.startTime - leg.endTime;
-          //console.log(['waitTime=',waitTime]);
+          console.log(['waitTime=',waitTime]);
           if (waitTime > waitThreshold) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
@@ -119,7 +119,7 @@ function ItinerarySummaryListContainer(
     console.log(['context=',context]);
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
-    */
+    
     const summaries = itineraries.map((itinerary, i) => (
       <SummaryRow
         refTime={searchTime}

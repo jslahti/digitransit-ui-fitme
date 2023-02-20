@@ -2448,7 +2448,7 @@ class SummaryPage extends React.Component {
     // this is part of render()
     console.log(['SummaryPage combinedItineraries=',combinedItineraries]);
     const legsFitMePOICandidates = [];
-    /*
+    
     const waitThreshold = 180000; // 3 mins
     combinedItineraries.forEach((itinerary, i) => {
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
@@ -2456,6 +2456,7 @@ class SummaryPage extends React.Component {
       }));
       compressedLegs.forEach((leg, i) => {
         let waitTime;
+        console.log(['SummaryPage i=',i,' leg=',leg]);
         const nextLeg = compressedLegs[i + 1];
         // intermediatePlaces = viaPoints
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, viaPoints)) {
@@ -2477,7 +2478,7 @@ class SummaryPage extends React.Component {
           }
         }
       });
-    });*/
+    });
     // Can we somehow get the stored POI points and check if we already have them in our store?
     console.log(['SummaryPage legsFitMePOICandidates=',legsFitMePOICandidates]);
     const pois = [];

@@ -84,7 +84,7 @@ function ItinerarySummaryListContainer(
   ) {
     
     // FITME!
-    const legsFitMePOICandidates = [];
+    const poiCandidates = [];
     const waitThreshold = 180000; // 3 mins
     itineraries.forEach((itinerary, i) => {
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
@@ -102,19 +102,39 @@ function ItinerarySummaryListContainer(
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
-              const wo = {
+              const poi = {
                 waiting:waitingTimeinMin,
                 address:leg.from.name,
                 lat:leg.from.lat,
                 lon:leg.from.lon
               };
-              legsFitMePOICandidates.push(wo);
+              poiCandidates.push(poi);
             }
           }
         }
       });
     });
     // Can we somehow get the stored POI points and check if we already have them in our store?
+    // Remove duplicate locations from our list of POI candidates.
+    legsFitMePOICandidates = [];
+    poiCandidates.forEach(poi=>{
+      if (legsFitMePOICandidates.length === 0) {
+        legsFitMePOICandidates.push(poi); // The first one is always OK.
+      } else {
+        let isSame = false;
+        legsFitMePOICandidates.every(p=>{
+          if (distance(p,poi) < config.minDistanceBetweenFromAndTo) {
+            isSame = true;
+            return false; // break out from the loop.
+          }
+          return true; // continue with next p
+        });
+        if (!isSame) {
+          legsFitMePOICandidates.push(poi);
+        }
+      }
+    });
+    console.log(['poiCandidates=',poiCandidates]);
     console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
     console.log(['context=',context]);
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);

@@ -22,6 +22,8 @@ import Loading from './Loading';
 
 // FITME!
 import { compressLegs } from '../util/legUtils';
+import { getPOIs } from '../util/apiUtils';
+
 //import { setPoiPoints } from '../action/PoiPointActions';
 
 /*
@@ -137,6 +139,19 @@ function ItinerarySummaryListContainer(
     console.log(['poiCandidates=',poiCandidates]);
     console.log(['legsFitMePOICandidates=',legsFitMePOICandidates]);
     console.log(['context=',context]);
+    // Generate an API call and return with POI results => show on the map.
+    getPOIs()
+      .then(res => {
+        if (Array.isArray(res) && res.length === 2) {
+          console.log(['res=',res]);
+        }
+      })
+      .catch(err => {
+        console.log(['err=',err]);
+      })
+      .finally(() => {
+        console.log('FINALLY OK!');
+      });
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
     

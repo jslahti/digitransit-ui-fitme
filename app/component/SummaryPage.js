@@ -2450,13 +2450,13 @@ class SummaryPage extends React.Component {
     const legsFitMePOICandidates = [];
     
     const waitThreshold = 180000; // 3 mins
-    /*combinedItineraries.forEach((itinerary, i) => {
-      //const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+    combinedItineraries.forEach((itinerary, i) => {
+      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,
-      }));*/
-    combinedItineraries.forEach( itinerary => {
-      itinerary.legs.forEach((leg, i) => {
-      //compressedLegs.forEach((leg, i) => {
+      }));
+    //combinedItineraries.forEach( itinerary => {
+      //itinerary.legs.forEach((leg, i) => {
+      compressedLegs.forEach((leg, i) => {
         let waitTime;
         console.log(['SummaryPage i=',i,' leg=',leg]);
         const nextLeg = compressedLegs[i + 1];

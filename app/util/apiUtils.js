@@ -54,7 +54,7 @@ export function getPOIs() {
         address: 'Leppävaara, Espoo'
       }
     ];
-    foojson = foo.json();
+    const foojson = foo.json();
     resolve(foojson);
   });
 }

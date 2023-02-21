@@ -23,8 +23,7 @@ import Loading from './Loading';
 // FITME!
 import { compressLegs } from '../util/legUtils';
 import { getPOIs } from '../util/apiUtils';
-
-//import { setPoiPoints } from '../action/PoiPointActions';
+import { setPoiPoints } from '../action/PoiPointActions';
 
 /*
 To do:

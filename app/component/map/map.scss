@@ -216,7 +216,8 @@ div.current-location-marker > span > svg.icon {
 div.leaflet-marker-icon.from,
 div.leaflet-marker-icon.place,
 div.leaflet-marker-icon.to,
-div.leaflet-marker-icon.via {
+div.leaflet-marker-icon.via,
+div.leaflet-marker-icon.poi {
   > span {
     > svg.icon {
       height: auto;
@@ -227,6 +228,10 @@ div.leaflet-marker-icon.via {
 
 div.leaflet-marker-icon.via {
   color: $black;
+}
+
+div.leaflet-marker-icon.poi {
+  color: #ff9800; /* orange */
 }
 
 div.leaflet-marker-icon.vehicle-icon {

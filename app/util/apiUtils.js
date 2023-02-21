@@ -39,8 +39,17 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
-
-export function getPOIs() {
+/*
+params is an array of
+  { 
+    waiting:waitingTimeinMin,
+    address:leg.from.name,
+    lat:leg.from.lat,
+    lon:leg.from.lon
+  }
+*/
+export function getPOIs(params) {
+  // use params when real API call is made.
   return new Promise(function(resolve) {
     const foo = [
       {

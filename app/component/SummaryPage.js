@@ -1874,6 +1874,13 @@ class SummaryPage extends React.Component {
   };
 
   renderMap(from, to, viaPoints, pois) {
+    console.log(['SummaryPage RENDER MAP this.context=',this.context]);
+    //const poiStore = this.context.getStore('PoiStore');
+    //if (poiStore) {
+      //const pp = poiStore.getPoiPoints();
+      //console.log(['pp=',pp]);
+    //}
+    
     const { match, breakpoint } = this.props;
     const combinedItineraries = this.getCombinedItineraries();
     // summary or detail view ?
@@ -2950,6 +2957,48 @@ const SummaryPageWithStores = connectToStores(
     }),
   }),
 );
+
+/*Find examples of connectToStores*/
+
+/*
+const WithContext = connectToStores(
+  getContext({
+    match: matchShape.isRequired,
+    router: routerShape.isRequired,
+  })(AppBarContainerWithBreakpoint),
+  ['FavouriteStore', 'UserStore', 'PreferencesStore'],
+  context => ({
+    user: context.getStore('UserStore').getUser(),
+    lang: context.getStore('PreferencesStore').getLanguage(),
+    favourites: context.getStore('FavouriteStore').getFavourites(),
+  }),
+);
+
+
+const stores = ['MapLayerStore','PoiStore'];
+const getStateFromStores = (context, props) => ({
+  foo: context.getStore(FooStore).getFoo(),
+  bar: context.getStore(BarStore).getBar(),
+});
+export default connectToStores(Component, stores, getStateFromStores);
+
+
+export default connectToStores(
+  withBreakpoint(EmbeddedSearchGenerator),
+  ['PreferencesStore'],
+  context => ({
+    lang: context.getStore('PreferencesStore').getLanguage(),
+  }),
+);
+
+const withLang = connectToStores(
+  DatetimepickerContainer,
+  ['PreferencesStore'],
+  context => ({
+    lang: context.getStore('PreferencesStore').getLanguage(),
+  }),
+);
+*/
 
 const containerComponent = createRefetchContainer(
   SummaryPageWithStores,

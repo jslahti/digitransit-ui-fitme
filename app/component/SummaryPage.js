@@ -1873,14 +1873,14 @@ class SummaryPage extends React.Component {
     this.context.router.replace(newState);
   };
 
-  renderMap(from, to, viaPoints, pois) {
+  renderMap(from, to, viaPoints) {
+    let pois = [];
     console.log(['SummaryPage RENDER MAP this.context=',this.context]);
     const poiStore = this.context.getStore('PoiStore');
     if (poiStore) {
-      const pp = poiStore.getPoiPoints();
-      console.log(['pp=',pp]);
+      pois = poiStore.getPoiPoints();
+      console.log(['pois=',pois]);
     }
-    
     const { match, breakpoint } = this.props;
     const combinedItineraries = this.getCombinedItineraries();
     // summary or detail view ?
@@ -1916,20 +1916,7 @@ class SummaryPage extends React.Component {
       mwtProps.bounds = getBounds(filteredItineraries, from, to, viaPoints);
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
-    // FITME: BEGIN insert some code to test if POIs can be shown in the map.
-    //console.log(['viaPoints=',viaPoints]);
-    //console.log(['renderMap combinedItineraries=',combinedItineraries]);
-    //console.log(['renderMap filteredItineraries=',filteredItineraries]);
-    //filteredItineraries.forEach(iti=>{
-    //    if (iti.legs && iti.legs.length > 0) {
-    //        iti.legs.forEach(leg=>{
-    //            console.log(['leg=',leg]);
-    //        });
-    //    }
-    //});
-    // Generate HARDCODED example of one POI in Espoo.
-    //const pois = [{address:'Kera, Espoo',lat:60.217992,lon:24.75494}];
-    // FITME: END
+    
     return (
       <ItineraryPageMap
         {...mwtProps}
@@ -2497,8 +2484,8 @@ class SummaryPage extends React.Component {
     //context.executeAction(setPoiPoints, legsFitMePOICandidates);
     // FITME!
     */
-    const pois = [];
-    let map = this.renderMap(from, to, viaPoints, pois);
+    
+    let map = this.renderMap(from, to, viaPoints);
 
     let earliestStartTime;
     let latestArrivalTime;

@@ -74,17 +74,11 @@ function ItinerarySummaryListContainer(
   context,
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
+  //const { config, match } = context;
   // FITME! Add executeAction here => enable to access it?
-  //const { config, match, executeAction } = context;
+  const { config, match, executeAction } = context;
   // FITME!
-  const { config, match } = context;
-  if (
-    !error &&
-    itineraries &&
-    itineraries.length > 0 &&
-    !itineraries.includes(undefined)
-  ) {
-    
+  if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {
     // FITME!
     const poiCandidates = [];
     const waitThreshold = 180000; // 3 mins
@@ -142,8 +136,9 @@ function ItinerarySummaryListContainer(
     // Generate an API call and return with POI results => show on the map.
     getPOIs()
       .then(res => {
-        if (Array.isArray(res) && res.length === 2) {
+        if (Array.isArray(res)) {
           console.log(['res=',res]);
+          context.executeAction(setPoiPoints, res);
         }
       })
       .catch(err => {
@@ -152,7 +147,7 @@ function ItinerarySummaryListContainer(
       .finally(() => {
         console.log('FINALLY OK!');
       });
-    //context.executeAction(setPoiPoints, legsFitMePOICandidates);
+    
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (
@@ -523,10 +518,10 @@ ItinerarySummaryListContainer.defaultProps = {
 
 ItinerarySummaryListContainer.contextTypes = {
   config: PropTypes.object.isRequired,
-  match: matchShape.isRequired
+  match: matchShape.isRequired,
   // FITME! Can I just add this here?
   // And then it is available here just like that?!?
-  //executeAction: PropTypes.func.isRequired
+  executeAction: PropTypes.func.isRequired
   // FITME!
 };
 

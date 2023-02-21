@@ -12,6 +12,8 @@ class PoiStore extends Store {
 
   setPoiPoints(poiPoints) {
     this.poiPoints = [...poiPoints];
+    console.log(['this.poiPoints=',this.poiPoints]);
+    console.log('NOW this.emitChange()');
     this.emitChange();
   }
 

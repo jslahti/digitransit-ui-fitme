@@ -1875,11 +1875,11 @@ class SummaryPage extends React.Component {
 
   renderMap(from, to, viaPoints, pois) {
     console.log(['SummaryPage RENDER MAP this.context=',this.context]);
-    //const poiStore = this.context.getStore('PoiStore');
-    //if (poiStore) {
-      //const pp = poiStore.getPoiPoints();
-      //console.log(['pp=',pp]);
-    //}
+    const poiStore = this.context.getStore('PoiStore');
+    if (poiStore) {
+      const pp = poiStore.getPoiPoints();
+      console.log(['pp=',pp]);
+    }
     
     const { match, breakpoint } = this.props;
     const combinedItineraries = this.getCombinedItineraries();

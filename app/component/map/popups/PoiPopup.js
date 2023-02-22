@@ -87,10 +87,8 @@ const connectedComponent = connectToStores(
   PoiPopup,
   ['PoiStore','ViaPointStore'],
   ({ getStore }) => ({
-    poiPoints = getStore('PoiStore').getPoiPoints(),
-    viaPoints = getStore('ViaPointStore').getViaPoints(),
-    console.log(['PoiPopup connectedComponent poiPoints=', poiPoints]);
-    console.log(['PoiPopup connectedComponent viaPoints=', viaPoints]);
+    poiPoints: getStore('PoiStore').getPoiPoints(),
+    viaPoints: getStore('ViaPointStore').getViaPoints(),
   }),
 );
 

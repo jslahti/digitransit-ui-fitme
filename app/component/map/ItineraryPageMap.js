@@ -89,7 +89,6 @@ function ItineraryPageMap(
     leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
   });
   // FITME: BEGIN insert some code to test if POIs can be shown in the map.
-  // NOTE: We might want to create a new type "poi", but use now "via" for simplicity
   pois.forEach((poi, i) => {
     leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi"/>);
   });

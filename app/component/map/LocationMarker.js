@@ -61,6 +61,7 @@ export default function LocationMarker({
         <PoiPopup
           lat={position.lat}
           lon={position.lon}
+          address={position.address}
           key={`${position.lat}${position.lon}`}
         />
       )}

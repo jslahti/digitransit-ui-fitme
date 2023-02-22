@@ -5,7 +5,9 @@ import { matchShape, routerShape } from 'found';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 
 import PoiStore from '../../../store/PoiStore';
-import { setPoiPoints } from '../../../action/PoiPointActions';
+import ViaPointStore from '../../../store/ViaPointStore';
+//import { setPoiPoints } from '../../../action/PoiPointActions';
+import { setViaPoints } from '../../../action/ViaPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
 import Card from '../../Card';
@@ -20,28 +22,21 @@ const filterViaPoint = (allPoints, pointToRemove) => {
 };
 */
 function PoiPopup(
-  { lat, lon, poiPoints },
+  { lat, lon, address, poiPoints, viaPoints },
   { executeAction, router, match },
 ) {
-  const currentPoint = { lat, lon };
+  const currentPoint = { lat, lon, address };
   
   const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
+    const newViaPoints = viaPoints.push(currentPoint);
+    executeAction(setViaPoints, newViaPoints);
+    setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
     //const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
     //executeAction(setViaPoints, filteredViaPoints);
     //setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
   };
-  /* Cannot be used "as is"... copied from class MarkerPopupBottom extends React.Component
-  routeAddViaPoint = () => {
-    addAnalyticsEvent({
-      action: 'AddJourneyViaPoint',
-      category: 'ItinerarySettings',
-      name: 'MapPopup',
-    });
-    this.props.onSelectLocation(this.props.location, 'via');
-    this.props.leaflet.map.closePopup();
-  };*/
   
   return (
     <Popup
@@ -60,6 +55,7 @@ function PoiPopup(
           </div>
         </div>
         <div className="bottom location">
+          <p>Add as a viapoint</p>
           <button
             type="button"
             onClick={e => addViaPoint(e)}
@@ -76,7 +72,9 @@ function PoiPopup(
 PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
+  address: PropTypes.string.isRequired,
   poiPoints: PropTypes.array.isRequired,
+  viaPoints: PropTypes.array.isRequired,
 };
 
 PoiPopup.contextTypes = {
@@ -87,12 +85,13 @@ PoiPopup.contextTypes = {
 
 const connectedComponent = connectToStores(
   PoiPopup,
-  [PoiStore],
-  ({ getStore }) => {
-    const poiPoints = getStore(PoiStore).getPoiPoints();
+  ['PoiStore','ViaPointStore'],
+  ({ getStore }) => ({
+    poiPoints = getStore('PoiStore').getPoiPoints(),
+    viaPoints = getStore('ViaPointStore').getViaPoints(),
     console.log(['PoiPopup connectedComponent poiPoints=', poiPoints]);
-    return { poiPoints };
-  },
+    console.log(['PoiPopup connectedComponent viaPoints=', viaPoints]);
+  }),
 );
 
 export { connectedComponent as default, PoiPopup as Component };

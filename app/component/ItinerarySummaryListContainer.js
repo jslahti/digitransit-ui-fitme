@@ -85,11 +85,11 @@ function ItinerarySummaryListContainer(
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
           // don't show waiting in intermediate places
           waitTime = nextLeg.startTime - leg.endTime;
-          console.log(['waitTime=',waitTime]);
+          //console.log(['waitTime=',waitTime]);
           if (waitTime > waitThreshold) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+              //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
               const poi = {
                 waiting:waitingTimeinMin,
                 address:leg.from.name,
@@ -122,14 +122,14 @@ function ItinerarySummaryListContainer(
         }
       }
     });
-    console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
-    console.log(['poiPlaces=',poiPlaces]);
-    console.log(['context=',context]);
+    //console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
+    //console.log(['poiPlaces=',poiPlaces]);
+    //console.log(['context=',context]);
     // Generate an API call and return with POI results => show on the map.
     getPOIs(poiPlaces)
       .then(res => {
         if (Array.isArray(res)) {
-          console.log(['res=',res]);
+          //console.log(['res=',res]);
           context.executeAction(setPoiPoints, res);
         }
       })
@@ -137,7 +137,7 @@ function ItinerarySummaryListContainer(
         console.log(['err=',err]);
       })
       .finally(() => {
-        console.log('FINALLY OK!');
+        //console.log('FINALLY OK!');
       });
     
     // FITME!

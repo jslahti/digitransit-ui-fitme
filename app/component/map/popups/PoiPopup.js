@@ -30,7 +30,8 @@ function PoiPopup(
   const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
-    const newViaPoints = viaPoints.push(currentPoint);
+    viaPoints.push(currentPoint);
+    const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
     //const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);

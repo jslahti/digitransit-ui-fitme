@@ -6,7 +6,7 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 
 import PoiStore from '../../../store/PoiStore';
 import ViaPointStore from '../../../store/ViaPointStore';
-//import { setPoiPoints } from '../../../action/PoiPointActions';
+import { setPoiPoints } from '../../../action/PoiPointActions';
 import { setViaPoints } from '../../../action/ViaPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
@@ -14,13 +14,13 @@ import Card from '../../Card';
 import { isBrowser } from '../../../util/browser';
 
 const Popup = isBrowser ? require('react-leaflet/es/Popup').default : null; // eslint-disable-line global-require
-/*
-const filterViaPoint = (allPoints, pointToRemove) => {
+
+const filterPoiPoint = (allPoints, pointToRemove) => {
   return allPoints.filter(
     p => p.lat !== pointToRemove.lat && p.lon !== pointToRemove.lon,
   );
 };
-*/
+
 function PoiPopup(
   { lat, lon, address, poiPoints, viaPoints },
   { executeAction, router, match },
@@ -33,10 +33,10 @@ function PoiPopup(
     viaPoints.push(currentPoint);
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
+    //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
+    const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);
+    executeAction(setPoiPoints, filteredPoiPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
-    //const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
-    //executeAction(setViaPoints, filteredViaPoints);
-    //setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
   };
   
   return (

@@ -52,11 +52,11 @@ function PoiPopup(
       <Card className="no-margin">
         <div className="location-popup-wrapper">
           <div className="location-address">
-            <FormattedMessage id="poi-point" defaultMessage="Poi point" />
+          {address}
+          {/*<FormattedMessage id="poi-point" defaultMessage="Poi point" />*/}
           </div>
         </div>
         <div className="bottom location">
-          <p>Add as a viapoint</p>
           <button
             type="button"
             onClick={e => addViaPoint(e)}

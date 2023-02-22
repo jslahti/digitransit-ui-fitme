@@ -49,6 +49,9 @@ class MarkerPopupBottom extends React.Component {
       category: 'ItinerarySettings',
       name: 'MapPopup',
     });
+    // FITME!
+    console.log(['routeAddViaPoint this.props.location=',this.props.location]);
+    // FITME!
     this.props.onSelectLocation(this.props.location, 'via');
     this.props.leaflet.map.closePopup();
   };

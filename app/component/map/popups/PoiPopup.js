@@ -24,16 +24,25 @@ function PoiPopup(
   { executeAction, router, match },
 ) {
   const currentPoint = { lat, lon };
-  /*
-  const deleteViaPoint = e => {
+  
+  const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
-    const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
-    executeAction(setViaPoints, filteredViaPoints);
-    setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
+    //const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
+    //executeAction(setViaPoints, filteredViaPoints);
+    //setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
   };
-  */
-
+  /* Cannot be used "as is"... copied from class MarkerPopupBottom extends React.Component
+  routeAddViaPoint = () => {
+    addAnalyticsEvent({
+      action: 'AddJourneyViaPoint',
+      category: 'ItinerarySettings',
+      name: 'MapPopup',
+    });
+    this.props.onSelectLocation(this.props.location, 'via');
+    this.props.leaflet.map.closePopup();
+  };*/
+  
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -51,7 +60,13 @@ function PoiPopup(
           </div>
         </div>
         <div className="bottom location">
-          <p>Put here POI stuff later!</p>
+          <button
+            type="button"
+            onClick={e => addViaPoint(e)}
+            className="route cursor-pointer route-add-viapoint"
+          >
+            <FormattedMessage id="add-itinerary-via-point" defaultMessage="Add" />
+          </button>
         </div>
       </Card>
     </Popup>

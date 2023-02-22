@@ -102,9 +102,6 @@ class SummaryPlanContainer extends React.Component {
   };
 
   onSelectActive = index => {
-    // FITME
-    console.log(['SummaryPlanContainer onSelectActive index=',index]);
-    // FITME
     const subpath = this.getSubPath('');
     if (this.props.activeIndex === index) {
       this.onSelectImmediately(index);

@@ -10,10 +10,10 @@ class PoiStore extends Store {
     this.emitChange();
   }
 
-  setPoiPoints(poiPoints) {
+  setPoiPoints(pois) {
     if (this.poiPoints.length > 0) {
       const temp = [];
-      poiPoints.forEach(poi=>{
+      pois.forEach(poi=>{
         let isSame = false;
         this.poiPoints.every(oldpoi=>{
           if (oldpoi.lat === poi.lat && oldpoi.lon === poi.lon && oldpoi.address === poi.address) {
@@ -27,7 +27,7 @@ class PoiStore extends Store {
         }
       });
       if (temp.length > 0) {
-        this.poiPoints = [...this.poiPoints, temp];
+        this.poiPoints = this.poiPoints.concat(temp); //[...this.poiPoints, temp];
         console.log(['this.poiPoints + temp =',this.poiPoints]);
         console.log('NOW this.emitChange()');
         this.emitChange();
@@ -35,7 +35,7 @@ class PoiStore extends Store {
         console.log('NO CHANGES TO POI STORAGE!');
       }
     } else {
-      this.poiPoints = [...poiPoints];
+      this.poiPoints = pois;
       console.log(['this.poiPoints=',this.poiPoints]);
       console.log('NOW this.emitChange()');
       this.emitChange();

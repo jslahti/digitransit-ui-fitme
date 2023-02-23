@@ -54,7 +54,7 @@ export function getPOIs(params) {
   return new Promise(function(resolve) {
     const foo = [];
     params.forEach(p=>{
-      const _lat = p.lat + 0.000003 * Math.random();
+      const _lat = p.lat; // + 0.000003 * Math.random();
       const _lon = p.lon;
       const _address = p.address;
       const _locationSlack = p.waiting*60;

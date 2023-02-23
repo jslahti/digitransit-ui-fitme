@@ -51,18 +51,21 @@ params is an array of
 export function getPOIs(params) {
   // use params when real API call is made.
   // The default location slack (time to spend in place) is 30 minutes.
-  const foo = [];
-  params.forEach(p=>{
-    const pos = {
-      lat: p.lat+0.000003 * Math.random(),
-      //lat: p.lat,
-      lon: p.lon,
-      address: p.address,
-      locationSlack: p.waiting*60
-    };
-    foo.push(pos);
-  });
   return new Promise(function(resolve) {
+    const foo = [];
+    params.forEach(p=>{
+      const _lat = p.lat + 0.000003 * Math.random();
+      const _lon = p.lon;
+      const _address = p.address;
+      const _locationSlack = p.waiting*60;
+      const pos = {
+        lat: _lat,
+        lon: _lon,
+        address: _address,
+        locationSlack: _locationSlack
+      };
+      foo.push(pos);
+    });
     /*
     const foo = [
       {

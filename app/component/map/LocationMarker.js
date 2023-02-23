@@ -62,6 +62,7 @@ export default function LocationMarker({
           lat={position.lat}
           lon={position.lon}
           address={position.address}
+          locationSlack={position.locationSlack}
           key={`${position.lat}${position.lon}`}
         />
       )}

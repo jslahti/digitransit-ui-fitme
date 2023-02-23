@@ -52,6 +52,7 @@ export function getPOIs(params) {
   // use params when real API call is made.
   // The default location slack (time to spend in place) is 30 minutes.
   return new Promise(function(resolve) {
+    /*
     const foo = [
       {
         lat: 60.217992,
@@ -69,7 +70,18 @@ export function getPOIs(params) {
         address: 'Kaivopuisto, Helsinki'
       }
     ];
-    //const foojson = foo.json();
+    */
+    const foo = [];
+    params.forEach(p=>{
+      const pos = {
+        lat = p.lat+0.000003 * Math.random(),
+        //lat: p.lat,
+        lon: p.lon,
+        address: p.address,
+        locationSlack: p.waiting*60
+      }
+      foo.push(pos);
+    });
     resolve(foo);
   });
 }

@@ -23,12 +23,10 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
 };
 */
 function PoiPopup(
-  { lat, lon, address, poiPoints, viaPoints, leaflet },
+  { lat, lon, address, locationSlack, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
-  const currentPoint = { lat, lon, address, locationSlack:1800 };
-  //currentPoint.locationSlack = 1800; // Default value 30 mins!
-  
+  const currentPoint = { lat, lon, address, locationSlack };
   const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -68,7 +66,6 @@ function PoiPopup(
             address,
             lat,
             lon,
-            locationSlack:1800,
           }}
           onSelectLocation={onSelectLocation}
         />
@@ -91,6 +88,7 @@ PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   address: PropTypes.string.isRequired,
+  locationSlack: PropTypes.number,
   poiPoints: PropTypes.array.isRequired,
   viaPoints: PropTypes.array.isRequired,
   leaflet: PropTypes.shape({

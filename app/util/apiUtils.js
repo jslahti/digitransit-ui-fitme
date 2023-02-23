@@ -50,6 +50,7 @@ params is an array of
 */
 export function getPOIs(params) {
   // use params when real API call is made.
+  // The default location slack (time to spend in place) is 30 minutes.
   return new Promise(function(resolve) {
     const foo = [
       {
@@ -61,6 +62,11 @@ export function getPOIs(params) {
         lat: 60.219235,
         lon: 24.81329,
         address: 'Leppävaara, Espoo'
+      },
+      {
+        lat: 60.156843,
+        lon: 24.956721,
+        address: 'Kaivopuisto, Helsinki'
       }
     ];
     //const foojson = foo.json();

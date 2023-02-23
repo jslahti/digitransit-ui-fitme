@@ -23,7 +23,7 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
 };
 */
 function PoiPopup(
-  { lat, lon, address, poiPoints, viaPoints },
+  { lat, lon, address, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
   const currentPoint = { lat, lon, address, locationSlack:1800 };

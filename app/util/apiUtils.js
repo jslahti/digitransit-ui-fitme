@@ -48,23 +48,30 @@ params is an array of
     lon:leg.from.lon
   }
 */
+const createFitMeFoo = (p, latdiff, londiff) => {
+  const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
+  const _lon = p.lon + londiff;
+  const _address = p.address;
+  const _locationSlack = p.waiting*60; // in seconds
+  const pos = {
+    lat: _lat,
+    lon: _lon,
+    address: _address,
+    locationSlack: _locationSlack
+  };
+  foo.push(pos);
+}
+
 export function getPOIs(params) {
   // use params when real API call is made.
-  // The default location slack (time to spend in place) is 30 minutes.
   return new Promise(function(resolve) {
     const foo = [];
     params.forEach(p=>{
-      const _lat = p.lat; // + 0.000003 * Math.random();
-      const _lon = p.lon;
-      const _address = p.address;
-      const _locationSlack = p.waiting*60;
-      const pos = {
-        lat: _lat,
-        lon: _lon,
-        address: _address,
-        locationSlack: _locationSlack
-      };
-      foo.push(pos);
+      // For testing purposes create 4 points around given intermediate point.
+      foo.push(createFitMeFoo(p, 0.01, 0.01));
+      foo.push(createFitMeFoo(p, -0.01, 0.01));
+      foo.push(createFitMeFoo(p, -0.01, -0.01));
+      foo.push(createFitMeFoo(p, 0.01, -0.01));
     });
     /*
     const foo = [

@@ -73,7 +73,7 @@ function ItinerarySummaryListContainer(
   if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {
     // FITME!
     const poiPlaceCandidates = [];
-    const waitThreshold = 180000; // 3 mins
+    const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,

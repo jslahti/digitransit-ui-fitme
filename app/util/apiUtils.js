@@ -59,7 +59,7 @@ const createFitMeFoo = (p, latdiff, londiff) => {
     address: _address,
     locationSlack: _locationSlack
   };
-  foo.push(pos);
+  return pos;
 }
 
 export function getPOIs(params) {

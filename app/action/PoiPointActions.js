@@ -10,8 +10,10 @@ export function setPoiPoints(actionContext, points) {
   //console.log('dispatch done');
 }
 
+/*
 export function clearPoiPoints(actionContext) {
   console.log(['clearPoiPoints call actionContext=',actionContext]);
   actionContext.dispatch('clearPoiPoints');
   console.log('dispatch done');
 }
+*/

@@ -74,7 +74,7 @@ function ItinerarySummaryListContainer(
     // FITME!
     const poiPlaceCandidates = [];
     // Should we remove all previous POI candidates here?
-    context.executeAction(clearPoiPoints);
+    //context.executeAction(clearPoiPoints);
     
     const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {

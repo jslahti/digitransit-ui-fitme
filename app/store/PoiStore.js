@@ -42,6 +42,10 @@ class PoiStore extends Store {
     }
   }
 
+  clearPoiPoints() {
+    this.poiPoints = [];
+  }
+
   getPoiPoints() {
     return this.poiPoints;
   }
@@ -49,6 +53,7 @@ class PoiStore extends Store {
   static handlers = {
     addPoiPoint: 'addPoiPoint',
     setPoiPoints: 'setPoiPoints',
+    clearPoiPoints: 'clearPoiPoints',
   };
 }
 

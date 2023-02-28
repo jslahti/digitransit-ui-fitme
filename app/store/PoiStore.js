@@ -11,11 +11,6 @@ class PoiStore extends Store {
   }
 
   setPoiPoints(pois) {
-    this.poiPoints = pois;
-    console.log(['this.poiPoints=',this.poiPoints]);
-    console.log('NOW this.emitChange()');
-    this.emitChange();
-/*
     if (this.poiPoints.length > 0) {
       const temp = [];
       pois.forEach(poi=>{
@@ -45,13 +40,8 @@ class PoiStore extends Store {
       console.log('NOW this.emitChange()');
       this.emitChange();
     }
-    */
   }
-/*
-  clearPoiPoints() {
-    this.poiPoints = [];
-  }
-*/
+  
   getPoiPoints() {
     return this.poiPoints;
   }
@@ -59,7 +49,6 @@ class PoiStore extends Store {
   static handlers = {
     addPoiPoint: 'addPoiPoint',
     setPoiPoints: 'setPoiPoints',
-    clearPoiPoints: 'clearPoiPoints',
   };
 }
 

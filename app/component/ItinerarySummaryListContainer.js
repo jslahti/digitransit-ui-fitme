@@ -125,8 +125,8 @@ function ItinerarySummaryListContainer(
         }
       }
     });
-    //console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
-    //console.log(['poiPlaces=',poiPlaces]);
+    console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
+    console.log(['poiPlaces=',poiPlaces]);
     //console.log(['context=',context]);
     // Generate an API call and return with POI results => show on the map.
     getPOIs(poiPlaces)

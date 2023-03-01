@@ -114,7 +114,7 @@ function ItinerarySummaryListContainer(
       } else {
         let isSame = false;
         poiPlaces.every(p=>{
-          if (distance(p,poi) < 30) { // 30 m
+          if (distance(p,poi) < 100) { // 100 m
             isSame = true;
             return false; // break out from the loop.
           }

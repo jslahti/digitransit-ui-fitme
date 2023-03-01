@@ -124,7 +124,9 @@ export function getPOIs(params) {
       }
     ];
     */
-    resolve(foo);
+    setTimeout(() => {
+      resolve(foo);
+    },500);
   });
 }
 

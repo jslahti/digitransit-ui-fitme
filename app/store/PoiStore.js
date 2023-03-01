@@ -19,7 +19,7 @@ class PoiStore extends Store {
       pois.forEach(poi=>{
         let isSame = false;
         this.poiPoints.every(oldpoi=>{
-          if (distance(oldpoi,poi) < 30) { // 30 m
+          if (distance(oldpoi,poi) < 100) { // 100 m
             isSame = true;
             keeps.push(oldpoi);
             return false; // break out from the loop.

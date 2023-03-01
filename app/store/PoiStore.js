@@ -1,4 +1,5 @@
 import Store from 'fluxible/addons/BaseStore';
+import distance from '@digitransit-search-util/digitransit-search-util-distance';
 
 class PoiStore extends Store {
   static storeName = 'PoiStore';
@@ -12,23 +13,26 @@ class PoiStore extends Store {
 
   setPoiPoints(pois) {
     if (this.poiPoints.length > 0) {
-      const temp = [];
+      const keeps = [];
+      const news = [];
+      // If POIs exist => we go through the list and check which ones to keep.
       pois.forEach(poi=>{
         let isSame = false;
         this.poiPoints.every(oldpoi=>{
-          if (oldpoi.lat === poi.lat && oldpoi.lon === poi.lon && oldpoi.address === poi.address) {
+          if (distance(oldpoi,poi) < 30) { // 30 m
             isSame = true;
+            keeps.push(oldpoi);
             return false; // break out from the loop.
           }
           return true; // continue with next poi
         });
         if (!isSame) {
-          temp.push(poi);
+          news.push(poi);
         }
       });
-      if (temp.length > 0) {
-        this.poiPoints = this.poiPoints.concat(temp); //[...this.poiPoints, temp];
-        console.log(['this.poiPoints + temp =',this.poiPoints]);
+      if (news.length > 0) {
+        this.poiPoints = keeps.concat(news);//this.poiPoints.concat(temp); //[...this.poiPoints, temp];
+        console.log(['keeps + news =',this.poiPoints]);
         console.log('NOW this.emitChange()');
         this.emitChange();
       } else {

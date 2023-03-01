@@ -21,12 +21,24 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
     p => p.lat !== pointToRemove.lat && p.lon !== pointToRemove.lon,
   );
 };
+
+
+
+    address: {
+      street: "Ahertajantie 5",
+      city: "Espoo",
+      zipCode: "02100"
+    },
+
 */
 function PoiPopup(
-  { lat, lon, address, locationSlack, poiPoints, viaPoints, leaflet },
+  { lat, lon, locationSlack, attribs, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
-  const currentPoint = { lat, lon, address, locationSlack };
+  const street = attribs.address.street;
+  const thumbnailArray = attribs.thumbnailsURls;
+  console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
+  const currentPoint = { lat, lon, locationSlack, address:street };
   const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -56,7 +68,7 @@ function PoiPopup(
       <Card className="no-margin">
         <div className="location-popup-wrapper">
           <div className="location-address">
-          {address}
+          {street}
           {/*<FormattedMessage id="poi-point" defaultMessage="Poi point" />*/}
           </div>
         </div>
@@ -87,8 +99,9 @@ function PoiPopup(
 PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  address: PropTypes.string.isRequired,
+  //address: PropTypes.string.isRequired,
   locationSlack: PropTypes.number,
+  attribs: PropTypes.object.isRequired,
   poiPoints: PropTypes.array.isRequired,
   viaPoints: PropTypes.array.isRequired,
   leaflet: PropTypes.shape({

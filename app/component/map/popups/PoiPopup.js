@@ -38,11 +38,12 @@ function PoiPopup(
   const street = attribs.address.street;
   const thumbnailArray = attribs.thumbnailsURls;
   console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
-  /*let imgUrl = '';
+  let imgUrl = '';
   if (thumbnailArray.length > 0) {
     imgUrl = thumbnailArray[0];
-  }*/
+  }
   const currentPoint = { lat, lon, locationSlack, address:street };
+  
   const addViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -50,10 +51,7 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
-    
-    // How to close the popup?
     leaflet.map.closePopup();
-    
     //const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);
     //executeAction(setPoiPoints, filteredPoiPoints);
     //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
@@ -73,6 +71,11 @@ function PoiPopup(
         <div className="location-popup-wrapper">
           <div className="location-address">
           {street}
+          </div>
+        </div>
+        <div className="location-popup-wrapper">
+          <div className="location-thumbnail-image">
+            <img src={imgUrl} width="100" height="50" />
           </div>
         </div>
         <div className="bottom location">

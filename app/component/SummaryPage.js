@@ -67,28 +67,7 @@ import { mapLayerShape } from '../store/MapLayerStore';
 import { getMapLayerOptions } from '../util/mapLayerUtils';
 import { mapLayerOptionsShape } from '../util/shapes';
 
-// FITME!
-//import { compressLegs } from '../util/legUtils';
-//import { setPoiPoints } from '../action/PoiPointActions';
-// FITME!
-
 const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
-
-
-// FITME!
-/*const getViaPointIndex = (leg, intermediatePlaces) => {
-  if (!leg || !Array.isArray(intermediatePlaces)) {
-    return -1;
-  }
-  return intermediatePlaces.findIndex(
-    place => place.lat === leg.from.lat && place.lon === leg.from.lon,
-  );
-};
-const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
-  getViaPointIndex(currLeg, intermediatePlaces) > -1;
-*/
-// FITME!
-
 
 /**
 /**
@@ -358,6 +337,7 @@ class SummaryPage extends React.Component {
     }).isRequired,
     mapLayers: mapLayerShape.isRequired,
     mapLayerOptions: mapLayerOptionsShape.isRequired,
+    poiPoints: PropTypes.array,
     alertRef: PropTypes.string.isRequired,
   };
 
@@ -976,9 +956,6 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-    // FITME
-    //console.log(['makeWalkAndBikeQueries planParams=',planParams]);
-    // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams)
       .then(result => {
         this.setState(
@@ -1118,9 +1095,6 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-    // FITME
-    //console.log(['makeQueryWithAllModes planParams=',planParams]);
-    // FITME
     fetchQuery(this.props.relayEnvironment, query, planParams, {
       force: true,
     }).then(({ plan: results }) => {
@@ -1180,9 +1154,6 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-    // FITME
-    //console.log(['onLater planParams=',params]);
-    // FITME
     const tunedParams = {
       wheelchair: null,
       ...params,
@@ -1292,9 +1263,6 @@ class SummaryPage extends React.Component {
       this.context.match.params,
       this.context.match,
     );
-    // FITME
-    //console.log(['onEarlier planParams=',params]);
-    // FITME
     const tunedParams = {
       wheelchair: null,
       ...params,
@@ -1874,13 +1842,13 @@ class SummaryPage extends React.Component {
   };
 
   renderMap(from, to, viaPoints) {
-    let pois = [];
+    //let pois = [];
     console.log(['SummaryPage RENDER MAP this.context=',this.context]);
-    const poiStore = this.context.getStore('PoiStore');
+    /*const poiStore = this.context.getStore('PoiStore');
     if (poiStore) {
       pois = poiStore.getPoiPoints();
       console.log(['pois=',pois]);
-    }
+    }*/
     const { match, breakpoint } = this.props;
     const combinedItineraries = this.getCombinedItineraries();
     // summary or detail view ?
@@ -1923,7 +1891,7 @@ class SummaryPage extends React.Component {
         from={from}
         to={to}
         viaPoints={viaPoints}
-        pois={pois}
+        pois={this.props.poiPoints}
         zoom={POINT_FOCUS_ZOOM}
         mapLayers={this.props.mapLayers}
         mapLayerOptions={this.props.mapLayerOptions}
@@ -2053,9 +2021,6 @@ class SummaryPage extends React.Component {
                 this.context.match.params,
                 this.context.match,
               );
-              // FITME
-              //console.log(['internalSetOffcanvas planParams=',planParams]);
-              // FITME
               this.makeWalkAndBikeQueries();
               this.props.relay.refetch(planParams, null, () => {
                 this.setState(
@@ -2431,59 +2396,6 @@ class SummaryPage extends React.Component {
         to,
       });
     }
-    // FITME: maybe insert something here: to check itinaries?
-    // NOTE: Here we have a list of "intermediate places", which are given as a parameter to search POI places.
-    // 1. Search POI places for given coordinate (with waitTime)
-    // 2. Show POI "candidates" on map (with Popups when clicked)
-    // 3. Popup has a "VISIT"-button (and duration selection).
-    // 4. If POI "candidate" is set as "YES, I WILL VISIT and stay for 40 minutes" => same as a new ViaPoint is created => 
-    //    set of itineraries to be created.
-    //
-    // combinedItineraries
-    // this is part of render()
-    /*
-    console.log(['SummaryPage combinedItineraries=',combinedItineraries]);
-    const legsFitMePOICandidates = [];
-    
-    const waitThreshold = 180000; // 3 mins
-    combinedItineraries.forEach((itinerary, i) => {
-      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
-        ...leg,
-      }));
-    //combinedItineraries.forEach( itinerary => {
-      //itinerary.legs.forEach((leg, i) => {
-      compressedLegs.forEach((leg, i) => {
-        let waitTime;
-        console.log(['SummaryPage i=',i,' leg=',leg]);
-        const nextLeg = compressedLegs[i + 1];
-        // intermediatePlaces = viaPoints
-        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, viaPoints)) {
-          // don't show waiting in intermediate places
-          waitTime = nextLeg.startTime - leg.endTime;
-          console.log(['waitTime=',waitTime]);
-          if (waitTime > waitThreshold) {
-            if (!nextLeg?.interlineWithPreviousLeg) {
-              const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              console.log(['SummaryPage waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
-              const wo = {
-                waiting:waitingTimeinMin,
-                address:leg.from.name,
-                lat:leg.from.lat,
-                lon:leg.from.lon
-              };
-              legsFitMePOICandidates.push(wo);
-            }
-          }
-        }
-      });
-    });
-    // Can we somehow get the stored POI points and check if we already have them in our store?
-    console.log(['SummaryPage legsFitMePOICandidates=',legsFitMePOICandidates]);
-    const pois = [];
-    //console.log(['context=',context]);
-    //context.executeAction(setPoiPoints, legsFitMePOICandidates);
-    // FITME!
-    */
     
     let map = this.renderMap(from, to, viaPoints);
 
@@ -2933,7 +2845,7 @@ const SummaryPageWithBreakpoint = withBreakpoint(props => (
 
 const SummaryPageWithStores = connectToStores(
   SummaryPageWithBreakpoint,
-  ['MapLayerStore'],
+  ['MapLayerStore','PoiStore'],
   ({ getStore }) => ({
     mapLayers: getStore('MapLayerStore').getMapLayers({
       notThese: ['stop', 'citybike', 'vehicles'],
@@ -2942,6 +2854,7 @@ const SummaryPageWithStores = connectToStores(
       lockedMapLayers: ['vehicles', 'citybike', 'stop'],
       selectedMapLayers: ['vehicles'],
     }),
+    poiPoints: getStore('PoiStore').getPoiPoints(),
   }),
 );
 

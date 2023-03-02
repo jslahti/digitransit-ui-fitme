@@ -41,8 +41,8 @@ export function deleteFavourites(data) {
 }
 
 const createFitMeFoo = (p, latdiff, londiff) => {
-  //const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
-  //const _lon = p.lon + londiff;
+  const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
+  const _lon = p.lon + londiff;
   //const _address = p.address;
   const _locationSlack = p.waiting*60; // in seconds
   
@@ -72,10 +72,10 @@ const createFitMeFoo = (p, latdiff, londiff) => {
   };
   
   const pos = {
-    //lat: _lat,
-    //lon: _lon,
-    lat: testPOI.geolocation[0] + latdiff,
-    lon: testPOI.geolocation[1] + londiff,
+    lat: _lat,
+    lon: _lon,
+    //lat: testPOI.geolocation[0] + latdiff,
+    //lon: testPOI.geolocation[1] + londiff,
     locationSlack: _locationSlack,
     attribs: {
       name: testPOI.name,
@@ -103,10 +103,10 @@ export function getPOIs(params) {
     const foo = [];
     params.forEach(p=>{
       // For testing purposes create 4 points around given intermediate point.
-      foo.push(createFitMeFoo(p, 0.01, 0.01));
-      foo.push(createFitMeFoo(p, -0.01, 0.01));
-      foo.push(createFitMeFoo(p, -0.01, -0.01));
-      foo.push(createFitMeFoo(p, 0.01, -0.01));
+      foo.push(createFitMeFoo(p, 0.005, 0.005));
+      foo.push(createFitMeFoo(p, -0.005, 0.005));
+      foo.push(createFitMeFoo(p, -0.005, -0.005));
+      foo.push(createFitMeFoo(p, 0.005, -0.005));
     });
     /*
     const foo = [

@@ -49,7 +49,7 @@ const createFitMeFoo = (p, latdiff, londiff) => {
   const testPOI = {
     name: "EMMA – Espoo Museum of Modern Art",
     type: "attraction",
-    description: "Lorem ipsum...",
+    description: "",
     address: {
       street: "Ahertajantie 5",
       city: "Espoo",
@@ -82,6 +82,7 @@ const createFitMeFoo = (p, latdiff, londiff) => {
       type: testPOI.type,
       address: testPOI.address,
       contactInfo: testPOI.contactInfo,
+      url: testPOI.url,
       thumbnailsURls: testPOI.thumbnailsURls
     }
   };

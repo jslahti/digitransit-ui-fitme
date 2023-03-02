@@ -21,21 +21,53 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
     p => p.lat !== pointToRemove.lat && p.lon !== pointToRemove.lon,
   );
 };
+*/
+/*
+
+    attribs: {
+      name: testPOI.name,
+      type: testPOI.type,
+      address: testPOI.address,
+      contactInfo: testPOI.contactInfo,
+      url: testPOI.url,
+      thumbnailsURls: testPOI.thumbnailsURls
+    }
 
 
-
+    name: "EMMA – Espoo Museum of Modern Art",
+    type: "attraction",
+    description: "Lorem ipsum...",
     address: {
       street: "Ahertajantie 5",
       city: "Espoo",
       zipCode: "02100"
     },
-
+    geolocation: [
+      60.1787, // lat
+      24.79478 // lon
+    ],
+    contactInfo: {
+      email: "info@emmamuseum.fi",
+      phone: "0438270941"
+    },
+    url: "https://emmamuseum.fi/en/",
+    thumbnailsURls: [
+      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
+      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
+      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
+    ]
 */
 function PoiPopup(
   { lat, lon, locationSlack, attribs, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
+  const title = attribs.name;
   const street = attribs.address.street;
+  const zip = attribs.address.zipCode;
+  const city = attribs.address.city;
+  const info_email = attribs.contactInfo.email,
+  const info_phone = attribs.contactInfo.phone,
+  const info_url = attribs.url,
   const thumbnailArray = attribs.thumbnailsURls;
   console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   let imgUrl = '';
@@ -69,8 +101,16 @@ function PoiPopup(
     >
       <Card className="no-margin">
         <div className="location-popup-wrapper">
+          <div className="location-title">
+            {title}
+          </div>
           <div className="location-address">
-          {street}
+            {street + ', ' + zip + ' ' + city}
+          </div>
+          <div className="location-address">
+            {info_email}<br/>
+            {info_phone}<br/>
+            <a href={info_url} target='_blank'>{info_url}</a>
           </div>
         </div>
         <div className="location-popup-wrapper">
@@ -95,7 +135,6 @@ function PoiPopup(
 PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  //address: PropTypes.string.isRequired,
   locationSlack: PropTypes.number,
   attribs: PropTypes.object.isRequired,
   poiPoints: PropTypes.array.isRequired,

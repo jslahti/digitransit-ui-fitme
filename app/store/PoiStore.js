@@ -39,6 +39,9 @@ class PoiStore extends Store {
       } else {
         console.log('NO CHANGES TO POI STORAGE!');
       }
+    } else if (pois.length === 0){
+      this.poiPoints = [];
+      console.log('NO OLD POIs and NO NEW POIs!');
     } else {
       this.poiPoints = pois;
       console.log(['this.poiPoints=',this.poiPoints]);

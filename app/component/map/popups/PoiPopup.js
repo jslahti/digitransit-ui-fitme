@@ -62,8 +62,8 @@ function PoiPopup(
       position={{ lat: lat + 0.0001, lng: lon }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
-      maxWidth={120}
-      maxHeight={80}
+      maxWidth={240}
+      maxHeight={240}
       autoPan={false}
       className="popup single-popup"
     >
@@ -75,7 +75,7 @@ function PoiPopup(
         </div>
         <div className="location-popup-wrapper">
           <div className="location-thumbnail-image">
-            <img src={imgUrl} width="100" height="50" />
+            <img src={imgUrl} width="160" height="90" />
           </div>
         </div>
         <div className="bottom location">

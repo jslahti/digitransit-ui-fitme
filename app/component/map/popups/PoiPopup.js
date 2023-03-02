@@ -65,9 +65,9 @@ function PoiPopup(
   const street = attribs.address.street;
   const zip = attribs.address.zipCode;
   const city = attribs.address.city;
-  const info_email = attribs.contactInfo.email,
-  const info_phone = attribs.contactInfo.phone,
-  const info_url = attribs.url,
+  const info_email = attribs.contactInfo.email;
+  const info_phone = attribs.contactInfo.phone;
+  const info_url = attribs.url;
   const thumbnailArray = attribs.thumbnailsURls;
   console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   let imgUrl = '';

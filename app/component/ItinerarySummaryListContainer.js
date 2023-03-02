@@ -140,7 +140,7 @@ function ItinerarySummaryListContainer(
         console.log(['err=',err]);
       })
       .finally(() => {
-        console.log('FINALLY OK!');
+        //console.log('FINALLY OK!');
       });
     
     // FITME!

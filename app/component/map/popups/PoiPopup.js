@@ -69,7 +69,7 @@ function PoiPopup(
   const info_phone = attribs.contactInfo.phone;
   const info_url = attribs.url;
   const thumbnailArray = attribs.thumbnailsURls;
-  console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
+  //console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   let imgUrl = '';
   if (thumbnailArray.length > 0) {
     imgUrl = thumbnailArray[0];

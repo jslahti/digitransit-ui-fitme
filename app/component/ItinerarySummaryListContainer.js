@@ -114,7 +114,8 @@ function ItinerarySummaryListContainer(
       } else {
         let isSame = false;
         poiPlaces.every(p=>{
-          if (distance(p,poi) < 100) { // 100 m
+          // if closer than 30 m and address is same => duplicate => don't use.
+          if (distance(p,poi) < 30 && p.address === poi.address) {
             isSame = true;
             return false; // break out from the loop.
           }
@@ -139,7 +140,7 @@ function ItinerarySummaryListContainer(
         console.log(['err=',err]);
       })
       .finally(() => {
-        //console.log('FINALLY OK!');
+        console.log('FINALLY OK!');
       });
     
     // FITME!

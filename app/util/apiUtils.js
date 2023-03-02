@@ -39,18 +39,10 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
-/*
-params is an array of
-  { 
-    waiting:waitingTimeinMin,
-    address:leg.from.name,
-    lat:leg.from.lat,
-    lon:leg.from.lon
-  }
-*/
+
 const createFitMeFoo = (p, latdiff, londiff) => {
-  const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
-  const _lon = p.lon + londiff;
+  //const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
+  //const _lon = p.lon + londiff;
   //const _address = p.address;
   const _locationSlack = p.waiting*60; // in seconds
   
@@ -80,8 +72,10 @@ const createFitMeFoo = (p, latdiff, londiff) => {
   };
   
   const pos = {
-    lat: _lat,
-    lon: _lon,
+    //lat: _lat,
+    //lon: _lon,
+    lat: testPOI.geolocation[0] + latdiff,
+    lon: testPOI.geolocation[1] + londiff,
     locationSlack: _locationSlack,
     attribs: {
       name: testPOI.name,
@@ -93,7 +87,15 @@ const createFitMeFoo = (p, latdiff, londiff) => {
   };
   return pos;
 }
-
+/*
+params is an array of
+  { 
+    waiting:waitingTimeinMin,
+    address:leg.from.name,
+    lat:leg.from.lat,
+    lon:leg.from.lon
+  }
+*/
 export function getPOIs(params) {
   // use params when real API call is made.
   return new Promise(function(resolve) {

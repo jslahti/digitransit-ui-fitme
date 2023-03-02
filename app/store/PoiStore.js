@@ -12,14 +12,15 @@ class PoiStore extends Store {
   }
 
   setPoiPoints(pois) {
-    if (this.poiPoints.length > 0) {
+    const oldlen = this.poiPoints.length;
+    if (oldlen > 0) {
       const keeps = [];
       const news = [];
       // If POIs exist => we go through the list and check which ones to keep.
       pois.forEach(poi=>{
         let isSame = false;
         this.poiPoints.every(oldpoi=>{
-          if (distance(oldpoi,poi) < 100) { // 100 m
+          if (distance(oldpoi,poi) < 30) { // 30 m
             isSame = true;
             keeps.push(oldpoi);
             return false; // break out from the loop.
@@ -30,8 +31,8 @@ class PoiStore extends Store {
           news.push(poi);
         }
       });
-      if (news.length > 0) {
-        this.poiPoints = keeps.concat(news);//this.poiPoints.concat(temp); //[...this.poiPoints, temp];
+      if (news.length > 0 || keeps.length < oldlen) { // new ones to store or old ones removed
+        this.poiPoints = keeps.concat(news);
         console.log(['keeps + news =',this.poiPoints]);
         console.log('NOW this.emitChange()');
         this.emitChange();

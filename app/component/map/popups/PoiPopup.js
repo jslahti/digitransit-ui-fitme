@@ -37,10 +37,9 @@ function PoiPopup(
 ) {
   const street = attribs.address.street;
   const thumbnailArray = attribs.thumbnailsURls;
-  let thumbnailMarkup = '';
+  let imgUrl = '';
   if (thumbnailArray.length > 0) {
-    const imgUrl = thumbnailArray[0];
-    thumbnailMarkup = '<img src="'+imgUrl+'" />';
+    imgUrl = thumbnailArray[0];
   }
   console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   const currentPoint = { lat, lon, locationSlack, address:street };
@@ -79,7 +78,7 @@ function PoiPopup(
         </div>
         <div className="location-popup-wrapper">
           <div className="location-thumbnail-image">
-          {thumbnailMarkup}
+            <img src={imgUrl} width="100" height="50" />
           </div>
         </div>
         {/*

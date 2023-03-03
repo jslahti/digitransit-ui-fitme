@@ -76,34 +76,40 @@ function ItinerarySummaryListContainer(
     // Should we remove all previous POI candidates here?
     //context.executeAction(clearPoiPoints);
     
+    console.log(['ISLC activeIndex=',activeIndex]);
+    
     const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,
       }));
-      // FITME
-      compressedLegs.forEach((leg, i) => {
-        let waitTime;
-        const nextLeg = compressedLegs[i + 1];
-        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
-          // don't show waiting in intermediate places
-          waitTime = nextLeg.startTime - leg.endTime;
-          //console.log(['waitTime=',waitTime]);
-          if (waitTime > waitThreshold) {
-            if (!nextLeg?.interlineWithPreviousLeg) {
-              const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
-              const poi = {
-                waiting:waitingTimeinMin,
-                address:leg.from.name,
-                lat:leg.from.lat,
-                lon:leg.from.lon
-              };
-              poiPlaceCandidates.push(poi);
+      if (i === activeIndex) {
+        
+        console.log(['CHECK POI Candidates for itinerary index=',activeIndex]);
+        
+        compressedLegs.forEach((leg, i) => {
+          let waitTime;
+          const nextLeg = compressedLegs[i + 1];
+          if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
+            // don't show waiting in intermediate places
+            waitTime = nextLeg.startTime - leg.endTime;
+            //console.log(['waitTime=',waitTime]);
+            if (waitTime > waitThreshold) {
+              if (!nextLeg?.interlineWithPreviousLeg) {
+                const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
+                //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+                const poi = {
+                  waiting:waitingTimeinMin,
+                  address:leg.from.name,
+                  lat:leg.from.lat,
+                  lon:leg.from.lon
+                };
+                poiPlaceCandidates.push(poi);
+              }
             }
           }
-        }
-      });
+        });
+        
     });
     // Can we somehow get the stored POI points and check if we already have them in our store?
     // Remove duplicate locations from our list of POI candidates.

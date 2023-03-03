@@ -103,10 +103,11 @@ export function getPOIs(params) {
     const foo = [];
     params.forEach(p=>{
       // For testing purposes create 4 points around given intermediate point.
-      foo.push(createFitMeFoo(p, 0.005, 0.005));
-      foo.push(createFitMeFoo(p, -0.005, 0.005));
-      foo.push(createFitMeFoo(p, -0.005, -0.005));
-      foo.push(createFitMeFoo(p, 0.005, -0.005));
+      // 0.001 = 111 m
+      foo.push(createFitMeFoo(p, 0.001, 0.001));
+      foo.push(createFitMeFoo(p, -0.001, 0.001));
+      foo.push(createFitMeFoo(p, -0.001, -0.001));
+      foo.push(createFitMeFoo(p, 0.001, -0.001));
     });
     /*
     const foo = [

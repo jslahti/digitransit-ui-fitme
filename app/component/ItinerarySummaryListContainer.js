@@ -103,7 +103,7 @@ function ItinerarySummaryListContainer(
     // Should we remove all previous POI candidates here?
     //context.executeAction(clearPoiPoints);
     
-    console.log(['ISLC activeIndex=',activeIndex]);
+    //console.log(['ISLC activeIndex=',activeIndex]);
     
     const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {
@@ -111,7 +111,7 @@ function ItinerarySummaryListContainer(
         const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
           ...leg,
         }));
-        console.log(['CHECK POI Candidates for itinerary index=',activeIndex]);
+        //console.log(['CHECK POI Candidates for itinerary index=',activeIndex]);
         compressedLegs.forEach((leg, i) => {
           let waitTime;
           const nextLeg = compressedLegs[i + 1];
@@ -155,9 +155,9 @@ function ItinerarySummaryListContainer(
             }
           }
         });
-        console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
-        console.log(['poiPlaces=',poiPlaces]);
-        console.log(['previousPOIPlaces=',previousPOIPlaces]);
+        //console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
+        //console.log(['poiPlaces=',poiPlaces]);
+        //console.log(['previousPOIPlaces=',previousPOIPlaces]);
         // Check if previousPOIPlaces array is the same as poiPlaces array.
         if (!areTwoArraysEqual(previousPOIPlaces, poiPlaces)) {
           setpreviousPOIPlaces(poiPlaces); // Set this as the new "previous" in STATE.

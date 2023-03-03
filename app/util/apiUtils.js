@@ -102,12 +102,13 @@ export function getPOIs(params) {
   return new Promise(function(resolve) {
     const foo = [];
     params.forEach(p=>{
-      // For testing purposes create 4 points around given intermediate point.
-      // 0.001 = 111 m
-      foo.push(createFitMeFoo(p, 0.001, 0.001));
-      foo.push(createFitMeFoo(p, -0.001, 0.001));
-      foo.push(createFitMeFoo(p, -0.001, -0.001));
-      foo.push(createFitMeFoo(p, 0.001, -0.001));
+      // For testing purposes create one point in 1 km distance to north-east
+      // for each intermediate point (which has waiting time for more than 3 minutes).
+      // 0.01 = 1km
+      foo.push(createFitMeFoo(p, 0.01, 0.01));
+      //foo.push(createFitMeFoo(p, -0.01, 0.01));
+      //foo.push(createFitMeFoo(p, -0.01, -0.01));
+      //foo.push(createFitMeFoo(p, 0.01, -0.01));
     });
     /*
     const foo = [

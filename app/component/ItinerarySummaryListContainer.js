@@ -38,6 +38,31 @@ const getViaPointIndex = (leg, intermediatePlaces) => {
 const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
   getViaPointIndex(currLeg, intermediatePlaces) > -1;
 
+/*
+// FITME! 
+  arrays have POI candidates:
+  {
+    waiting:waitingTimeinMin,
+    address:leg.from.name,
+    lat:leg.from.lat,
+    lon:leg.from.lon
+  }
+*/
+const areTwoArraysEqual = (a, b) => {
+  if (a.length !== b.length) {
+    return false;
+  }
+  let isSame = true;
+  a.every((pa,i) => {
+    const pb = b[i];
+    if (pa.address !== pb.address || pa.waiting !== pb.waiting || distance(pa,pb) > 30) {
+      isSame = false;
+      return false; // break out from the loop.
+    }
+    return true; // continue with next pa
+  });
+  return isSame;
+};
 // FITME!
 
 function ItinerarySummaryListContainer(
@@ -67,6 +92,7 @@ function ItinerarySummaryListContainer(
   context,
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
+  const [previousPOIPlaces, setpreviousPOIPlaces] = useState([]);
   //const { config, match } = context;
   // FITME! Add executeAction here => enable to access it?
   const { config, match, executeAction } = context;
@@ -85,9 +111,7 @@ function ItinerarySummaryListContainer(
         const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
           ...leg,
         }));
-        
         console.log(['CHECK POI Candidates for itinerary index=',activeIndex]);
-        
         compressedLegs.forEach((leg, i) => {
           let waitTime;
           const nextLeg = compressedLegs[i + 1];
@@ -110,56 +134,61 @@ function ItinerarySummaryListContainer(
             }
           }
         });
-      }
-    });
-    // Can we somehow get the stored POI points and check if we already have them in our store?
-    // Remove duplicate locations from our list of POI candidates.
-    const poiPlaces = [];
-    poiPlaceCandidates.forEach(poi=>{
-      if (poiPlaces.length === 0) {
-        poiPlaces.push(poi); // The first one is always OK.
-      } else {
-        let isSame = false;
-        poiPlaces.every(p=>{
-          // if closer than 30 m and address is same => duplicate => don't use.
-          if (distance(p,poi) < 30 && p.address === poi.address) {
-            isSame = true;
-            return false; // break out from the loop.
+        // Can we somehow get the stored POI points and check if we already have them in our store?
+        // Remove duplicate locations from our list of POI candidates.
+        const poiPlaces = [];
+        poiPlaceCandidates.forEach(poi=>{
+          if (poiPlaces.length === 0) {
+            poiPlaces.push(poi); // The first one is always OK.
+          } else {
+            let isSame = false;
+            poiPlaces.every(p=>{
+              // if closer than 30 m and address is same => duplicate => don't use.
+              if (distance(p,poi) < 30 && p.address === poi.address) {
+                isSame = true;
+                return false; // break out from the loop.
+              }
+              return true; // continue with next p
+            });
+            if (!isSame) {
+              poiPlaces.push(poi);
+            }
           }
-          return true; // continue with next p
         });
-        if (!isSame) {
-          poiPlaces.push(poi);
+        console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
+        console.log(['poiPlaces=',poiPlaces]);
+        console.log(['previousPOIPlaces=',previousPOIPlaces]);
+        // Check if previousPOIPlaces array is the same as poiPlaces array.
+        if (!areTwoArraysEqual(previousPOIPlaces, poiPlaces)) {
+          setpreviousPOIPlaces(poiPlaces); // Set this as the new "previous" in STATE.
+          //console.log(['context=',context]);
+          // Generate an API call and return with POI results => show on the map.
+          getPOIs(poiPlaces)
+            .then(res => {
+              if (Array.isArray(res)) {
+                context.executeAction(setPoiPoints, res);
+              }
+            })
+            .catch(err => {
+              console.log(['err=',err]);
+            })
+            .finally(() => {
+              //console.log('FINALLY OK!');
+            });
+          // Test publicly available JSON to simulate POI fetching from server.
+          getFitMePOITest()
+            .then(res => {
+              console.log(['getFitMePOITest res=',res]);
+            })
+            .catch(err => {
+              console.log(['getFitMePOITest err=',err]);
+            })
+            .finally(() => {
+              //console.log('FINALLY OK!');
+            });
         }
       }
     });
-    console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
-    console.log(['poiPlaces=',poiPlaces]);
-    //console.log(['context=',context]);
-    // Generate an API call and return with POI results => show on the map.
-    getPOIs(poiPlaces)
-      .then(res => {
-        if (Array.isArray(res)) {
-          context.executeAction(setPoiPoints, res);
-        }
-      })
-      .catch(err => {
-        console.log(['err=',err]);
-      })
-      .finally(() => {
-        //console.log('FINALLY OK!');
-      });
-    // Test publicly available JSON to simulate POI fetching from server.
-    getFitMePOITest()
-      .then(res => {
-        console.log(['getFitMePOITest res=',res]);
-      })
-      .catch(err => {
-        console.log(['getFitMePOITest err=',err]);
-      })
-      .finally(() => {
-        //console.log('FINALLY OK!');
-      });
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (

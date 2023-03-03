@@ -1842,13 +1842,6 @@ class SummaryPage extends React.Component {
   };
 
   renderMap(from, to, viaPoints) {
-    //let pois = [];
-    console.log(['SummaryPage RENDER MAP this.context=',this.context]);
-    /*const poiStore = this.context.getStore('PoiStore');
-    if (poiStore) {
-      pois = poiStore.getPoiPoints();
-      console.log(['pois=',pois]);
-    }*/
     const { match, breakpoint } = this.props;
     const combinedItineraries = this.getCombinedItineraries();
     // summary or detail view ?

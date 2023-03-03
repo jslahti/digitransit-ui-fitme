@@ -109,7 +109,7 @@ function ItinerarySummaryListContainer(
             }
           }
         });
-        
+      }
     });
     // Can we somehow get the stored POI points and check if we already have them in our store?
     // Remove duplicate locations from our list of POI candidates.

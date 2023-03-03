@@ -23,6 +23,7 @@ import Loading from './Loading';
 // FITME!
 import { compressLegs } from '../util/legUtils';
 import { getPOIs } from '../util/apiUtils';
+import { getFitMePOITest } from '../util/apiUtils';
 import { setPoiPoints } from '../action/PoiPointActions';
 
 const getViaPointIndex = (leg, intermediatePlaces) => {
@@ -80,10 +81,10 @@ function ItinerarySummaryListContainer(
     
     const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {
-      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
-        ...leg,
-      }));
       if (i === activeIndex) {
+        const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+          ...leg,
+        }));
         
         console.log(['CHECK POI Candidates for itinerary index=',activeIndex]);
         
@@ -148,7 +149,9 @@ function ItinerarySummaryListContainer(
       .finally(() => {
         //console.log('FINALLY OK!');
       });
-    
+    // Test publicly available JSON to simulate POI fetching from server.
+    const test_json = getFitMePOITest();
+    console.log(['test_json=',test_json]);
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (

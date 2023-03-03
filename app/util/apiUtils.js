@@ -133,6 +133,24 @@ export function getPOIs(params) {
     },500);
   });
 }
+/*
+// Tries to fetch 1 + retryCount times until 200 is returned.
+// Uses retryDelay (ms) between requests. url and options are normal fetch parameters
+retryFetch(URL, options = {}, retryCount, retryDelay, config = {})
+  retryFetch(
+  'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+  {}, 
+  2, 
+  200).then(res => res.json());
+*/
+
+export function getFitMePOITest() {
+  return retryFetch(
+    'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+    {},
+    2,
+    200).then(res => res.json());
+}
 
 export function getWeatherData(baseURL, time, lat, lon) {
   // Round time to next 5 minutes

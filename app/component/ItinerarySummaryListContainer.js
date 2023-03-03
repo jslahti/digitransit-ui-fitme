@@ -150,8 +150,16 @@ function ItinerarySummaryListContainer(
         //console.log('FINALLY OK!');
       });
     // Test publicly available JSON to simulate POI fetching from server.
-    const test_json = getFitMePOITest();
-    console.log(['test_json=',test_json]);
+    getFitMePOITest()
+      .then(res => {
+        console.log(['getFitMePOITest res=',res]);
+      })
+      .catch(err => {
+        console.log(['getFitMePOITest err=',err]);
+      })
+      .finally(() => {
+        //console.log('FINALLY OK!');
+      });
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (

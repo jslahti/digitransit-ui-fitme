@@ -48,6 +48,29 @@ const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
     lon:leg.from.lon
   }
 */
+const removeDuplicateCandidates = (candidates) => {
+  const poiPlaces = [];
+  candidates.forEach(poi=>{
+    if (poiPlaces.length === 0) {
+      poiPlaces.push(poi); // The first one is always OK (and added to array).
+    } else {
+      let isSame = false;
+      poiPlaces.every(p=>{
+        // if closer than 30 m and address is same => duplicate => don't use.
+        if (distance(p,poi) < 30 && p.address === poi.address) {
+          isSame = true;
+          return false; // break out from the loop.
+        }
+        return true; // continue with next p
+      });
+      if (!isSame) {
+        poiPlaces.push(poi);
+      }
+    }
+  });
+  return poiPlaces;
+};
+
 const areTwoArraysEqual = (a, b) => {
   if (a.length !== b.length) {
     return false;
@@ -134,27 +157,8 @@ function ItinerarySummaryListContainer(
             }
           }
         });
-        // Can we somehow get the stored POI points and check if we already have them in our store?
         // Remove duplicate locations from our list of POI candidates.
-        const poiPlaces = [];
-        poiPlaceCandidates.forEach(poi=>{
-          if (poiPlaces.length === 0) {
-            poiPlaces.push(poi); // The first one is always OK.
-          } else {
-            let isSame = false;
-            poiPlaces.every(p=>{
-              // if closer than 30 m and address is same => duplicate => don't use.
-              if (distance(p,poi) < 30 && p.address === poi.address) {
-                isSame = true;
-                return false; // break out from the loop.
-              }
-              return true; // continue with next p
-            });
-            if (!isSame) {
-              poiPlaces.push(poi);
-            }
-          }
-        });
+        const poiPlaces = removeDuplicateCandidates(poiPlaceCandidates);
         //console.log(['poiPlaceCandidates=',poiPlaceCandidates]);
         //console.log(['poiPlaces=',poiPlaces]);
         //console.log(['previousPOIPlaces=',previousPOIPlaces]);

@@ -32,13 +32,6 @@ function ItineraryPageMap(
   const { hash } = match.params;
   const leafletObjs = [];
   
-  //const fitmeExtractPOIs = legs => {
-  //  let retu = [];
-  //  console.log(['legs=',legs]);
-  //  retu.push({address:'Kera, Espoo',lat:60.217992,lon:24.75494});
-  //  return retu;
-  //};
-  
   if (showVehicles) {
     leafletObjs.push(
       <VehicleMarkerContainer key="vehicles" useLargeIcon topics={topics} />,
@@ -55,8 +48,6 @@ function ItineraryPageMap(
             passive
           />,
         );
-        //const fitmePOIs = fitmeExtractPOIs(itinerary.legs);
-        //console.log(['FIRST CASE fitmePOIs=',fitmePOIs]);
       }
     });
   }
@@ -73,8 +64,6 @@ function ItineraryPageMap(
         loading={loading}
       />,
     );
-    //const fitmePOIs = fitmeExtractPOIs(itineraries[active].legs);
-    //console.log(['SECOND CASE fitmePOIs=',fitmePOIs]);
   }
   
   if (from.lat && from.lon) {
@@ -88,7 +77,7 @@ function ItineraryPageMap(
   viaPoints.forEach((via, i) => {
     leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
   });
-  // FITME: BEGIN insert some code to test if POIs can be shown in the map.
+  // FITME: BEGIN insert some code to show POIs in the map.
   pois.forEach((poi, i) => {
     leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi"/>);
   });

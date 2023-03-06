@@ -89,6 +89,7 @@ function PoiPopup(
     //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
   };
   
+  if (viaPoints.length < 1) {
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -130,6 +131,42 @@ function PoiPopup(
       </Card>
     </Popup>
   );
+  } else {
+  return (
+    <Popup
+      position={{ lat: lat + 0.0001, lng: lon }}
+      offset={[0, 0]}
+      autoPanPaddingTopLeft={[5, 125]}
+      maxWidth={240}
+      maxHeight={240}
+      autoPan={false}
+      className="popup single-popup"
+    >
+      <Card className="no-margin">
+        <div className="location-popup-wrapper">
+          <div className="location-title">
+            {title}
+          </div>
+          <div className="location-address">
+            {street + ', ' + zip + ' ' + city}
+          </div>
+          <div className="location-address">
+            {info_email}<br/>
+            {info_phone}<br/>
+            <a href={info_url} target='_blank'>{info_url}</a>
+          </div>
+        </div>
+        <div className="location-popup-wrapper">
+          <div className="location-thumbnail-image">
+            <img src={imgUrl} width="160" height="90" />
+          </div>
+        </div>
+        <div className="bottom location">
+        </div>
+      </Card>
+    </Popup>
+  );
+  }
 }
 
 PoiPopup.propTypes = {

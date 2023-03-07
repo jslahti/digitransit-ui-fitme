@@ -64,6 +64,7 @@ export default function LocationMarker({
         <PoiPopup
           lat={position.lat}
           lon={position.lon}
+          selected={position.selected}
           locationSlack={position.locationSlack}
           attribs={position.attribs}
           key={`${position.lat}${position.lon}`}

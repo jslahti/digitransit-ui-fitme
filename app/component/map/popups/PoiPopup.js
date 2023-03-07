@@ -95,7 +95,7 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
     ]
 */
 function PoiPopup(
-  { lat, lon, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
+  { lat, lon, selected, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
   // FITME! 
@@ -139,7 +139,7 @@ function PoiPopup(
   
   */
   // Allow maximum of 5 ViaPoints on any itinerary.
-  if (viaPoints.length < 5) {
+  if (!selected && viaPoints.length < 5) {
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -220,6 +220,7 @@ function PoiPopup(
 PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
+  selected: PropTypes.bool.isRequired,
   locationSlack: PropTypes.number,
   attribs: PropTypes.object.isRequired,
   onLocationMarkerToggle: PropTypes.func,

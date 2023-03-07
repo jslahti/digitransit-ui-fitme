@@ -20,7 +20,7 @@ const filterViaPoint = (allPoints, pointToRemove) => {
 };
 
 function ViaPointPopup(
-  { lat, lon, viaPoints },
+  { lat, lon, onLocationMarkerToggle, viaPoints },
   { executeAction, router, match },
 ) {
   const currentPoint = { lat, lon };
@@ -31,6 +31,8 @@ function ViaPointPopup(
     const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
     executeAction(setViaPoints, filteredViaPoints);
     setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
+    console.log('CALL onLocationMarkerToggle');
+    onLocationMarkerToggle({type:'via',lat:lat,lon:lon});
   };
 
   return (
@@ -67,6 +69,7 @@ function ViaPointPopup(
 ViaPointPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
+  onLocationMarkerToggle: PropTypes.func,
   viaPoints: PropTypes.array.isRequired,
 };
 

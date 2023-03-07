@@ -60,7 +60,7 @@ function ItineraryPageMap(
       console.log(['This is a ViaPoint key=',key]);
       propois.forEach(poi => {
         //const lon = key.lon+0.001;
-        if (poi.lat === key.lat && poi.lon === lon) {
+        if (poi.lat === key.lat && poi.lon === key.lon) {
           //poi.lon = key.lon; // restore original longitude.
           poi.selected = false;
         }

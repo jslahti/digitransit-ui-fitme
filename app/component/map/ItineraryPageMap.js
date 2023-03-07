@@ -34,6 +34,8 @@ function ItineraryPageMap(
   const leafletObjs = [];
   const [selectedPois, setSelectedPois] = useState([]);
   
+  console.log(['ItineraryPageMap selectedPois=',selectedPois]);
+  
   // Make a copy of pois-array (propois), with longitude adjustment for selected POIs.
   const temp_pois = [...pois];
   const propois = [];
@@ -49,6 +51,8 @@ function ItineraryPageMap(
     });
     propois.push(poi);
   });
+  
+  console.log(['ItineraryPageMap propois=',propois]);
   
   /*
   When POI is selected or ViaPoint (created from POI) is removed, this is called.
@@ -71,6 +75,7 @@ function ItineraryPageMap(
           newPois.push(poi);
         }
       });
+      console.log(['ViaPoint REMOVED newPois=',newPois]);
       setSelectedPois(newPois);
       
     } else if (key.type === 'poi') {
@@ -83,6 +88,7 @@ function ItineraryPageMap(
           newPois.push(poi);
         }
       });
+      console.log(['POI selected newPois=',newPois]);
       setSelectedPois(newPois);
       
     } else {

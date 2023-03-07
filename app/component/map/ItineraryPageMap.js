@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 import PropTypes from 'prop-types';
-import React from 'react';
+//import React from 'react';
+import React, { useState } from 'react';
 import { matchShape, routerShape } from 'found';
 import LocationMarker from './LocationMarker';
 import ItineraryLine from './ItineraryLine';
@@ -31,6 +32,22 @@ function ItineraryPageMap(
 ) {
   const { hash } = match.params;
   const leafletObjs = [];
+  
+  const [selectedPois, setSelectedPois] = useState([]);
+  /*
+  When POI is selected or ViaPoint (created from POI) is removed, this is called.
+  LocationMarker key = {type:'poi',lat:lat,lon:lon} or {type:'via',lat:lat,lon:lon}
+  */
+  const onMarkerToggle = (key) => {
+    // First check if key is for 'via' or 'poi' marker.
+    if (key.type === 'via') {
+      console.log(['This is a ViaPoint key=',key]);
+    } else if (key.type === 'poi') {
+      console.log(['This is a PoiPoint key=',key]);
+    } else {
+      console.log(['Not VIA or POI key=',key]);
+    }
+  });
   
   if (showVehicles) {
     leafletObjs.push(
@@ -68,18 +85,18 @@ function ItineraryPageMap(
   
   if (from.lat && from.lon) {
     leafletObjs.push(
-      <LocationMarker key="fromMarker" position={from} type="from" />,
+      <LocationMarker key="fromMarker" position={from} type="from" onLocationMarkerToggle="onMarkerToggle" />,
     );
   }
   if (to.lat && to.lon) {
-    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
+    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" onLocationMarkerToggle="onMarkerToggle"/>);
   }
   viaPoints.forEach((via, i) => {
-    leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
+    leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} onLocationMarkerToggle="onMarkerToggle" />);
   });
   // FITME: BEGIN insert some code to show POIs in the map.
   pois.forEach((poi, i) => {
-    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi"/>);
+    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi" onLocationMarkerToggle="onMarkerToggle"/>);
   });
   // FITME: END
   

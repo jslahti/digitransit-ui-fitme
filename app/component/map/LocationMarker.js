@@ -14,8 +14,10 @@ export default function LocationMarker({
   className,
   isLarge,
   type,
+  onLocationMarkerToggle,
   disabled,
 }) {
+  
   const getValidType = markertype => {
     switch (markertype) {
       case 'from':
@@ -55,6 +57,7 @@ export default function LocationMarker({
           lat={position.lat}
           lon={position.lon}
           key={`${position.lat}${position.lon}`}
+          onLocationMarkerToggle={onLocationMarkerToggle}
         />
       )}
       {validType === 'poi' && (
@@ -64,6 +67,7 @@ export default function LocationMarker({
           locationSlack={position.locationSlack}
           attribs={position.attribs}
           key={`${position.lat}${position.lon}`}
+          onLocationMarkerToggle={onLocationMarkerToggle}
         />
       )}
     </IconMarker>
@@ -76,6 +80,7 @@ LocationMarker.propTypes = {
   isLarge: PropTypes.bool,
   // FITME: BEGIN insert some code to test if POIs can be shown in the map.
   type: PropTypes.oneOf(['from', 'via', 'poi', 'to', 'favourite']),
+  onLocationMarkerToggle: PropTypes.func,
   // FITME: END
   disabled: PropTypes.bool,
 };

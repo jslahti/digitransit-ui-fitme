@@ -1,4 +1,5 @@
 import PropTypes from 'prop-types';
+//import React, { useState } from 'react';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { matchShape, routerShape } from 'found';
@@ -15,6 +16,42 @@ import { isBrowser } from '../../../util/browser';
 
 const Popup = isBrowser ? require('react-leaflet/es/Popup').default : null; // eslint-disable-line global-require
 import { withLeaflet } from 'react-leaflet/es/context';
+
+/*
+  When POI is used to create a ViaPoint, the source POI is copied into 
+  copiedPOIPoints array
+  
+  const [copiedPOIPoints, setCopiedPOIPoints] = useState([]);
+  
+  and longitude is incremented a little bit (moved to the right).
+  
+  
+
+
+const isPOIFound = (a, b) => {
+
+};
+*/
+
+/*
+const toggleCopyDoneFlag(poi) {
+  const newpois = [];
+  this.poiPoints.forEach(p=>{
+    if (p.lat === poi.lat && p.lon === poi.lon) {
+      if (p.copyDone) {
+        p.copyDone = false;
+        p.lon -= 0.001;
+      } else {
+        p.copyDone = true;
+        p.lon += 0.001;
+      }
+    }
+    newpois.push(p);
+  });
+  this.poiPoints = newpois;
+  console.log(['TOGGLE this.poiPoints =',this.poiPoints]);
+}
+*/
 /*
 const filterPoiPoint = (allPoints, pointToRemove) => {
   return allPoints.filter(
@@ -58,9 +95,12 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
     ]
 */
 function PoiPopup(
-  { lat, lon, locationSlack, attribs, poiPoints, viaPoints, leaflet },
+  { lat, lon, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
+  // FITME! 
+  //const [copiedPOIPoints, setCopiedPOIPoints] = useState([]);
+  // FITME! 
   const title = attribs.name;
   const street = attribs.address.street;
   const zip = attribs.address.zipCode;
@@ -83,13 +123,23 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
+    //executeAction(toggleCopyDoneFlag, currentPoint);
+    console.log('CALL onLocationMarkerToggle');
+    onLocationMarkerToggle({type:'poi',lat:lat,lon:lon});
     leaflet.map.closePopup();
     //const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);
     //executeAction(setPoiPoints, filteredPoiPoints);
     //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
   };
+  /*
   
-  if (viaPoints.length < 1) {
+  Something like this:
+  if (isPOIFound(currentPoint, copiedPOIPoints)
+  
+  
+  */
+  // Allow maximum of 5 ViaPoints on any itinerary.
+  if (viaPoints.length < 5) {
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -161,8 +211,6 @@ function PoiPopup(
             <img src={imgUrl} width="160" height="90" />
           </div>
         </div>
-        <div className="bottom location">
-        </div>
       </Card>
     </Popup>
   );
@@ -174,6 +222,7 @@ PoiPopup.propTypes = {
   lon: PropTypes.number.isRequired,
   locationSlack: PropTypes.number,
   attribs: PropTypes.object.isRequired,
+  onLocationMarkerToggle: PropTypes.func,
   poiPoints: PropTypes.array.isRequired,
   viaPoints: PropTypes.array.isRequired,
   leaflet: PropTypes.shape({

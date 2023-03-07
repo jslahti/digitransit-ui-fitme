@@ -41,7 +41,7 @@ function ItineraryPageMap(
     poi.selected = false;
     selectedPois.every(selpoi => {
       if (poi.lat === selpoi.lat && poi.lon === selpoi.lon) {
-        poi.lon = selpoi.lon+0.001;
+        //poi.lon = selpoi.lon+0.001;
         poi.selected = true;
         return false; // break out from the every-loop.
       }
@@ -59,9 +59,9 @@ function ItineraryPageMap(
     if (key.type === 'via') { // viaPoint is deleted.
       console.log(['This is a ViaPoint key=',key]);
       propois.forEach(poi => {
-        const lon = key.lon+0.001;
+        //const lon = key.lon+0.001;
         if (poi.lat === key.lat && poi.lon === lon) {
-          poi.lon = key.lon; // restore original longitude.
+          //poi.lon = key.lon; // restore original longitude.
           poi.selected = false;
         }
       });
@@ -75,11 +75,10 @@ function ItineraryPageMap(
       
     } else if (key.type === 'poi') {
       console.log(['This is a PoiPoint key=',key]);
-      // If a POI is used to create a ViaPoint, move it (POI) a little bit east (lon += 0.001).
       const newPois = [...selectedPois];
       propois.forEach(poi => {
         if (poi.lat === key.lat && poi.lon === key.lon) {
-          poi.lon = key.lon+0.001;
+          //poi.lon = key.lon+0.001;
           poi.selected = true;
           newPois.push(poi);
         }

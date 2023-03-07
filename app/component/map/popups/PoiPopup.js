@@ -18,41 +18,6 @@ const Popup = isBrowser ? require('react-leaflet/es/Popup').default : null; // e
 import { withLeaflet } from 'react-leaflet/es/context';
 
 /*
-  When POI is used to create a ViaPoint, the source POI is copied into 
-  copiedPOIPoints array
-  
-  const [copiedPOIPoints, setCopiedPOIPoints] = useState([]);
-  
-  and longitude is incremented a little bit (moved to the right).
-  
-  
-
-
-const isPOIFound = (a, b) => {
-
-};
-*/
-
-/*
-const toggleCopyDoneFlag(poi) {
-  const newpois = [];
-  this.poiPoints.forEach(p=>{
-    if (p.lat === poi.lat && p.lon === poi.lon) {
-      if (p.copyDone) {
-        p.copyDone = false;
-        p.lon -= 0.001;
-      } else {
-        p.copyDone = true;
-        p.lon += 0.001;
-      }
-    }
-    newpois.push(p);
-  });
-  this.poiPoints = newpois;
-  console.log(['TOGGLE this.poiPoints =',this.poiPoints]);
-}
-*/
-/*
 const filterPoiPoint = (allPoints, pointToRemove) => {
   return allPoints.filter(
     p => p.lat !== pointToRemove.lat && p.lon !== pointToRemove.lon,
@@ -131,13 +96,7 @@ function PoiPopup(
     //executeAction(setPoiPoints, filteredPoiPoints);
     //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
   };
-  /*
   
-  Something like this:
-  if (isPOIFound(currentPoint, copiedPOIPoints)
-  
-  
-  */
   // Allow maximum of 5 ViaPoints on any itinerary.
   if (!selected && viaPoints.length < 5) {
   return (
@@ -184,7 +143,7 @@ function PoiPopup(
   } else {
   return (
     <Popup
-      position={{ lat: lat + 0.0001, lng: lon }}
+      position={{ lat: lat + 0.0001, lng: lon+0.001 }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
       maxWidth={240}

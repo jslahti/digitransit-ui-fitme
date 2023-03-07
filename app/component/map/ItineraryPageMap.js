@@ -85,18 +85,18 @@ function ItineraryPageMap(
   
   if (from.lat && from.lon) {
     leafletObjs.push(
-      <LocationMarker key="fromMarker" position={from} type="from" onLocationMarkerToggle="onMarkerToggle" />,
+      <LocationMarker key="fromMarker" position={from} type="from" onLocationMarkerToggle={onMarkerToggle} />,
     );
   }
   if (to.lat && to.lon) {
-    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" onLocationMarkerToggle="onMarkerToggle"/>);
+    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" onLocationMarkerToggle={onMarkerToggle} />);
   }
   viaPoints.forEach((via, i) => {
-    leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} onLocationMarkerToggle="onMarkerToggle" />);
+    leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} onLocationMarkerToggle={onMarkerToggle} />);
   });
   // FITME: BEGIN insert some code to show POIs in the map.
   pois.forEach((poi, i) => {
-    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi" onLocationMarkerToggle="onMarkerToggle"/>);
+    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi" onLocationMarkerToggle={onMarkerToggle} />);
   });
   // FITME: END
   

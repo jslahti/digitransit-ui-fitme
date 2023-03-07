@@ -47,7 +47,7 @@ function ItineraryPageMap(
     } else {
       console.log(['Not VIA or POI key=',key]);
     }
-  });
+  };
   
   if (showVehicles) {
     leafletObjs.push(

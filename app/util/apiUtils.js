@@ -41,11 +41,13 @@ export function deleteFavourites(data) {
 }
 
 const createFitMeFoo = (p, latdiff, londiff) => {
-  const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
-  const _lon = p.lon + londiff;
+  //const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
+  //const _lon = p.lon + londiff;
   //const _address = p.address;
   const _locationSlack = p.waiting*60; // in seconds
   
+  
+  /*
   const testPOI = {
     name: "EMMA – Espoo Museum of Modern Art",
     type: "attraction",
@@ -70,15 +72,42 @@ const createFitMeFoo = (p, latdiff, londiff) => {
       "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
     ]
   };
+  */
+  const testPOI = {
+    name: "EMMA – Espoo Museum of Modern Art",
+    type: "attraction",
+    description: "",
+    address: {
+      street: "Leppävaara",
+      city: "Espoo",
+      zipCode: "02600"
+    },
+    geolocation: [
+      60.219235,
+      24.81329
+    ],
+    contactInfo: {
+      email: "info@emmamuseum.fi",
+      phone: "0438270941"
+    },
+    url: "https://emmamuseum.fi/en/",
+    thumbnailsURls: [
+      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
+      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
+      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
+    ]
+  };
+  
+  
   /*
   For POI to be compatible with ViaPoint, put 
   locationSlack and address to "root-level" also.
   */
   const pos = {
-    lat: _lat,
-    lon: _lon,
-    //lat: testPOI.geolocation[0] + latdiff,
-    //lon: testPOI.geolocation[1] + londiff,
+    //lat: _lat,
+    //lon: _lon,
+    lat: testPOI.geolocation[0];// + latdiff,
+    lon: testPOI.geolocation[1];// + londiff,
     locationSlack: _locationSlack,
     address: testPOI.address.street+', '+testPOI.address.city,
     extra: {

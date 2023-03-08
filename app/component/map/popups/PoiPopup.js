@@ -79,7 +79,7 @@ function PoiPopup(
   if (thumbnailArray.length > 0) {
     imgUrl = thumbnailArray[0];
   }
-  const currentPoint = { lat, lon, locationSlack, address:street };
+  const currentPoint = { lat, lon, locationSlack, address:street+', '+city };
   
   const addViaPoint = e => {
     e.preventDefault();
@@ -88,8 +88,6 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
-    //executeAction(toggleCopyDoneFlag, currentPoint);
-    console.log('CALL onLocationMarkerToggle');
     onLocationMarkerToggle({type:'poi',lat:lat,lon:lon});
     leaflet.map.closePopup();
     //const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);

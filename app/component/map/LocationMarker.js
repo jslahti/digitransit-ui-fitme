@@ -35,9 +35,14 @@ export default function LocationMarker({
   };
   const validType = getValidType(type);
   const sideLength = isLarge ? 30 : 24;
+  
+  let adjusted_position = {lat:position.lat, lon:position.lon};
+  if (validType === 'poi' && position.selected) {
+    adjusted_position.lon = position.lon+0.0001;
+  }
   return (
     <IconMarker
-      position={position}
+      position={adjusted_position}
       className={cx(validType, className)}
       icon={{
         className: cx(validType, className),

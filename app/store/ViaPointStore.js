@@ -6,16 +6,19 @@ class ViaPointStore extends Store {
   viaPoints = [];
 
   addViaPoint(val) {
+    console.log(['ViaPointStore addViaPoint val=',val]);
     this.viaPoints.push(val);
     this.emitChange();
   }
 
   setViaPoints(viaPoints) {
+    console.log(['ViaPointStore setViaPoints viaPoints=',viaPoints]);
     this.viaPoints = [...viaPoints];
     this.emitChange();
   }
 
   getViaPoints() {
+    console.log(['ViaPointStore getViaPoints viaPoints=',this.viaPoints]);
     return this.viaPoints;
   }
 

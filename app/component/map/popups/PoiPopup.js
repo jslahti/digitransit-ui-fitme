@@ -143,7 +143,7 @@ function PoiPopup(
   } else {
   return (
     <Popup
-      position={{ lat: lat + 0.0001, lng: lon+0.001 }}
+      position={{ lat: lat + 0.0001, lng: lon }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
       maxWidth={240}

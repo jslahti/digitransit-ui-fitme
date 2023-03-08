@@ -31,7 +31,7 @@ function ViaPointPopup(
     const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
     executeAction(setViaPoints, filteredViaPoints);
     setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
-    console.log('CALL onLocationMarkerToggle');
+    //console.log('CALL onLocationMarkerToggle');
     onLocationMarkerToggle({type:'via',lat:lat,lon:lon});
   };
 

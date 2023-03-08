@@ -39,15 +39,21 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
-
-const createFitMeFoo = (p, latdiff, londiff) => {
+/*
+  accommodation
+  attraction
+  event
+  experience
+  rental_service
+  restaurant
+  shop
+  venue
+*/
+const createFitMeOne = (p, latdiff, londiff) => {
   //const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
   //const _lon = p.lon + londiff;
   //const _address = p.address;
   const _locationSlack = p.waiting*60; // in seconds
-  
-  
-  /*
   const testPOI = {
     name: "EMMA – Espoo Museum of Modern Art",
     type: "attraction",
@@ -72,13 +78,41 @@ const createFitMeFoo = (p, latdiff, londiff) => {
       "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
     ]
   };
+  /*
+  For POI to be compatible with ViaPoint, put 
+  locationSlack and address to "root-level" also.
   */
+  const pos = {
+    //lat: _lat,
+    //lon: _lon,
+    lat: testPOI.geolocation[0],
+    lon: testPOI.geolocation[1],
+    locationSlack: _locationSlack,
+    address: testPOI.address.street+', '+testPOI.address.city,
+    extra: {
+      locationSlack: _locationSlack,
+      name: testPOI.name,
+      type: testPOI.type,
+      address: testPOI.address,
+      contactInfo: testPOI.contactInfo,
+      url: testPOI.url,
+      thumbnailsURls: testPOI.thumbnailsURls
+    }
+  };
+  return pos;
+}
+
+const createFitMeTwo = (p, latdiff, londiff) => {
+  //const _lat = p.lat + latdiff; // + 0.000003 * Math.random();
+  //const _lon = p.lon + londiff;
+  //const _address = p.address;
+  const _locationSlack = p.waiting*60; // in seconds
   const testPOI = {
-    name: "EMMA – Espoo Museum of Modern Art",
-    type: "attraction",
+    name: "Sello",
+    type: "shop",
     description: "",
     address: {
-      street: "Leppävaara",
+      street: "Leppävaarankatu 12",
       city: "Espoo",
       zipCode: "02600"
     },
@@ -97,8 +131,6 @@ const createFitMeFoo = (p, latdiff, londiff) => {
       "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
     ]
   };
-  
-  
   /*
   For POI to be compatible with ViaPoint, put 
   locationSlack and address to "root-level" also.
@@ -139,7 +171,8 @@ export function getPOIs(params) {
       // For testing purposes create one point in 1 km distance to north-east
       // for each intermediate point (which has waiting time for more than 3 minutes).
       // 0.01 = 1km
-      foo.push(createFitMeFoo(p, 0.01, 0.01));
+      foo.push(createFitMeOne(p, 0.01, 0.01));
+      foo.push(createFitMeTwo(p, 0.01, 0.01));
       //foo.push(createFitMeFoo(p, -0.01, 0.01));
       //foo.push(createFitMeFoo(p, -0.01, -0.01));
       //foo.push(createFitMeFoo(p, 0.01, -0.01));

@@ -60,26 +60,34 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
     ]
 */
 function PoiPopup(
-  { lat, lon, selected, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
+//  { lat, lon, selected, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
+  { lat, lon, extra, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
   // FITME! 
   //const [copiedPOIPoints, setCopiedPOIPoints] = useState([]);
-  // FITME! 
-  const title = attribs.name;
-  const street = attribs.address.street;
-  const zip = attribs.address.zipCode;
-  const city = attribs.address.city;
-  const info_email = attribs.contactInfo.email;
-  const info_phone = attribs.contactInfo.phone;
-  const info_url = attribs.url;
-  const thumbnailArray = attribs.thumbnailsURls;
+  if (extra) {
+    console.log(['PoiPopup extra=',extra]);
+  } else {
+    console.log(['PoiPopup NO EXTRA extra=',extra]);
+  }
+  
+  // FITME!
+  const locationSlack = extra.locationSlack;
+  const title = extra.name;
+  const street = extra.address.street;
+  const zip = extra.address.zipCode;
+  const city = extra.address.city;
+  const info_email = extra.contactInfo.email;
+  const info_phone = extra.contactInfo.phone;
+  const info_url = extra.url;
+  const thumbnailArray = extra.thumbnailsURls;
   //console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   let imgUrl = '';
   if (thumbnailArray.length > 0) {
     imgUrl = thumbnailArray[0];
   }
-  const currentPoint = { lat, lon, locationSlack, address:street+', '+city };
+  const currentPoint = { lat, lon, locationSlack, address:street+', '+city, extra:extra };
   
   const addViaPoint = e => {
     e.preventDefault();
@@ -88,7 +96,7 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
-    onLocationMarkerToggle({type:'poi',lat:lat,lon:lon});
+    //onLocationMarkerToggle({type:'poi',lat:lat,lon:lon});
     leaflet.map.closePopup();
     //const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);
     //executeAction(setPoiPoints, filteredPoiPoints);
@@ -96,7 +104,7 @@ function PoiPopup(
   };
   
   // Allow maximum of 5 ViaPoints on any itinerary.
-  if (!selected && viaPoints.length < 5) {
+  if (viaPoints.length < 5) {
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -177,10 +185,11 @@ function PoiPopup(
 PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  selected: PropTypes.bool.isRequired,
-  locationSlack: PropTypes.number,
-  attribs: PropTypes.object.isRequired,
-  onLocationMarkerToggle: PropTypes.func,
+  extra: PropTypes.object,
+  //selected: PropTypes.bool.isRequired,
+  //locationSlack: PropTypes.number,
+  //attribs: PropTypes.object.isRequired,
+  //onLocationMarkerToggle: PropTypes.func,
   poiPoints: PropTypes.array.isRequired,
   viaPoints: PropTypes.array.isRequired,
   leaflet: PropTypes.shape({

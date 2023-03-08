@@ -70,14 +70,19 @@ const createFitMeFoo = (p, latdiff, londiff) => {
       "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
     ]
   };
-  
+  /*
+  For POI to be compatible with ViaPoint, put 
+  locationSlack and address to "root-level" also.
+  */
   const pos = {
     lat: _lat,
     lon: _lon,
     //lat: testPOI.geolocation[0] + latdiff,
     //lon: testPOI.geolocation[1] + londiff,
     locationSlack: _locationSlack,
-    attribs: {
+    address: testPOI.address.street+', '+testPOI.address.city,
+    extra: {
+      locationSlack: _locationSlack,
       name: testPOI.name,
       type: testPOI.type,
       address: testPOI.address,

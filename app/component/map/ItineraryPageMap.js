@@ -32,12 +32,12 @@ function ItineraryPageMap(
 ) {
   const { hash } = match.params;
   const leafletObjs = [];
-  const [selectedPois, setSelectedPois] = useState([]);
+  //const [selectedPois, setSelectedPois] = useState([]);
   
-  console.log(['ItineraryPageMap selectedPois=',selectedPois]);
+  //console.log(['ItineraryPageMap selectedPois=',selectedPois]);
   
   // Make a copy of pois-array (propois), with longitude adjustment for selected POIs.
-  const temp_pois = [...pois];
+  /*const temp_pois = [...pois];
   const propois = [];
   temp_pois.forEach(poi => {
     poi.selected = false;
@@ -53,11 +53,12 @@ function ItineraryPageMap(
   });
   
   console.log(['ItineraryPageMap propois=',propois]);
-  
+  */
   /*
   When POI is selected or ViaPoint (created from POI) is removed, this is called.
   LocationMarker key = {type:'poi',lat:lat,lon:lon} or {type:'via',lat:lat,lon:lon}
   */
+  /*
   const onMarkerToggle = (key) => {
     // First check if key is for 'via' or 'poi' marker.
     if (key.type === 'via') { // viaPoint is deleted.
@@ -95,7 +96,7 @@ function ItineraryPageMap(
       console.log(['Not VIA or POI key=',key]);
     }
   };
-  
+  */
   if (showVehicles) {
     leafletObjs.push(
       <VehicleMarkerContainer key="vehicles" useLargeIcon topics={topics} />,
@@ -129,7 +130,7 @@ function ItineraryPageMap(
       />,
     );
   }
-  
+  /*
   if (from.lat && from.lon) {
     leafletObjs.push(
       <LocationMarker key="fromMarker" position={from} type="from" onLocationMarkerToggle={onMarkerToggle} />,
@@ -145,7 +146,25 @@ function ItineraryPageMap(
   propois.forEach((poi, i) => {
     leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi" onLocationMarkerToggle={onMarkerToggle} />);
   });
+  */
   // FITME: END
+  
+  
+  if (from.lat && from.lon) {
+    leafletObjs.push(
+      <LocationMarker key="fromMarker" position={from} type="from" />,
+    );
+  }
+  if (to.lat && to.lon) {
+    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
+  }
+  viaPoints.forEach((via, i) => {
+    leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
+  });
+  // FITME: BEGIN insert some code to show POIs in the map.
+  pois.forEach((poi, i) => {
+    leafletObjs.push(<LocationMarker key={`poi_${i}`} position={poi} type="poi" />);
+  });
   
   // max 5 viapoints
   const locationPopup =

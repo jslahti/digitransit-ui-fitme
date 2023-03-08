@@ -14,7 +14,7 @@ export default function LocationMarker({
   className,
   isLarge,
   type,
-  onLocationMarkerToggle,
+  //onLocationMarkerToggle,
   disabled,
 }) {
   
@@ -35,14 +35,15 @@ export default function LocationMarker({
   };
   const validType = getValidType(type);
   const sideLength = isLarge ? 30 : 24;
-  
+  /*
   let adjusted_position = {lat:position.lat, lon:position.lon};
   if (validType === 'poi' && position.selected) {
     adjusted_position.lon = position.lon+0.0001;
   }
+  */
   return (
     <IconMarker
-      position={adjusted_position}
+      position={position}
       className={cx(validType, className)}
       icon={{
         className: cx(validType, className),
@@ -61,19 +62,20 @@ export default function LocationMarker({
         <ViaPointPopup
           lat={position.lat}
           lon={position.lon}
+          extra={position.extra}
           key={`${position.lat}${position.lon}`}
-          onLocationMarkerToggle={onLocationMarkerToggle}
+          {/*onLocationMarkerToggle={onLocationMarkerToggle}*/}
         />
       )}
       {validType === 'poi' && (
         <PoiPopup
           lat={position.lat}
           lon={position.lon}
-          selected={position.selected}
-          locationSlack={position.locationSlack}
-          attribs={position.attribs}
+          {/*selected={position.selected}*/}
+          {/*locationSlack={extra.locationSlack}*/}
+          extra={position.extra}
           key={`${position.lat}${position.lon}`}
-          onLocationMarkerToggle={onLocationMarkerToggle}
+          {/*onLocationMarkerToggle={onLocationMarkerToggle}*/}
         />
       )}
     </IconMarker>
@@ -86,7 +88,7 @@ LocationMarker.propTypes = {
   isLarge: PropTypes.bool,
   // FITME: BEGIN insert some code to test if POIs can be shown in the map.
   type: PropTypes.oneOf(['from', 'via', 'poi', 'to', 'favourite']),
-  onLocationMarkerToggle: PropTypes.func,
+  //onLocationMarkerToggle: PropTypes.func,
   // FITME: END
   disabled: PropTypes.bool,
 };

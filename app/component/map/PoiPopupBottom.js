@@ -24,7 +24,7 @@ class PoiPopupBottom extends React.Component {
       category: 'ItinerarySettings',
       name: 'MapPopup',
     });
-    console.log(['routeAddViaPoint this.props.location=',this.props.location]);
+    //console.log(['routeAddViaPoint this.props.location=',this.props.location]);
     this.props.onSelectLocation(this.props.location, 'via');
     this.props.leaflet.map.closePopup();
   };

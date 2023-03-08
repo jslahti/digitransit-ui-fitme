@@ -123,10 +123,6 @@ function ItinerarySummaryListContainer(
   if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {
     // FITME!
     const poiPlaceCandidates = [];
-    // Should we remove all previous POI candidates here?
-    //context.executeAction(clearPoiPoints);
-    
-    //console.log(['ISLC activeIndex=',activeIndex]);
     
     const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
     itineraries.forEach((itinerary, i) => {

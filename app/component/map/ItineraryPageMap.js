@@ -150,6 +150,7 @@ function ItineraryPageMap(
   // FITME: END
   
   
+  
   if (from.lat && from.lon) {
     leafletObjs.push(
       <LocationMarker key="fromMarker" position={from} type="from" />,
@@ -158,6 +159,9 @@ function ItineraryPageMap(
   if (to.lat && to.lon) {
     leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
   }
+  
+  console.log(['ItineraryPageMap viaPoints=',viaPoints]);
+  
   viaPoints.forEach((via, i) => {
     leafletObjs.push(<LocationMarker key={`via_${i}`} position={via} />);
   });

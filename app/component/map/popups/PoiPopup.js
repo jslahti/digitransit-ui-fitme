@@ -24,6 +24,17 @@ const filterPoiPoint = (allPoints, pointToRemove) => {
   );
 };
 */
+const findViaPoint = (vias, lat, lon) => {
+  let retval = false;
+  vias.every(via => {
+    if (via.lat === lat && via.lon === lon) {
+      retval = true;
+      return false; // break out from the every-loop.
+    }
+    return true; // continue with next via
+  });
+  return retval;
+};
 /*
 
     attribs: {
@@ -96,15 +107,12 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
-    //onLocationMarkerToggle({type:'poi',lat:lat,lon:lon});
     leaflet.map.closePopup();
-    //const filteredPoiPoints = filterPoiPoint(poiPoints, currentPoint);
-    //executeAction(setPoiPoints, filteredPoiPoints);
-    //setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
   };
   
+  const viaExist = findViaPoint(viaPoints, lat, lon);
   // Allow maximum of 5 ViaPoints on any itinerary.
-  if (viaPoints.length < 5) {
+  if (!viaExist && viaPoints.length < 5) {
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}

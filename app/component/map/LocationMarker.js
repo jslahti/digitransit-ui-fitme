@@ -58,18 +58,18 @@ export default function LocationMarker({
       }}
       zIndexOffset={12000}
     >
-      {validType === 'via' && (
-        <ViaPointPopup
-          lat={position.lat}
-          lon={position.lon}
-          key={`${position.lat}${position.lon}`}
-        />
-      )}
       {validType === 'poi' && (
         <PoiPopup
           lat={position.lat}
           lon={position.lon}
           extra={position.extra}
+          key={`${position.lat}${position.lon}`}
+        />
+      )}
+      {validType === 'via' && (
+        <ViaPointPopup
+          lat={position.lat}
+          lon={position.lon}
           key={`${position.lat}${position.lon}`}
         />
       )}

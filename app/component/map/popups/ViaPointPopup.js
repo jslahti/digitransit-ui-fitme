@@ -5,6 +5,7 @@ import { matchShape, routerShape } from 'found';
 import connectToStores from 'fluxible-addons-react/connectToStores';
 
 import ViaPointStore from '../../../store/ViaPointStore';
+import PoiStore from '../../../store/PoiStore';
 import { setViaPoints } from '../../../action/ViaPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
@@ -19,13 +20,53 @@ const filterViaPoint = (allPoints, pointToRemove) => {
   );
 };
 
+const findExtras = (pois, lat, lon) => {
+  let extra = undefined;
+  pois.every(poi => {
+    if (poi.lat === lat && poi.lon === lon) {
+      extra = poi.extra;
+      return false; // break out from the every-loop.
+    }
+    return true; // continue with next poi
+  });
+  return extra;
+};
+
 function ViaPointPopup(
 //  { lat, lon, onLocationMarkerToggle, viaPoints },
-  { lat, lon, extra, viaPoints },
+  { lat, lon, viaPoints, poiPoints },
   { executeAction, router, match },
 ) {
   const currentPoint = { lat, lon };
 
+  let locationSlack = 0;
+  let title = 'TITLE';
+  let street = 'STREET';
+  let zip = 'ZIP';
+  let city = 'CITY';
+  let info_email = 'EMAIL';
+  let info_phone = 'PHONE';
+  let info_url = '';
+  let thumbnailArray = [];
+  let imgUrl = '';
+
+  // FITME!
+  const extra = findExtras(poiPoints, lat, lon);
+  if (extra) {
+    locationSlack = extra.locationSlack;
+    title = extra.name;
+    street = extra.address.street;
+    zip = extra.address.zipCode;
+    city = extra.address.city;
+    info_email = extra.contactInfo.email;
+    info_phone = extra.contactInfo.phone;
+    info_url = extra.url;
+    thumbnailArray = extra.thumbnailsURls;
+    if (thumbnailArray.length > 0) {
+      imgUrl = thumbnailArray[0];
+    }
+  }
+  
   const deleteViaPoint = e => {
     e.preventDefault();
     e.stopPropagation();
@@ -35,13 +76,13 @@ function ViaPointPopup(
     //console.log('CALL onLocationMarkerToggle');
     //onLocationMarkerToggle({type:'via',lat:lat,lon:lon});
   };
-  
+  /*
   if (extra) {
     console.log(['ViaPointPopup extra=',extra]);
   } else {
     console.log(['ViaPointPopup NO EXTRA extra=',extra]);
   }
-  
+  */
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
@@ -54,11 +95,23 @@ function ViaPointPopup(
     >
       <Card className="no-margin">
         <div className="location-popup-wrapper">
+          <div className="location-title">
+            {title}
+          </div>
           <div className="location-address">
-            <FormattedMessage id="via-point" defaultMessage="Via point" />
+            {street + ', ' + zip + ' ' + city}
+          </div>
+          <div className="location-address">
+            {info_email}<br/>
+            {info_phone}<br/>
+            <a href={info_url} target='_blank'>{info_url}</a>
           </div>
         </div>
-
+        <div className="location-popup-wrapper">
+          <div className="location-thumbnail-image">
+            <img src={imgUrl} width="160" height="90" />
+          </div>
+        </div>
         <div className="bottom location">
           <button
             type="button"
@@ -76,9 +129,10 @@ function ViaPointPopup(
 ViaPointPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  extra: PropTypes.object,
+  //extra: PropTypes.object,
   //onLocationMarkerToggle: PropTypes.func,
   viaPoints: PropTypes.array.isRequired,
+  poiPoints: PropTypes.array.isRequired,
 };
 
 ViaPointPopup.contextTypes = {
@@ -89,11 +143,12 @@ ViaPointPopup.contextTypes = {
 
 const connectedComponent = connectToStores(
   ViaPointPopup,
-  [ViaPointStore],
-  ({ getStore }) => {
-    const viaPoints = getStore(ViaPointStore).getViaPoints();
-    return { viaPoints };
-  },
+  [ViaPointStore, PoiStore],
+  ({ getStore }) => ({
+    viaPoints: getStore(ViaPointStore).getViaPoints(),
+    poiPoints: getStore(PoiStore).getPoiPoints()
+    //return { viaPoints };
+  }),
 );
 
 export { connectedComponent as default, ViaPointPopup as Component };

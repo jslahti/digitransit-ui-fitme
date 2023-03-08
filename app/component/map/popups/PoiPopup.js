@@ -65,13 +65,13 @@ function PoiPopup(
   { executeAction, router, match },
 ) {
   // FITME! 
-  //const [copiedPOIPoints, setCopiedPOIPoints] = useState([]);
+  /*
   if (extra) {
     console.log(['PoiPopup extra=',extra]);
   } else {
     console.log(['PoiPopup NO EXTRA extra=',extra]);
   }
-  
+  */
   // FITME!
   const locationSlack = extra.locationSlack;
   const title = extra.name;
@@ -87,7 +87,7 @@ function PoiPopup(
   if (thumbnailArray.length > 0) {
     imgUrl = thumbnailArray[0];
   }
-  const currentPoint = { lat, lon, locationSlack, address:street+', '+city, extra:extra };
+  const currentPoint = { lat, lon, locationSlack, address:street+', '+city };
   
   const addViaPoint = e => {
     e.preventDefault();

@@ -62,7 +62,6 @@ export default function LocationMarker({
         <ViaPointPopup
           lat={position.lat}
           lon={position.lon}
-          extra={position.extra}
           key={`${position.lat}${position.lon}`}
         />
       )}

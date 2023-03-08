@@ -106,8 +106,8 @@ const createFitMeFoo = (p, latdiff, londiff) => {
   const pos = {
     //lat: _lat,
     //lon: _lon,
-    lat: testPOI.geolocation[0];// + latdiff,
-    lon: testPOI.geolocation[1];// + londiff,
+    lat: testPOI.geolocation[0],
+    lon: testPOI.geolocation[1],
     locationSlack: _locationSlack,
     address: testPOI.address.street+', '+testPOI.address.city,
     extra: {

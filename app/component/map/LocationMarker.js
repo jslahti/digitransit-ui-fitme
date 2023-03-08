@@ -64,18 +64,14 @@ export default function LocationMarker({
           lon={position.lon}
           extra={position.extra}
           key={`${position.lat}${position.lon}`}
-          {/*onLocationMarkerToggle={onLocationMarkerToggle}*/}
         />
       )}
       {validType === 'poi' && (
         <PoiPopup
           lat={position.lat}
           lon={position.lon}
-          {/*selected={position.selected}*/}
-          {/*locationSlack={extra.locationSlack}*/}
           extra={position.extra}
           key={`${position.lat}${position.lon}`}
-          {/*onLocationMarkerToggle={onLocationMarkerToggle}*/}
         />
       )}
     </IconMarker>
@@ -88,7 +84,6 @@ LocationMarker.propTypes = {
   isLarge: PropTypes.bool,
   // FITME: BEGIN insert some code to test if POIs can be shown in the map.
   type: PropTypes.oneOf(['from', 'via', 'poi', 'to', 'favourite']),
-  //onLocationMarkerToggle: PropTypes.func,
   // FITME: END
   disabled: PropTypes.bool,
 };

@@ -18,7 +18,7 @@ class ViaPointStore extends Store {
   }
 
   getViaPoints() {
-    console.log(['ViaPointStore getViaPoints viaPoints=',this.viaPoints]);
+    //console.log(['ViaPointStore getViaPoints viaPoints=',this.viaPoints]);
     return this.viaPoints;
   }
 

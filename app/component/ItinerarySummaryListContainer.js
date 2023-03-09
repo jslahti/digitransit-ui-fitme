@@ -162,9 +162,9 @@ function ItinerarySummaryListContainer(
         });
         // Remove duplicate locations from our list of candidates.
         const wPlaces = removeDuplicateCandidates(waitingCandidates);
-        console.log(['waitingCandidates=',waitingCandidates]);
-        console.log(['wPlaces=',wPlaces]);
-        console.log(['waitingPlaces=',waitingPlaces]);
+        //console.log(['waitingCandidates=',waitingCandidates]);
+        //console.log(['wPlaces=',wPlaces]);
+        //console.log(['waitingPlaces=',waitingPlaces]);
         // Check if waitingPlaces array is the same as wPlaces array.
         if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.

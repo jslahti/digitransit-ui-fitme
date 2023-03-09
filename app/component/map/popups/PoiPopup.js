@@ -7,7 +7,7 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 
 import PoiStore from '../../../store/PoiStore';
 import ViaPointStore from '../../../store/ViaPointStore';
-//import { setPoiPoints } from '../../../action/PoiPointActions';
+import { lockPoiPoint } from '../../../action/PoiPointActions';
 import { setViaPoints } from '../../../action/ViaPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
@@ -64,6 +64,7 @@ function PoiPopup(
     const newViaPoints = [...viaPoints];
     executeAction(setViaPoints, newViaPoints);
     setIntermediatePlaces(router, match, newViaPoints.map(locationToOTP));
+    executeAction(lockPoiPoint,currentPoint); // PoiPoint is now "locked" to ViaPoint.
     leaflet.map.closePopup();
   };
   

@@ -7,6 +7,7 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 import ViaPointStore from '../../../store/ViaPointStore';
 import PoiStore from '../../../store/PoiStore';
 import { setViaPoints } from '../../../action/ViaPointActions';
+import { unlockPoiPoint } from '../../../action/PoiPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
 import Card from '../../Card';
@@ -33,7 +34,6 @@ const findExtras = (pois, lat, lon) => {
 };
 
 function ViaPointPopup(
-//  { lat, lon, onLocationMarkerToggle, viaPoints },
   { lat, lon, viaPoints, poiPoints },
   { executeAction, router, match },
 ) {
@@ -73,16 +73,9 @@ function ViaPointPopup(
     const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
     executeAction(setViaPoints, filteredViaPoints);
     setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
-    //console.log('CALL onLocationMarkerToggle');
-    //onLocationMarkerToggle({type:'via',lat:lat,lon:lon});
+    executeAction(unlockPoiPoint, currentPoint);
   };
-  /*
-  if (extra) {
-    console.log(['ViaPointPopup extra=',extra]);
-  } else {
-    console.log(['ViaPointPopup NO EXTRA extra=',extra]);
-  }
-  */
+  
   return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}

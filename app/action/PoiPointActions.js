@@ -9,3 +9,11 @@ export function setPoiPoints(actionContext, points) {
   actionContext.dispatch('setPoiPoints', points);
   //console.log('dispatch done');
 }
+
+export function lockPoiPoint(actionContext, poi) {
+  actionContext.dispatch('lockPoiPoint', poi);
+}
+
+export function unlockPoiPoint(actionContext, poi) {
+  actionContext.dispatch('unlockPoiPoint', poi);
+}

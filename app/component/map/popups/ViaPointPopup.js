@@ -88,8 +88,8 @@ function ViaPointPopup(
       position={{ lat: lat + 0.0001, lng: lon }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
-      maxWidth={120}
-      maxHeight={80}
+      maxWidth={240}
+      maxHeight={240}
       autoPan={false}
       className="popup single-popup"
     >
@@ -129,8 +129,6 @@ function ViaPointPopup(
 ViaPointPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
-  //extra: PropTypes.object,
-  //onLocationMarkerToggle: PropTypes.func,
   viaPoints: PropTypes.array.isRequired,
   poiPoints: PropTypes.array.isRequired,
 };
@@ -147,7 +145,6 @@ const connectedComponent = connectToStores(
   ({ getStore }) => ({
     viaPoints: getStore(ViaPointStore).getViaPoints(),
     poiPoints: getStore(PoiStore).getPoiPoints()
-    //return { viaPoints };
   }),
 );
 

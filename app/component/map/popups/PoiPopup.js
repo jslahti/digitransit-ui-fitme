@@ -35,55 +35,12 @@ const findViaPoint = (vias, lat, lon) => {
   });
   return retval;
 };
-/*
 
-    attribs: {
-      name: testPOI.name,
-      type: testPOI.type,
-      address: testPOI.address,
-      contactInfo: testPOI.contactInfo,
-      url: testPOI.url,
-      thumbnailsURls: testPOI.thumbnailsURls
-    }
-
-
-    name: "EMMA – Espoo Museum of Modern Art",
-    type: "attraction",
-    description: "Lorem ipsum...",
-    address: {
-      street: "Ahertajantie 5",
-      city: "Espoo",
-      zipCode: "02100"
-    },
-    geolocation: [
-      60.1787, // lat
-      24.79478 // lon
-    ],
-    contactInfo: {
-      email: "info@emmamuseum.fi",
-      phone: "0438270941"
-    },
-    url: "https://emmamuseum.fi/en/",
-    thumbnailsURls: [
-      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
-    ]
-*/
 function PoiPopup(
 //  { lat, lon, selected, locationSlack, attribs, onLocationMarkerToggle, poiPoints, viaPoints, leaflet },
   { lat, lon, extra, poiPoints, viaPoints, leaflet },
   { executeAction, router, match },
 ) {
-  // FITME! 
-  /*
-  if (extra) {
-    console.log(['PoiPopup extra=',extra]);
-  } else {
-    console.log(['PoiPopup NO EXTRA extra=',extra]);
-  }
-  */
-  // FITME!
   const locationSlack = extra.locationSlack;
   const title = extra.name;
   const street = extra.address.street;
@@ -194,10 +151,6 @@ PoiPopup.propTypes = {
   lat: PropTypes.number.isRequired,
   lon: PropTypes.number.isRequired,
   extra: PropTypes.object,
-  //selected: PropTypes.bool.isRequired,
-  //locationSlack: PropTypes.number,
-  //attribs: PropTypes.object.isRequired,
-  //onLocationMarkerToggle: PropTypes.func,
   poiPoints: PropTypes.array.isRequired,
   viaPoints: PropTypes.array.isRequired,
   leaflet: PropTypes.shape({
@@ -223,40 +176,5 @@ const connectedComponent = withLeaflet(
     }),
   ),
 );
-/*
-Can I use "withLeaflet" here like this?
-I need access to code like this:
-    this.props.leaflet.map.closePopup();
 
-import { withLeaflet } from 'react-leaflet/es/context';
-...
-const markerPopupBottomWithLeaflet = withLeaflet(MarkerPopupBottom);
-export {
-  markerPopupBottomWithLeaflet as default,
-  MarkerPopupBottom as Component,
-};
-
-SEE EXAMPLE IN 
-TileLayerContainer.js
-import { withLeaflet } from 'react-leaflet/es/context';
-...
-const connectedComponent = withLeaflet(
-  connectToStores(
-    props => (
-      <ReactRelayContext.Consumer>
-        {({ environment }) => (
-          <TileLayerContainer {...props} relayEnvironment={environment} />
-        )}
-      </ReactRelayContext.Consumer>
-    ),
-    [RealTimeInformationStore],
-    context => ({
-      vehicles: context.getStore(RealTimeInformationStore).vehicles,
-    }),
-  ),
-);
-
-export { connectedComponent as default, TileLayerContainer as Component };
-
-*/
 export { connectedComponent as default, PoiPopup as Component };

@@ -16,6 +16,7 @@ class PoiStore extends Store {
     this.poiPoints.every(p=>{
       if (p.lat === poi.lat && p.lon === poi.lon) {
         p.lock = true;
+        console.log(['poiPoint is now LOCKED! p=',p]);
         return false; // break out from the loop.
       }
       return true; // continue with next p
@@ -27,6 +28,7 @@ class PoiStore extends Store {
     this.poiPoints.every(p=>{
       if (p.lat === poi.lat && p.lon === poi.lon) {
         p.lock = false;
+        console.log(['poiPoint is now UNLOCKED! p=',p]);
         return false; // break out from the loop.
       }
       return true; // continue with next p
@@ -50,38 +52,43 @@ class PoiStore extends Store {
           keeps.push(oldpoi);
         }
       });
-      pois.forEach(poi=>{
-        let op = 1; // new poi by default
-        this.poiPoints.every(oldpoi=>{
-          if (oldpoi.lock) {
-            op = 2; // ignore this, it is already in keeps-array.
-          } else if (distance(oldpoi,poi) < 30) { // 30 m
-            op = 0; // match found (=same as old poi)
-            keeps.push(oldpoi);
-            return false; // break out from the every loop.
+      if (pois.length > 0) {
+        pois.forEach(poi=>{
+          let op = 1; // new poi by default
+          this.poiPoints.every(oldpoi=>{
+            if (oldpoi.lock) {
+              op = 2; // ignore this, it is already in keeps-array.
+            } else if (distance(oldpoi,poi) < 30) { // 30 m
+              op = 0; // match found (=same as old poi)
+              keeps.push(oldpoi);
+              return false; // break out from the every loop.
+            }
+            return true; // continue with next oldpoi
+          });
+          if (op === 1) {
+            news.push(poi);
           }
-          return true; // continue with next oldpoi
         });
-        if (op === 1) {
-          news.push(poi);
+        if (news.length > 0 || keeps.length < oldlen) {
+          // new ones to store or old ones removed
+          this.poiPoints = keeps.concat(news);
+          console.log(['keeps=',keeps,' news=',news,' this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+          this.emitChange();
+        } else { // NEW POIs is the same as old POIs
+          console.log(['NO CHANGES TO POI STORAGE! this.poiPoints=',this.poiPoints]);
         }
-      });
-      if (news.length > 0 || keeps.length < oldlen) {
-        // new ones to store or old ones removed
-        this.poiPoints = keeps.concat(news);
-        console.log(['keeps + news =',this.poiPoints]);
+      } else { // There were oldpois but new set is empty!
+        this.poiPoints = [];
         console.log('NOW this.emitChange()');
         this.emitChange();
-      } else { // NEW POIs is the same as old POIs
-        console.log('NO CHANGES TO POI STORAGE!');
-        console.log(['this.poiPoints=',this.poiPoints]);
       }
     } else {
       // Store has NO old POIs and a new set is being added.
-      this.poiPoints = pois;
-      console.log(['this.poiPoints=',this.poiPoints]);
-      console.log('NOW this.emitChange()');
-      this.emitChange();
+      if (pois.length > 0) {
+        this.poiPoints = pois;
+        console.log(['this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+        this.emitChange();
+      }
     }
   }
 

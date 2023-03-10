@@ -183,8 +183,17 @@ function ItinerarySummaryListContainer(
             });
           // Test publicly available JSON to simulate POI fetching from server.
           getFitMePOITest(3)
-            .then(res => {
-              console.log(['getFitMePOITest res=',res]);
+            .then(res => { // res is an Array of Result-objects.
+              if (Array.isArray(res)) {
+                res.forEach(r=>{
+                  r.json()
+                  .then(data=> {
+                    console.log(['getFitMePOITest data=',data]);
+                  });
+                });
+              } else {
+                console.log(['getFitMePOITest res NOT AN ARRAY! res=',res]);
+              }
             })
             .catch(err => {
               console.log(['getFitMePOITest err=',err]);

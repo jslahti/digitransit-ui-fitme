@@ -227,9 +227,17 @@ export function getFitMePOITest(count) {
       200);
     promises.push(p);
   }
-  return Promise.all(promises).then(res => res.json());
+  return Promise.all(promises);//.then(res => res.json());
 }
-
+/*
+export function getFitMePOITest() {
+  return retryFetch(
+    'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+    {},
+    2,
+    200).then(res => res.json());
+}
+*/
 export function getWeatherData(baseURL, time, lat, lon) {
   // Round time to next 5 minutes
   const remainder = 5 - (time.minute() % 5);

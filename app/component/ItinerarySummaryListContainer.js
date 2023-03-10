@@ -182,7 +182,7 @@ function ItinerarySummaryListContainer(
               //console.log('FINALLY OK!');
             });
           // Test publicly available JSON to simulate POI fetching from server.
-          getFitMePOITest()
+          getFitMePOITest(3)
             .then(res => {
               console.log(['getFitMePOITest res=',res]);
             })

@@ -164,6 +164,22 @@ params is an array of
     lat:leg.from.lat,
     lon:leg.from.lon
   }
+  
+  
+  http://datahub.northeurope.cloudapp.azure.com:4000/match?
+  
+  
+  lat=60.189272
+  &lon=24.771822
+  &range=3000
+  
+  
+  each call results as an array of objects
+  [ {...},{...},{...} ]
+  We must create an "union" of the responses.
+  before storing:
+  context.executeAction(setPoiPoints, res);
+  
 */
 export function getPOIs(params) {
   // use params when real API call is made.
@@ -201,13 +217,17 @@ retryFetch(URL, options = {}, retryCount, retryDelay, config = {})
   2, 
   200).then(res => res.json());
 */
-
-export function getFitMePOITest() {
-  return retryFetch(
-    'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
-    {},
-    2,
-    200).then(res => res.json());
+export function getFitMePOITest(count) {
+  const promises = [];
+  for (let i=0; i<count; i++) {
+    const p = retryFetch(
+      'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+      {},
+      2,
+      200);
+    promises.push(p);
+  }
+  return Promise.all(promises).then(res => res.json());
 }
 
 export function getWeatherData(baseURL, time, lat, lon) {

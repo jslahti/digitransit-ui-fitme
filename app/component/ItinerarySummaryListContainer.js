@@ -188,15 +188,34 @@ function ItinerarySummaryListContainer(
                 res.forEach(r=>{
                   r.json()
                   .then(data=> {
-                    console.log(['getFitMePOITest data=',data]);
+                    console.log(['THREE getFitMePOITest data=',data]);
                   });
                 });
               } else {
-                console.log(['getFitMePOITest res NOT AN ARRAY! res=',res]);
+                console.log(['THREE getFitMePOITest res NOT AN ARRAY! res=',res]);
               }
             })
             .catch(err => {
-              console.log(['getFitMePOITest err=',err]);
+              console.log(['THREE getFitMePOITest err=',err]);
+            })
+            .finally(() => {
+              //console.log('FINALLY OK!');
+            });
+          getFitMePOITest(1)
+            .then(res => { // res is an Array of Result-objects.
+              if (Array.isArray(res)) {
+                res.forEach(r=>{
+                  r.json()
+                  .then(data=> {
+                    console.log(['ONE getFitMePOITest data=',data]);
+                  });
+                });
+              } else {
+                console.log(['ONE getFitMePOITest res NOT AN ARRAY! res=',res]);
+              }
+            })
+            .catch(err => {
+              console.log(['ONE getFitMePOITest err=',err]);
             })
             .finally(() => {
               //console.log('FINALLY OK!');

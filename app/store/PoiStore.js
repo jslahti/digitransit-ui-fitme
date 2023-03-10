@@ -54,18 +54,19 @@ class PoiStore extends Store {
       });
       if (pois.length > 0) {
         pois.forEach(poi=>{
-          let op = 1; // new poi by default
+          let isSame = false; // new poi by default
           this.poiPoints.every(oldpoi=>{
-            if (oldpoi.lock) {
-              op = 2; // ignore this, it is already in keeps-array.
-            } else if (distance(oldpoi,poi) < 30) { // 30 m
-              op = 0; // match found (=same as old poi)
-              keeps.push(oldpoi);
+            if (distance(oldpoi,poi) < 30) { // 30 m
+              // match found (=same as old poi)
+              if (!oldpoi.lock) { // add to keeps if not locked.
+                keeps.push(oldpoi);
+                isSame = true;
+              }
               return false; // break out from the every loop.
             }
             return true; // continue with next oldpoi
           });
-          if (op === 1) {
+          if (!isSame) {
             news.push(poi);
           }
         });

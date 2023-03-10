@@ -99,6 +99,8 @@ class PoiStore extends Store {
   static handlers = {
     addPoiPoint: 'addPoiPoint',
     setPoiPoints: 'setPoiPoints',
+    lockPoiPoint: 'lockPoiPoint',
+    unlockPoiPoint: 'unlockPoiPoint',
   };
 }
 

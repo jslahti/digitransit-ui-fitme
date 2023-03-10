@@ -14,7 +14,6 @@ class DestinationStore extends Store {
 
   setDestination(destination) {
     this.destination = destination;
-    console.log(['DestinationStore destination=',destination]);
     this.emitChange();
   }
 

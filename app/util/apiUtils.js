@@ -218,16 +218,29 @@ retryFetch(URL, options = {}, retryCount, retryDelay, config = {})
   200).then(res => res.json());
 */
 export function getFitMePOITest(count) {
-  const promises = [];
-  for (let i=0; i<count; i++) {
-    const p = retryFetch(
-      'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
-      {},
-      2,
-      200);
-    promises.push(p);
-  }
-  return Promise.all(promises);//.then(res => res.json());
+  
+  return new Promise(function(resolve) {
+    
+    const promises = [];
+    for (let i=0; i<count; i++) {
+      const p = retryFetch(
+        'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+        {},
+        2,
+        200);
+      promises.push(p);
+    }
+    const nested=[];
+    Promise.all(promises).then(res => {
+      res.forEach(r=>{
+        nested.push(r.json());
+      });
+      Promise.all(nested).then(data=>{
+        console.log(['apiUtils data=',data]);
+        resolve(data);
+      });
+    });
+  });
 }
 /*
 export function getFitMePOITest() {

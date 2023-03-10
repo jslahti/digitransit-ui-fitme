@@ -169,57 +169,33 @@ function ItinerarySummaryListContainer(
         if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
           // Generate an API call and return with POI results => show on the map.
-          getPOIs(wPlaces)
-            .then(res => {
-              if (Array.isArray(res)) {
-                context.executeAction(setPoiPoints, res);
-              }
-            })
-            .catch(err => {
-              console.log(['err=',err]);
-            })
-            .finally(() => {
-              //console.log('FINALLY OK!');
-            });
-          // Test publicly available JSON to simulate POI fetching from server.
-          getFitMePOITest(3)
-            .then(res => { // res is an Array of Result-objects.
-              if (Array.isArray(res)) {
-                res.forEach(r=>{
-                  r.json()
-                  .then(data=> {
-                    console.log(['THREE getFitMePOITest data=',data]);
-                  });
-                });
-              } else {
-                console.log(['THREE getFitMePOITest res NOT AN ARRAY! res=',res]);
-              }
-            })
-            .catch(err => {
-              console.log(['THREE getFitMePOITest err=',err]);
-            })
-            .finally(() => {
-              //console.log('FINALLY OK!');
-            });
-          getFitMePOITest(1)
-            .then(res => { // res is an Array of Result-objects.
-              if (Array.isArray(res)) {
-                res.forEach(r=>{
-                  r.json()
-                  .then(data=> {
-                    console.log(['ONE getFitMePOITest data=',data]);
-                  });
-                });
-              } else {
-                console.log(['ONE getFitMePOITest res NOT AN ARRAY! res=',res]);
-              }
-            })
-            .catch(err => {
-              console.log(['ONE getFitMePOITest err=',err]);
-            })
-            .finally(() => {
-              //console.log('FINALLY OK!');
-            });
+          if (wPlaces.length > 0) {
+            getPOIs(wPlaces)
+              .then(res => {
+                if (Array.isArray(res)) {
+                  context.executeAction(setPoiPoints, res);
+                }
+              })
+              .catch(err => {
+                console.log(['err=',err]);
+              })
+              .finally(() => {
+                //console.log('FINALLY OK!');
+              });
+            // Test publicly available JSON to simulate POI fetching from server.
+            // NOTE: These Responses are asynchronous, so we need to merge data 
+            // before 
+            getFitMePOITest(3)
+              .then(data => {
+                console.log(['getFitMePOITest data=',data]);
+              })
+              .catch(err => {
+                console.log(['getFitMePOITest err=',err]);
+              })
+              .finally(() => {
+                //console.log('FINALLY OK!');
+              });
+          }
         }
       }
     });

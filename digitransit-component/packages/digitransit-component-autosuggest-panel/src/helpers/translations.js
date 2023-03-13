@@ -8,6 +8,7 @@ const translations = {
     'add-via-duration-button-label-open':
       'Öffne Umsteigezeit-Auswahl für Zwischenziel {{index}}',
     'minute-short': 'min',
+    'hour-short': 'h',
     'remove-via-button-label': 'Entferne Zwischenziel {{index}}',
     'swap-order-button-label': 'Tausche Start mit Ziel',
     'via-point': 'Zwischenziel',
@@ -22,6 +23,7 @@ const translations = {
     'add-via-duration-button-label-open':
       'Open stop duration selector at via point {{index}}',
     'minute-short': 'min',
+    'hour-short': 'h',
     'remove-via-button-label': 'Remove via point {{index}}',
     'swap-order-button-label': 'Reverse origin and destination',
     'via-point': 'Via point',
@@ -37,6 +39,7 @@ const translations = {
     'add-via-duration-button-label-open':
       'Sulje välipisteen {{index}} pysähdyksen kesto valitsin',
     'minute-short': 'min',
+    'hour-short': 'h',
     'remove-via-button-label': 'Poista välipiste {{index}}',
     'swap-order-button-label': 'Käännä reitin suunta vastakkaiseksi',
     'via-point': 'Välipiste',
@@ -52,6 +55,7 @@ const translations = {
     'add-via-duration-button-label-open':
       'Öppna väljaren för varaktighet vid via-punkten {{index}}',
     'minute-short': 'min',
+    'hour-short': 'h',
     'remove-via-button-label': 'Ta bort viapunkt {{index}}',
     'swap-order-button-label': 'Sväng ruttens riktning till den motsatta',
     'via-point': 'Via punkt',

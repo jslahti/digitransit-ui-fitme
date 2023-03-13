@@ -255,7 +255,7 @@ class DTAutosuggestPanel extends React.Component {
       const valueInHours = i;
       timeOptions.push({
         displayName: `${valueInHours} ${i18next.t('hour-short')}`,
-        value: valueInHours * 3600;
+        value: valueInHours * 3600,
       });
     }
     return timeOptions;

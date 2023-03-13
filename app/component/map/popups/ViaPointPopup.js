@@ -38,34 +38,6 @@ function ViaPointPopup(
   { executeAction, router, match },
 ) {
   const currentPoint = { lat, lon };
-
-  let locationSlack = 0;
-  let title = 'TITLE';
-  let street = 'STREET';
-  let zip = 'ZIP';
-  let city = 'CITY';
-  let info_email = 'EMAIL';
-  let info_phone = 'PHONE';
-  let info_url = '';
-  let thumbnailArray = [];
-  let imgUrl = '';
-
-  // FITME!
-  const extra = findExtras(poiPoints, lat, lon);
-  if (extra) {
-    locationSlack = extra.locationSlack;
-    title = extra.name;
-    street = extra.address.street;
-    zip = extra.address.zipCode;
-    city = extra.address.city;
-    info_email = extra.contactInfo.email;
-    info_phone = extra.contactInfo.phone;
-    info_url = extra.url;
-    thumbnailArray = extra.thumbnailsURls;
-    if (thumbnailArray.length > 0) {
-      imgUrl = thumbnailArray[0];
-    }
-  }
   
   const deleteViaPoint = e => {
     e.preventDefault();
@@ -76,7 +48,23 @@ function ViaPointPopup(
     executeAction(unlockPoiPoint, currentPoint);
   };
   
-  return (
+  // FITME!
+  const extra = findExtras(poiPoints, lat, lon);
+  if (extra) {
+    //const locationSlack = extra.locationSlack;
+    const title = extra.name;
+    const street = extra.address.street;
+    const zip = extra.address.zipCode;
+    const city = extra.address.city;
+    const info_email = extra.contactInfo.email;
+    const info_phone = extra.contactInfo.phone;
+    const info_url = extra.url;
+    const thumbnailArray = extra.thumbnailsURls;
+    let imgUrl = '';
+    if (thumbnailArray.length > 0) {
+      imgUrl = thumbnailArray[0];
+    }
+    return (
     <Popup
       position={{ lat: lat + 0.0001, lng: lon }}
       offset={[0, 0]}
@@ -116,7 +104,37 @@ function ViaPointPopup(
         </div>
       </Card>
     </Popup>
-  );
+    );
+  } else {
+    return (
+    <Popup
+      position={{ lat: lat + 0.0001, lng: lon }}
+      offset={[0, 0]}
+      autoPanPaddingTopLeft={[5, 125]}
+      maxWidth={120}
+      maxHeight={80}
+      autoPan={false}
+      className="popup single-popup"
+    >
+      <Card className="no-margin">
+        <div className="location-popup-wrapper">
+          <div className="location-address">
+            <FormattedMessage id="via-point" defaultMessage="Via point" />
+          </div>
+        </div>
+        <div className="bottom location">
+          <button
+            type="button"
+            onClick={e => deleteViaPoint(e)}
+            className="route cursor-pointer route-add-viapoint"
+          >
+            <FormattedMessage id="delete" defaultMessage="Delete" />
+          </button>
+        </div>
+      </Card>
+    </Popup>  
+    );
+  }
 }
 
 ViaPointPopup.propTypes = {

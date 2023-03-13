@@ -250,6 +250,14 @@ class DTAutosuggestPanel extends React.Component {
         value: valueInMinutes * 60,
       });
     }
+    // FITME! Add some longer locationSlacks
+    for (let i = 2; i <= 6; i++) {
+      const valueInHours = i;
+      timeOptions.push({
+        displayName: `${valueInHours} ${i18next.t('hour-short')}`,
+        value: valueInHours * 3600;
+      });
+    }
     return timeOptions;
   };
 

@@ -397,7 +397,13 @@ class DTAutosuggestPanel extends React.Component {
   };
 
   getSlackDisplay = slackInSeconds => {
-    return `${slackInSeconds / 60} ${i18next.t('minute-short')}`;
+    // if slacktime is more than 90 minutes (1,5 hours) display hours value.
+    // 90 x 60 = 5400
+    if (slackInSeconds > 5400) {
+      return `${slackInSeconds / 3600} ${i18next.t('hour-short')}`;
+    } else {
+      return `${slackInSeconds / 60} ${i18next.t('minute-short')}`;
+    }
   };
 
   render = () => {

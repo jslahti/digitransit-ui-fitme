@@ -243,8 +243,7 @@ class DTAutosuggestPanel extends React.Component {
 
   getSlackTimeOptions = () => {
     const timeOptions = [];
-    //for (let i = 0; i <= 9; i++) {
-    for (let i = 0; i <= 12; i++) {
+    for (let i = 0; i <= 9; i++) {
       const valueInMinutes = i * 10;
       timeOptions.push({
         displayName: `${valueInMinutes} ${i18next.t('minute-short')}`,
@@ -252,13 +251,13 @@ class DTAutosuggestPanel extends React.Component {
       });
     }
     // FITME! Add some longer locationSlacks
-    /*for (let i = 2; i <= 6; i++) {
+    for (let i = 2; i <= 6; i++) {
       const valueInHours = i;
       timeOptions.push({
         displayName: `${valueInHours} ${i18next.t('hour-short')}`,
         value: valueInHours * 3600,
       });
-    }*/
+    }
     return timeOptions;
   };
 
@@ -400,12 +399,12 @@ class DTAutosuggestPanel extends React.Component {
   getSlackDisplay = slackInSeconds => {
     // if slacktime is more than 90 minutes (1,5 hours) display hours value.
     // 90 x 60 = 5400
-    /*if (slackInSeconds > 5400) {
+    if (slackInSeconds > 5400) {
       return `${slackInSeconds / 3600} ${i18next.t('hour-short')}`;
     } else {
       return `${slackInSeconds / 60} ${i18next.t('minute-short')}`;
-    }*/
-    return `${slackInSeconds / 60} ${i18next.t('minute-short')}`;
+    }
+    //return `${slackInSeconds / 60} ${i18next.t('minute-short')}`;
   };
 
   render = () => {

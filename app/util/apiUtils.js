@@ -52,7 +52,7 @@ export function deleteFavourites(data) {
 const createFitMeOne = () => {
   const testPOI = {
     name: "EMMA – Espoo Museum of Modern Art",
-    type: "attraction",
+    type: "accommodation",
     description: "",
     address: {
       street: "Ahertajantie 5",
@@ -80,7 +80,7 @@ const createFitMeOne = () => {
 const createFitMeTwo = () => {
   const testPOI = {
     name: "Sello",
-    type: "shop",
+    type: "accommodation",
     description: "",
     address: {
       street: "Leppävaarankatu 12",
@@ -108,7 +108,7 @@ const createFitMeTwo = () => {
 const createFitMeThree = () => {
   const testPOI = {
     name: "Nokia Campus",
-    type: "rental_service",
+    type: "accommodation",
     description: "",
     address: {
       street: "Karaportti 2",

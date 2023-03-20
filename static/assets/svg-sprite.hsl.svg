@@ -321,10 +321,99 @@
   <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
 </symbol>
 
-<symbol id="icon-icon_mapMarker-poi" viewBox="0 0 16 24">
+<symbol id="icon-icon_mapMarker-poi-accommodation" viewBox="0 0 16 24">
   <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
 </symbol>
-<symbol id="icon-icon_mapMarker-poi-map" viewBox="0 0 20 29">
+<!--
+<symbol id="icon-icon_mapMarker-poi-accommodation-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+-->
+<symbol id="icon-icon_mapMarker-poi-accommodation-map" viewBox="0 0 40 40">
+<path fill="#f80" stroke="#b40" stroke-width="2" d="
+	M 20 1
+	L 35 1
+	A 4 4 0 0 1 39 5
+	L 39 35
+	A 4 4 0 0 1 35 39
+	L 5 39
+	A 4 4 0 0 1 1 35
+	L 1 5
+	A 4 4 0 0 1 5 1
+	L 20 1" />
+<path fill="none" stroke="#fff" stroke-width="3" d="
+	M 3 15
+	L 20 3
+	L 37 15" />
+<path fill="none" stroke="#fff" stroke-width="2" d="
+	M 7 20
+	L 7 37
+	M 7 31
+	L 33 31
+	L 33 37" />
+<circle fill="#fff" stroke="#fff" stroke-width="1" cx="12" cy="26" r="2.5" />
+<path fill="#fff" stroke="#fff" stroke-width="1" d="
+	M 16 29 
+	L 16 25
+	L 30 25
+	A 2 2 0 0 1 32 27
+	L 32 28.5
+	L 16 28.5" />
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-attraction" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-attraction-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-event" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-event-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-experience" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-experience-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-rental_service" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-rental_service-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-restaurant" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-restaurant-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-shop" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-shop-map" viewBox="0 0 20 29">
+  <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
+  <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-venue" viewBox="0 0 16 24">
+  <path fill="#ff9800" fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
+</symbol>
+<symbol id="icon-icon_mapMarker-poi-venue-map" viewBox="0 0 20 29">
   <path fill="#ff9800" stroke="#FFF" stroke-width="1.5" d="M9.383 26.426C3.96 18.577 1.25 13.155 1.25 10a8.75 8.75 0 0 1 17.5 0c0 3.155-2.711 8.577-8.133 16.426L10 27.32l-.617-.894z"/>
   <path fill="#FFF" d="M6.5 10c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5-3.5-1.57-3.5-3.5z"/>
 </symbol>
@@ -1538,7 +1627,7 @@
         </g>
     </g>
 </symbol>
-<symbol id="icon-icon_citybike-secondary_station_green_small"viewBox="0 0 16 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<symbol id="icon-icon_citybike-secondary_station_green_small" viewBox="0 0 16 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>icon-citybike_station-green-small</title>
     <defs>
         <circle id="path-1" cx="7.2" cy="7.2" r="7.2"></circle>
@@ -1738,7 +1827,7 @@
     </g>
 </symbol>
 
-<symbol id="icon-icon_citybike_station_small"viewBox="0 0 16 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<symbol id="icon-icon_citybike_station_small" viewBox="0 0 16 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>icon-citybike_station-small</title>
     <defs>
         <circle id="path-1" cx="7.2" cy="7.2" r="7.2"></circle>

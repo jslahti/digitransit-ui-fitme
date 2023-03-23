@@ -55,9 +55,9 @@ export default {
   title: APP_TITLE,
 
   // Navbar logo
-  logo: 'matka/rr.svg',
+  logo: 'matka/rikastettureittiopas-logo.svg',
 
-  favicon: './app/configurations/images/matka/favicon.svg',
+  favicon: './app/configurations/images/matka/rikastettureittiopas-favicon.svg',
 
   colors: {
     primary: '#026273',

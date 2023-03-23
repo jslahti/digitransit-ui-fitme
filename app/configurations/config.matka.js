@@ -55,7 +55,7 @@ export default {
   title: APP_TITLE,
 
   // Navbar logo
-  logo: 'matka/matka-logo.svg',
+  logo: 'matka/rr.svg',
 
   favicon: './app/configurations/images/matka/favicon.svg',
 

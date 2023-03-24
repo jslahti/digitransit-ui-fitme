@@ -8,7 +8,8 @@ import KuopioConfig from './config.kuopio';
 
 const CONFIG = 'matka';
 const APP_DESCRIPTION = 'Matka.fi–palvelu.';
-const APP_TITLE = 'Matka.fi';
+//const APP_TITLE = 'Matka.fi';
+const APP_TITLE = 'Rikastettu reittiopas';
 const YEAR = 1900 + new Date().getYear();
 
 const HSLParkAndRideUtils = require('../util/ParkAndRideUtils').default.HSL;
@@ -26,9 +27,10 @@ export default {
 
   mainMenu: {
     stopMonitor: {
-      show: true,
+      show: false, // FITME! Don't show stopMonitor in mainMenu.
       url: 'https://matkamonitori.digitransit.fi/createview',
     },
+    showEmbeddedSearch: false, // FITME! Don't show Embedded search in mainMenu.
   },
 
   contactName: {
@@ -39,13 +41,12 @@ export default {
 
   availableLanguages: ['fi', 'sv', 'en'],
   defaultLanguage: 'fi',
-
+  
   appBarLink: {
-    name: 'Traficom',
-    href:
-      'https://www.traficom.fi/fi/liikenne/liikennejarjestelma/joukkoliikenteen-informaatiopalvelut',
+    //name: 'Traficom',
+    //href: 'https://www.traficom.fi/fi/liikenne/liikennejarjestelma/joukkoliikenteen-informaatiopalvelut',
   },
-
+  
   socialMedia: {
     title: APP_TITLE,
     description: APP_DESCRIPTION,
@@ -55,8 +56,9 @@ export default {
   title: APP_TITLE,
 
   // Navbar logo
+  //logo: 'matka/matka-logo.svg',
   logo: 'matka/rikastettureittiopas-logo.svg',
-
+  //favicon: './app/configurations/images/matka/favicon.svg',
   favicon: './app/configurations/images/matka/rikastettureittiopas-favicon.svg',
 
   colors: {
@@ -105,6 +107,7 @@ export default {
   },
 
   menu: {
+    /*
     copyright: { label: `© Matka.fi ${YEAR}` },
     content: [
       {
@@ -124,6 +127,7 @@ export default {
         href: 'https://traficom.fi/fi/tietoa-matkafi-sivustosta',
       },
     ],
+    */
   },
 
   redirectReittiopasParams: true,

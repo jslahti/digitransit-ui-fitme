@@ -95,13 +95,13 @@ function MainMenu(props, { config, intl }) {
           </div>
         )}
       </section>
-      <section className="menu-section secondary-links">
+      {/*<section className="menu-section secondary-links">
         <MainMenuLinks
           content={((config.menu && config.menu.content) || []).filter(
             item => item.href || item.route,
           )}
         />
-      </section>
+      </section>*/}
       {config.menu?.copyright && (
         <div className="copyright">{config.menu.copyright.label}</div>
       )}

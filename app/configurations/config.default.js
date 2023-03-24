@@ -353,7 +353,7 @@ export default {
     default: 18,
   },
 
-  appBarLink: { name: 'Digitransit', href: 'https://www.digitransit.fi/' },
+  appBarLink: { /*name: 'Digitransit', href: 'https://www.digitransit.fi/' */ },
   appBarStyle: 'default', // DT-3375
 
   colors: {
@@ -568,7 +568,9 @@ export default {
   // selected mode key will remove the mode(s) from queries if no coordinates in the query are within the polygon(s).
   // This reduces complexity in finding routes for the query.
   modePolygons: {},
-
+  
+  menu: {},
+  /*
   menu: {
     copyright: { label: `© Digitransit ${YEAR}` },
     content: [
@@ -582,7 +584,7 @@ export default {
       },
     ],
   },
-
+  */
   // Default origin endpoint to use when user is outside of area
   defaultEndpoint: {
     address: 'Helsinki-Vantaan Lentoasema',

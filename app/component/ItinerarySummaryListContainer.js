@@ -22,8 +22,9 @@ import Loading from './Loading';
 
 // FITME!
 import { compressLegs } from '../util/legUtils';
-import { getPOIs } from '../util/apiUtils';
-import { getFitMePOITest } from '../util/apiUtils';
+//import { getPOIs } from '../util/apiUtils';
+//import { getFitMePOITest } from '../util/apiUtils';
+import { getFitMePOIs } from '../util/apiUtils';
 import { setPoiPoints } from '../action/PoiPointActions';
 
 const getViaPointIndex = (leg, intermediatePlaces) => {
@@ -170,6 +171,20 @@ function ItinerarySummaryListContainer(
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
           // Generate an API call and return with POI results => show on the map.
           if (wPlaces.length > 0) {
+            getFitMePOIs(wPlaces)
+              .then(res => {
+                if (Array.isArray(res)) {
+                  console.log(['res=',res]);
+                  //context.executeAction(setPoiPoints, res);
+                }
+              })
+              .catch(err => {
+                console.log(['err=',err]);
+              })
+              .finally(() => {
+                //console.log('FINALLY OK!');
+              });
+            /*
             getPOIs(wPlaces)
               .then(res => {
                 if (Array.isArray(res)) {
@@ -182,9 +197,11 @@ function ItinerarySummaryListContainer(
               .finally(() => {
                 //console.log('FINALLY OK!');
               });
+            */
             // Test publicly available JSON to simulate POI fetching from server.
             // NOTE: These Responses are asynchronous, so we need to merge data 
             // before 
+            /*
             getFitMePOITest(3)
               .then(data => {
                 console.log(['getFitMePOITest data=',data]);
@@ -195,6 +212,7 @@ function ItinerarySummaryListContainer(
               .finally(() => {
                 //console.log('FINALLY OK!');
               });
+            */
           }
         }
       }

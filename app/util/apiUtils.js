@@ -39,113 +39,19 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
-/*
-  accommodation
-  attraction
-  event
-  experience
-  rental_service
-  restaurant
-  shop
-  venue
-*/
-const createFitMeOne = () => {
-  const testPOI = {
-    name: "EMMA – Espoo Museum of Modern Art",
-    type: "attraction",
-    description: "",
-    address: {
-      street: "Ahertajantie 5",
-      city: "Espoo",
-      zipCode: "02100"
-    },
-    geolocation: [
-      60.1787, // lat
-      24.79478 // lon
-    ],
-    contactInfo: {
-      email: "info@emmamuseum.fi",
-      phone: "0438270941"
-    },
-    url: "https://emmamuseum.fi/en/",
-    thumbnailsURls: [
-      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
-    ]
-  };
-  return testPOI;
-}
-
-const createFitMeTwo = () => {
-  const testPOI = {
-    name: "Sello",
-    type: "shop",
-    description: "",
-    address: {
-      street: "Leppävaarankatu 12",
-      city: "Espoo",
-      zipCode: "02600"
-    },
-    geolocation: [
-      60.219235,
-      24.81329
-    ],
-    contactInfo: {
-      email: "info@emmamuseum.fi",
-      phone: "0438270941"
-    },
-    url: "https://emmamuseum.fi/en/",
-    thumbnailsURls: [
-      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
-    ]
-  };
-  return testPOI;
-}
-
-const createFitMeThree = () => {
-  const testPOI = {
-    name: "Nokia Campus",
-    type: "event",
-    description: "",
-    address: {
-      street: "Karaportti 2",
-      city: "Espoo",
-      zipCode: "02610"
-    },
-    geolocation: [
-      60.224518,
-      24.759383
-    ],
-    contactInfo: {
-      email: "info@emmamuseum.fi",
-      phone: "0438270941"
-    },
-    url: "https://emmamuseum.fi/en/",
-    thumbnailsURls: [
-      "https://cdn-datahub.visitfinland.com/images/58e501e0-d35b-11eb-a8b5-0d99be0b7375-EMMA_Espoo%20museum%20of%20modern%20art_web.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/f1bac2e0-d35d-11eb-a8b5-0d99be0b7375-Bryk%20Wirkkala%20Visible%20Storage_3.jpg?s=240",
-      "https://cdn-datahub.visitfinland.com/images/17b1bc50-d35f-11eb-a8b5-0d99be0b7375-EMMA_%20Espoo%20Museum%20of%20Modern%20Art.jpg?s=240"
-    ]
-  };
-  return testPOI;
-}
-
-const createPOI = (data, p) => {
+const createPOI = (data) => {
   /*
   For POI to be compatible with ViaPoint, put 
   locationSlack and address to "root-level" also.
   */
-  const _locationSlack = p.waiting*60; // in seconds
+  //const _locationSlack = p.waiting*60; // in seconds
   const poi = {
     lat: data.geolocation[0],
     lon: data.geolocation[1],
-    locationSlack: _locationSlack,
+    locationSlack: 0, //_locationSlack,
     address: data.address.street+', '+data.address.city,
     extra: {
-      locationSlack: _locationSlack,
+      locationSlack: 0, //_locationSlack,
       name: data.name,
       type: data.type,
       address: data.address,
@@ -167,7 +73,7 @@ params is an array of
   
   
   http://datahub.northeurope.cloudapp.azure.com:4000/match?
-  
+  http://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000
   
   lat=60.189272
   &lon=24.771822
@@ -181,30 +87,33 @@ params is an array of
   context.executeAction(setPoiPoints, res);
   
 */
-export function getPOIs(params) {
-  // use params when real API call is made.
+export function getFitMePOIs(places) {
+  // places is an array of waiting places.
   return new Promise(function(resolve) {
-    const foo = [];
-    params.forEach((p,i)=>{
-      if (i===0) {
-        const data = createFitMeOne();
-        foo.push(createPOI(data, p));
-        
-      } else if (i===1) {
-        const data = createFitMeTwo();
-        foo.push(createPOI(data, p));
-        
-      } else if (i===2) {
-        const data = createFitMeThree();
-        foo.push(createPOI(data, p));
-        
-      } else {
-        console.log(['apiUtils NO MORE POIs i=',i]);
-      }
+    const promises = [];
+    places.forEach(wp=>{
+      const range = wp.waiting * 100; // each waiting minute gives 100 metres of range.
+      const queryUrl = 'http://datahub.northeurope.cloudapp.azure.com:4000/match?'+
+        'lat='+wp.lat+
+        '&lon='+wp.lon+
+        '&range='+range;
+      const p = retryFetch(
+        queryUrl,
+        {},
+        2,
+        200);
+      promises.push(p);
     });
-    setTimeout(() => {
-      resolve(foo);
-    },500);
+    const nested=[];
+    Promise.all(promises).then(res => {
+      res.forEach(r=>{
+        nested.push(r.json());
+      });
+      Promise.all(nested).then(data=>{
+        console.log(['getFitMePOIs all data=',data]);
+        resolve(data);
+      });
+    });
   });
 }
 /*

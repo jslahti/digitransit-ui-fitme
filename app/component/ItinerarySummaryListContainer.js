@@ -120,6 +120,7 @@ const createPOI = (data) => {
   For POI to be compatible with ViaPoint, put 
   locationSlack and address to "root-level" also.
   */
+  console.log(['createPOI data=',data]);
   const waiting = typeof data.waiting === 'string' ? parseInt(data.waiting) : data.waiting;
   const _locationSlack = waiting * 60; // in seconds
   const poi = {
@@ -177,7 +178,7 @@ function ItinerarySummaryListContainer(
     // FITME!
     const waitingCandidates = [];
     
-    const waitThreshold = 180000; // 3 mins (3 x 60 x 1000 = 180 000) 
+    const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
     itineraries.forEach((itinerary, i) => {
       if (i === activeIndex) {
         
@@ -223,24 +224,19 @@ function ItinerarySummaryListContainer(
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
           // Generate an API call and return with POI results => show on the map.
           if (wPlaces.length > 0) {
-            
+            const allpois = [];
             getFitMePOIs(wPlaces)
               .then(res => {
                 if (Array.isArray(res)) {
                   console.log(['res=',res]);
                   // returns an array of arrays!
                   // 
-                  // const flattened = res.flat();
-                  // console.log(['flattened result array=',flattened]);
-                  // flattened.forEach(d=>{
-                  //   foo.push(createPOI(d));
-                  //   
-                  //   
-                  // });
-                  //
-                  //
-                  //
-                  //context.executeAction(setPoiPoints, flattened);
+                  const flattened = res.flat();
+                  console.log(['flattened result array=',flattened]);
+                  flattened.forEach(d=>{
+                    allpois.push(createPOI(d));
+                  });
+                  context.executeAction(setPoiPoints, allpois);
                 }
               })
               .catch(err => {
@@ -266,7 +262,7 @@ function ItinerarySummaryListContainer(
             // Test publicly available JSON to simulate POI fetching from server.
             // NOTE: These Responses are asynchronous, so we need to merge data 
             // before 
-            
+            /*
             getFitMePOITest(3)
               .then(data => {
                 console.log(['getFitMePOITest data=',data]);
@@ -277,7 +273,7 @@ function ItinerarySummaryListContainer(
               .finally(() => {
                 //console.log('FINALLY OK!');
               });
-            
+            */
           }
         }
       }

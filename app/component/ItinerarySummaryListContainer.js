@@ -171,12 +171,17 @@ function ItinerarySummaryListContainer(
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
           // Generate an API call and return with POI results => show on the map.
           if (wPlaces.length > 0) {
-            /*
+            
             getFitMePOIs(wPlaces)
               .then(res => {
                 if (Array.isArray(res)) {
                   console.log(['res=',res]);
-                  //context.executeAction(setPoiPoints, res);
+                  // returns an array of arrays!
+                  // 
+                  // const flattened = res.flat();
+                  //console.log(['flattened result array=',flattened]);
+                  // 
+                  //context.executeAction(setPoiPoints, flattened);
                 }
               })
               .catch(err => {
@@ -185,7 +190,7 @@ function ItinerarySummaryListContainer(
               .finally(() => {
                 //console.log('FINALLY OK!');
               });
-            */
+            
             /*
             getPOIs(wPlaces)
               .then(res => {
@@ -203,7 +208,7 @@ function ItinerarySummaryListContainer(
             // Test publicly available JSON to simulate POI fetching from server.
             // NOTE: These Responses are asynchronous, so we need to merge data 
             // before 
-            
+            /*
             getFitMePOITest(3)
               .then(data => {
                 console.log(['getFitMePOITest data=',data]);
@@ -214,7 +219,7 @@ function ItinerarySummaryListContainer(
               .finally(() => {
                 //console.log('FINALLY OK!');
               });
-            
+            */
           }
         }
       }

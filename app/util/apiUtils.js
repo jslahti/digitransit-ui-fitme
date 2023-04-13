@@ -39,59 +39,6 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
-
-/*
-    {
-        "name": "www.katipohjanmaa.fi",
-        "type": "experience",
-        "description": "",
-       "address": {
-            "street": "Timontie 4A",
-            "city": "Espoo",
-            "zipCode": "02180"
-        },
-        "geolocation": [
-            "60.190395",
-            "24.7590695"
-        ],
-        "contactInfo": {
-            "email": "kati.pohjanmaa@gmail.com",
-            "phone": "+358 400 402656"
-        },
-        "url": "https://www.katipohjanmaa.fi/english-kati/",
-        "thumbnailsURls": [
-            "https://cdn-datahub.visitfinland.com/images/ecfe7c80-5e48-11ec-958a-e368ec3fe4d5-LOW%20kati%20nassu.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/0becbad0-5e49-11ec-958a-e368ec3fe4d5-IMG_1184.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/59145110-5e49-11ec-958a-e368ec3fe4d5-7088CEF5-8241-4AF1-AE34-44BBBD04C5E3.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/acaec080-5e49-11ec-958a-e368ec3fe4d5-IMG_1222.JPG?s=240"
-        ],
-        "waiting":"30"
-    }
-*/
-const createPOI = (data) => {
-  /*
-  For POI to be compatible with ViaPoint, put 
-  locationSlack and address to "root-level" also.
-  */
-  const waiting = typeof data.waiting === 'string' ? parseInt(data.waiting) : data.waiting;
-  const _locationSlack = waiting * 60; // in seconds
-  const poi = {
-    lat: data.geolocation[0],
-    lon: data.geolocation[1],
-    locationSlack: _locationSlack,
-    address: data.address.street+', '+data.address.city,
-    extra: {
-      locationSlack: _locationSlack,
-      name: data.name,
-      type: data.type,
-      address: data.address,
-      contactInfo: data.contactInfo,
-      url: data.url,
-      thumbnailsURls: data.thumbnailsURls
-    }
-  };
-  return poi;
-}
 /*
 params is an array of
   { 
@@ -101,7 +48,6 @@ params is an array of
     lon:leg.from.lon
   }
   
-  
   http://datahub.northeurope.cloudapp.azure.com:4000/match?
   http://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000
   https://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000&waiting=30
@@ -109,13 +55,11 @@ params is an array of
   &lon=24.771822
   &range=3000
   
-  
   each call results as an array of objects
   [ {...},{...},{...} ]
   We must create an "union" of the responses.
   before storing:
   context.executeAction(setPoiPoints, res);
-  
 */
 export function getFitMePOIs(places) {
   // places is an array of waiting places.

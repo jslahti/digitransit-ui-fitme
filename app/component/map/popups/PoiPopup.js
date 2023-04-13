@@ -69,11 +69,13 @@ function PoiPopup(
   };
   
   const viaExist = findViaPoint(viaPoints, lat, lon);
+  
+  const latF = typeof lat === 'number' ? lat+0.0001 : parseFloat(lat)+0.0001;
   // Allow maximum of 5 ViaPoints on any itinerary.
   if (!viaExist && viaPoints.length < 5) {
   return (
     <Popup
-      position={{ lat: lat + 0.0001, lng: lon }}
+      position={{ lat: latF, lng: lon }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
       maxWidth={240}
@@ -115,7 +117,7 @@ function PoiPopup(
   } else {
   return (
     <Popup
-      position={{ lat: lat + 0.0001, lng: lon }}
+      position={{ lat: latF, lng: lon }}
       offset={[0, 0]}
       autoPanPaddingTopLeft={[5, 125]}
       maxWidth={240}

@@ -94,10 +94,15 @@ defaultOptions.walkSpeed = array
 
 Todo:
 
-Check how we get the user selected value of walkSpeed
+Q: How we get the user selected value of walkSpeed?
+A: const settings = getCurrentSettings(config);
+   console.log(['settings=',settings]);
+   if (settings.walkSpeed) {
+     console.log(['settings.walkSpeed=',settings.walkSpeed]);
+   }
 
 
-
+Example of POI object in JSON:
     {
         "name": "www.katipohjanmaa.fi",
         "type": "experience",
@@ -118,12 +123,28 @@ Check how we get the user selected value of walkSpeed
         "url": "https://www.katipohjanmaa.fi/english-kati/",
         "thumbnailsURls": [
             "https://cdn-datahub.visitfinland.com/images/ecfe7c80-5e48-11ec-958a-e368ec3fe4d5-LOW%20kati%20nassu.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/0becbad0-5e49-11ec-958a-e368ec3fe4d5-IMG_1184.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/59145110-5e49-11ec-958a-e368ec3fe4d5-7088CEF5-8241-4AF1-AE34-44BBBD04C5E3.JPG?s=240",
-            "https://cdn-datahub.visitfinland.com/images/acaec080-5e49-11ec-958a-e368ec3fe4d5-IMG_1222.JPG?s=240"
         ],
         "waiting":"30"
     }
+  We want to filter different types of POIs:
+    1. accommodation
+    2. attraction
+    3. event
+    4. experience
+    5. rental_service
+    6. restaurant
+    7. shop
+    8. venue
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 */
 const createPOI = (data) => {
   /*
@@ -233,7 +254,7 @@ function ItinerarySummaryListContainer(
         //console.log(['waitingPlaces=',waitingPlaces]);
         // Check if waitingPlaces array is the same as wPlaces array.
         if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
-          
+          // walkSpeed in m/s
           const settings = getCurrentSettings(config);
           console.log(['settings=',settings]);
           if (settings.walkSpeed) {

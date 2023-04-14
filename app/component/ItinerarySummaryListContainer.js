@@ -88,6 +88,16 @@ const areTwoArraysEqual = (a, b) => {
   return isSame;
 };
 /*
+
+
+defaultOptions.walkSpeed = array
+
+Todo:
+
+Check how we get the user selected value of walkSpeed
+
+
+
     {
         "name": "www.katipohjanmaa.fi",
         "type": "experience",
@@ -223,6 +233,13 @@ function ItinerarySummaryListContainer(
         //console.log(['waitingPlaces=',waitingPlaces]);
         // Check if waitingPlaces array is the same as wPlaces array.
         if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
+          
+          const settings = getCurrentSettings(config);
+          console.log(['settings=',settings]);
+          if (settings.walkSpeed) {
+            console.log(['settings.walkSpeed=',settings.walkSpeed]);
+          }
+          
           setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
           // Generate an API call and return with POI results => show on the map.
           if (wPlaces.length > 0) {

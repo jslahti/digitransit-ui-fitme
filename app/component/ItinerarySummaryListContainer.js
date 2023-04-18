@@ -152,8 +152,9 @@ const createPOI = (data) => {
   locationSlack and address to "root-level" also.
   */
   console.log(['createPOI data=',data]);
-  const waiting = typeof data.waiting === 'string' ? parseInt(data.waiting) : data.waiting;
-  const _locationSlack = waiting * 60; // in seconds
+  //const waiting = typeof data.waiting === 'string' ? parseInt(data.waiting) : data.waiting;
+  //const _locationSlack = waiting * 60; // in seconds
+  const _locationSlack = 0; // in seconds
   const latF = typeof data.geolocation[0] === 'string' ? parseFloat(data.geolocation[0]) : data.geolocation[0];
   const lonF = typeof data.geolocation[1] === 'string' ? parseFloat(data.geolocation[1]) : data.geolocation[1];
   const poi = {

@@ -705,7 +705,7 @@ class SummaryPage extends React.Component {
           fromPlace: $fromPlace
           toPlace: $toPlace
           intermediatePlaces: $intermediatePlaces
-          numItineraries: 6
+          numItineraries: 3
           transportModes: $bikeAndPublicModes
           date: $date
           time: $time
@@ -763,7 +763,7 @@ class SummaryPage extends React.Component {
           fromPlace: $fromPlace
           toPlace: $toPlace
           intermediatePlaces: $intermediatePlaces
-          numItineraries: 6
+          numItineraries: 3
           transportModes: $bikeParkModes
           date: $date
           time: $time
@@ -827,7 +827,7 @@ class SummaryPage extends React.Component {
           fromPlace: $fromPlace
           toPlace: $toPlace
           intermediatePlaces: $intermediatePlaces
-          numItineraries: 5
+          numItineraries: 3
           transportModes: [{ mode: CAR }]
           date: $date
           time: $time
@@ -890,7 +890,7 @@ class SummaryPage extends React.Component {
           fromPlace: $fromPlace
           toPlace: $toPlace
           intermediatePlaces: $intermediatePlaces
-          numItineraries: 5
+          numItineraries: 3
           transportModes: [{ mode: CAR, qualifier: PARK }, { mode: TRANSIT }]
           date: $date
           time: $time
@@ -1157,7 +1157,7 @@ class SummaryPage extends React.Component {
     const tunedParams = {
       wheelchair: null,
       ...params,
-      numItineraries: 5,
+      numItineraries: 3,
       arriveBy: false,
       date: latestDepartureTime.format('YYYY-MM-DD'),
       time: latestDepartureTime.format('HH:mm'),
@@ -1266,7 +1266,7 @@ class SummaryPage extends React.Component {
     const tunedParams = {
       wheelchair: null,
       ...params,
-      numItineraries: 5,
+      numItineraries: 3,
       arriveBy: true,
       date: earliestArrivalTime.format('YYYY-MM-DD'),
       time: earliestArrivalTime.format('HH:mm'),

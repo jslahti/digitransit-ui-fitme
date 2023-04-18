@@ -67,7 +67,10 @@ export function getFitMePOIs(places) {
     const promises = [];
     places.forEach(wp=>{
       const waiting = wp.waiting;
-      const range = waiting * 20; // each waiting minute gives 10 metres of range.
+      let range = waiting * 20; // each waiting minute gives 10 metres of range.
+      if (range > 1000) {
+        range = 1000;
+      }
       const queryUrl = 'https://datahub.northeurope.cloudapp.azure.com/match?'+
         'lat='+wp.lat+
         '&lon='+wp.lon+

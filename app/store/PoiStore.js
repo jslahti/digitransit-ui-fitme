@@ -34,10 +34,28 @@ class PoiStore extends Store {
       return true; // continue with next p
     });
   }
-  
   /*
     poiPoints that has an "lock"-flag true, don't get removed.
     They are kept as long as flag exist.
+    
+    lat
+    lon
+    locationSlack
+    address
+    extra: {
+      locationSlack
+      name
+      type
+      address
+      contactInfo
+      url
+      thumbnailsURls
+    }
+    lock
+    
+    NEW 20230504: add index (activeIndex of selected itinerary) to each POI.
+    index
+    
   */
   setPoiPoints(pois) {
     const oldlen = this.poiPoints.length;

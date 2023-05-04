@@ -45,15 +45,13 @@ params is an array of
     waiting:waitingTimeinMin,
     address:leg.from.name,
     lat:leg.from.lat,
-    lon:leg.from.lon
+    lon:leg.from.lon.
+    index
   }
   
   http://datahub.northeurope.cloudapp.azure.com:4000/match?
   http://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000
-  https://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000&waiting=30
-  lat=60.189272
-  &lon=24.771822
-  &range=3000
+  https://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000&index=0
   
   each call results as an array of objects
   [ {...},{...},{...} ]
@@ -66,8 +64,9 @@ export function getFitMePOIs(places) {
   return new Promise(function(resolve) {
     const promises = [];
     places.forEach(wp=>{
+      const index = wp.index;
       const waiting = wp.waiting;
-      let range = waiting * 20; // each waiting minute gives 10 metres of range.
+      let range = waiting * 20; // each waiting minute gives 20 metres of range.
       if (range > 1000) {
         range = 1000;
       }
@@ -75,7 +74,7 @@ export function getFitMePOIs(places) {
         'lat='+wp.lat+
         '&lon='+wp.lon+
         '&range='+range+
-        '&waiting='+waiting;
+        '&index='+index;
       const p = retryFetch(
         queryUrl,
         {},

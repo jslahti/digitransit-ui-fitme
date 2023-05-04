@@ -1878,13 +1878,21 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     
+    
+    // NEW 20230504: Use here only those POI points where index === activeIndex
+    const filteredPOIPoints = [];
+    this.props.poiPoints.forEach(p=>{
+      if (p.index === activeIndex) {
+        filteredPOIPoints.push(p);
+      }
+    });
     return (
       <ItineraryPageMap
         {...mwtProps}
         from={from}
         to={to}
         viaPoints={viaPoints}
-        pois={this.props.poiPoints}
+        pois={filteredPOIPoints}
         zoom={POINT_FOCUS_ZOOM}
         mapLayers={this.props.mapLayers}
         mapLayerOptions={this.props.mapLayerOptions}

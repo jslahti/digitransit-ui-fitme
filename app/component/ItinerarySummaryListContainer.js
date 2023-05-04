@@ -47,6 +47,7 @@ const connectsFromViaPoint = (currLeg, intermediatePlaces) =>
     address:leg.from.name,
     lat:leg.from.lat,
     lon:leg.from.lon
+    index (active itinerary index)
   }
 */
 const removeDuplicateCandidates = (candidates) => {
@@ -58,7 +59,7 @@ const removeDuplicateCandidates = (candidates) => {
       let isSame = false;
       waitPlaces.every(p=>{
         // if closer than 30 m and address is same => duplicate => don't use.
-        if (distance(p,wp) < 30 && p.address === wp.address) {
+        if (distance(p,wp) < 30 && p.address === wp.address && p.index === wp.index) {
           isSame = true;
           return false; // break out from the loop.
         }
@@ -79,7 +80,7 @@ const areTwoArraysEqual = (a, b) => {
   let isSame = true;
   a.every((pa,i) => {
     const pb = b[i];
-    if (pa.address !== pb.address || pa.waiting !== pb.waiting || distance(pa,pb) > 30) {
+    if (pa.address !== pb.address || pa.waiting !== pb.waiting || distance(pa,pb) > 30 || pa.index !== pb.index) {
       isSame = false;
       return false; // break out from the loop.
     }
@@ -88,7 +89,6 @@ const areTwoArraysEqual = (a, b) => {
   return isSame;
 };
 /*
-
 
 defaultOptions.walkSpeed = array
 
@@ -100,7 +100,6 @@ A: const settings = getCurrentSettings(config);
    if (settings.walkSpeed) {
      console.log(['settings.walkSpeed=',settings.walkSpeed]);
    }
-
 
 Example of POI object in JSON:
     {
@@ -135,16 +134,6 @@ Example of POI object in JSON:
     6. restaurant
     7. shop
     8. venue
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 */
 const createPOI = (data) => {
   /*
@@ -162,6 +151,7 @@ const createPOI = (data) => {
     lon: lonF,
     locationSlack: _locationSlack,
     address: data.address.street+', '+data.address.city,
+    index: data.index,
     extra: {
       locationSlack: _locationSlack,
       name: data.name,
@@ -214,108 +204,79 @@ function ItinerarySummaryListContainer(
     
     const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
     itineraries.forEach((itinerary, i) => {
-      if (i === activeIndex) {
+      //if (i === activeIndex) {
         
-        // NOTE: We check waiting candidates ONLY to ACTIVE itinerary.
-        // IF waiting place set has changed (it usually changes when itinerary is changed), 
-        // then we fetch the list of POIs and store it to the PoiStore (setPoiPoints) => 
-        // refresh is called to those components (emitChange) that are listening to PoiStore 
-        // ONLY if new POIs are added or old POIs are removed from the PoiStore.
-        
-        const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
-          ...leg,
-        }));
-        //console.log(['CHECK waiting place candidates for itinerary index=',activeIndex]);
-        compressedLegs.forEach((leg, i) => {
-          let waitTime;
-          const nextLeg = compressedLegs[i + 1];
-          if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
-            // don't show waiting in intermediate places
-            waitTime = nextLeg.startTime - leg.endTime;
-            //console.log(['waitTime=',waitTime]);
-            if (waitTime > waitThreshold) {
-              if (!nextLeg?.interlineWithPreviousLeg) {
-                const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-                //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
-                const candi = {
-                  waiting:waitingTimeinMin,
-                  address:leg.from.name,
-                  lat:leg.from.lat,
-                  lon:leg.from.lon
-                };
-                waitingCandidates.push(candi);
-              }
+      // NOTE: We check waiting candidates ONLY to ACTIVE itinerary.
+      // IF waiting place set has changed (it usually changes when itinerary is changed), 
+      // then we fetch the list of POIs and store it to the PoiStore (setPoiPoints) => 
+      // refresh is called to those components (emitChange) that are listening to PoiStore 
+      // ONLY if new POIs are added or old POIs are removed from the PoiStore.
+      
+      const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
+        ...leg,
+      }));
+      
+      compressedLegs.forEach((leg, i) => {
+        console.log(['CHECK waiting place candidates for itinerary index=',i]);
+        let waitTime;
+        const nextLeg = compressedLegs[i + 1];
+        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
+          // don't show waiting in intermediate places
+          waitTime = nextLeg.startTime - leg.endTime;
+          //console.log(['waitTime=',waitTime]);
+          if (waitTime > waitThreshold) {
+            if (!nextLeg?.interlineWithPreviousLeg) {
+              const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
+              //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+              const candi = {
+                waiting:waitingTimeinMin,
+                address:nextLeg.from.name, // or leg.to.name
+                lat:nextLeg.from.lat, //  or leg.to.lat
+                lon:nextLeg.from.lon, //  or leg.to.lon
+                index: i
+              };
+              waitingCandidates.push(candi);
             }
           }
-        });
-        // Remove duplicate locations from our list of candidates.
-        const wPlaces = removeDuplicateCandidates(waitingCandidates);
-        //console.log(['waitingCandidates=',waitingCandidates]);
-        //console.log(['wPlaces=',wPlaces]);
-        //console.log(['waitingPlaces=',waitingPlaces]);
-        // Check if waitingPlaces array is the same as wPlaces array.
-        if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
-          // walkSpeed in m/s
-          const settings = getCurrentSettings(config);
-          console.log(['settings=',settings]);
-          if (settings.walkSpeed) {
-            console.log(['settings.walkSpeed=',settings.walkSpeed]);
-          }
-          
-          setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
-          // Generate an API call and return with POI results => show on the map.
-          if (wPlaces.length > 0) {
-            const allpois = [];
-            getFitMePOIs(wPlaces)
-              .then(res => {
-                if (Array.isArray(res)) {
-                  console.log(['res=',res]);
-                  // returns an array of arrays!
-                  // 
-                  const flattened = res.flat();
-                  console.log(['flattened result array=',flattened]);
-                  flattened.forEach(d=>{
-                    allpois.push(createPOI(d));
-                  });
-                  context.executeAction(setPoiPoints, allpois);
-                }
-              })
-              .catch(err => {
-                console.log(['err=',err]);
-              })
-              .finally(() => {
-                //console.log('FINALLY OK!');
-              });
-            /*
-            getPOIs(wPlaces)
-              .then(res => {
-                if (Array.isArray(res)) {
-                  context.executeAction(setPoiPoints, res);
-                }
-              })
-              .catch(err => {
-                console.log(['err=',err]);
-              })
-              .finally(() => {
-                //console.log('FINALLY OK!');
-              });
-            */
-            // Test publicly available JSON to simulate POI fetching from server.
-            // NOTE: These Responses are asynchronous, so we need to merge data 
-            // before 
-            /*
-            getFitMePOITest(3)
-              .then(data => {
-                console.log(['getFitMePOITest data=',data]);
-              })
-              .catch(err => {
-                console.log(['getFitMePOITest err=',err]);
-              })
-              .finally(() => {
-                //console.log('FINALLY OK!');
-              });
-            */
-          }
+        }
+      });
+      // Remove duplicate locations from our list of candidates.
+      const wPlaces = removeDuplicateCandidates(waitingCandidates);
+      //console.log(['waitingCandidates=',waitingCandidates]);
+      //console.log(['wPlaces=',wPlaces]);
+      //console.log(['waitingPlaces=',waitingPlaces]);
+      // Check if waitingPlaces array is the same as wPlaces array.
+      if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
+        // walkSpeed in m/s
+        const settings = getCurrentSettings(config);
+        console.log(['settings=',settings]);
+        if (settings.walkSpeed) {
+          console.log(['settings.walkSpeed=',settings.walkSpeed]);
+        }
+        setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
+        // Generate an API call and return with POI results => show on the map.
+        if (wPlaces.length > 0) {
+          const allpois = [];
+          getFitMePOIs(wPlaces)
+            .then(res => {
+              if (Array.isArray(res)) {
+                console.log(['res=',res]);
+                // returns an array of arrays!
+                // 
+                const flattened = res.flat();
+                console.log(['flattened result array=',flattened]);
+                flattened.forEach(d=>{
+                  allpois.push(createPOI(d));
+                });
+                context.executeAction(setPoiPoints, allpois);
+              }
+            })
+            .catch(err => {
+              console.log(['err=',err]);
+            })
+            .finally(() => {
+              //console.log('FINALLY OK!');
+            });
         }
       }
     });

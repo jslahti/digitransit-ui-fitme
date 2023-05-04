@@ -146,12 +146,17 @@ const createPOI = (data) => {
   const _locationSlack = 0; // in seconds
   const latF = typeof data.geolocation[0] === 'string' ? parseFloat(data.geolocation[0]) : data.geolocation[0];
   const lonF = typeof data.geolocation[1] === 'string' ? parseFloat(data.geolocation[1]) : data.geolocation[1];
+  const index = typeof data.index === 'string' ? parseInt(data.index) : data.index;
+  
+  if (index === 30) {
+    index = 0; // Temporary HACK to fix error in POI server logic.
+  }
   const poi = {
     lat: latF,
     lon: lonF,
     locationSlack: _locationSlack,
     address: data.address.street+', '+data.address.city,
-    index: data.index,
+    index: index,
     extra: {
       locationSlack: _locationSlack,
       name: data.name,

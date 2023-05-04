@@ -227,7 +227,7 @@ function ItinerarySummaryListContainer(
       }));
       
       compressedLegs.forEach((leg, i) => {
-        console.log(['CHECK waiting place candidates for itinerary index=',i]);
+        console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
         let waitTime;
         const nextLeg = compressedLegs[i + 1];
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
@@ -250,46 +250,46 @@ function ItinerarySummaryListContainer(
           }
         }
       });
-      // Remove duplicate locations from our list of candidates.
-      const wPlaces = removeDuplicateCandidates(waitingCandidates);
-      //console.log(['waitingCandidates=',waitingCandidates]);
-      //console.log(['wPlaces=',wPlaces]);
-      //console.log(['waitingPlaces=',waitingPlaces]);
-      // Check if waitingPlaces array is the same as wPlaces array.
-      if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
-        // walkSpeed in m/s
-        const settings = getCurrentSettings(config);
-        console.log(['settings=',settings]);
-        if (settings.walkSpeed) {
-          console.log(['settings.walkSpeed=',settings.walkSpeed]);
-        }
-        setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
-        // Generate an API call and return with POI results => show on the map.
-        if (wPlaces.length > 0) {
-          const allpois = [];
-          getFitMePOIs(wPlaces)
-            .then(res => {
-              if (Array.isArray(res)) {
-                console.log(['res=',res]);
-                // returns an array of arrays!
-                // 
-                const flattened = res.flat();
-                console.log(['flattened result array=',flattened]);
-                flattened.forEach(d=>{
-                  allpois.push(createPOI(d));
-                });
-                context.executeAction(setPoiPoints, allpois);
-              }
-            })
-            .catch(err => {
-              console.log(['err=',err]);
-            })
-            .finally(() => {
-              //console.log('FINALLY OK!');
-            });
-        }
-      }
     });
+    // Remove duplicate locations from our list of candidates.
+    const wPlaces = removeDuplicateCandidates(waitingCandidates);
+    //console.log(['waitingCandidates=',waitingCandidates]);
+    //console.log(['wPlaces=',wPlaces]);
+    //console.log(['waitingPlaces=',waitingPlaces]);
+    // Check if waitingPlaces array is the same as wPlaces array.
+    if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
+      // walkSpeed in m/s
+      const settings = getCurrentSettings(config);
+      console.log(['settings=',settings]);
+      if (settings.walkSpeed) {
+        console.log(['settings.walkSpeed=',settings.walkSpeed]);
+      }
+      setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
+      // Generate an API call and return with POI results => show on the map.
+      if (wPlaces.length > 0) {
+        const allpois = [];
+        getFitMePOIs(wPlaces)
+          .then(res => {
+            if (Array.isArray(res)) {
+              console.log(['res=',res]);
+              // returns an array of arrays!
+              // 
+              const flattened = res.flat();
+              console.log(['flattened result array=',flattened]);
+              flattened.forEach(d=>{
+                allpois.push(createPOI(d));
+              });
+              context.executeAction(setPoiPoints, allpois);
+            }
+          })
+          .catch(err => {
+            console.log(['err=',err]);
+          })
+          .finally(() => {
+            //console.log('FINALLY OK!');
+          });
+      }
+    }
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (

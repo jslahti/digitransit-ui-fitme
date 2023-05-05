@@ -4,8 +4,18 @@ import { BIKEAVL_WITHMAX } from '../util/citybikes';
 
 const CONFIG = process.env.CONFIG || 'default';
 const API_URL = process.env.API_URL || 'https://api.digitransit.fi';
+/* Different API_URL entry for geocoding: */ 
+const GEOCODING_API_URL = 'https://dev-api.digitransit.fi';
+/*
+https://api.digitransit.fi/routing/v2/routers/finland/index/graphql?digitransit-subscription-key=5852be4d89464d6eaee004ff44d0bd52
+https://dev-api.digitransit.fi/geocoding/v1/search?digitransit-subscription-key=5852be4d89464d6eaee004ff44d0bd52&text=pon&dedupestops=1&lang=fi&sources=gtfsMATKA%2CgtfsHSL%2CgtfsLINKKI%2Cgtfstampere%2CgtfsOULU%2Cgtfsdigitraffic%2CgtfsRauma%2CgtfsHameenlinna%2CgtfsKotka%2CgtfsKouvola%2CgtfsLappeenranta%2CgtfsMikkeli%2CgtfsVaasa%2CgtfsJoensuu%2CgtfsFOLI%2CgtfsLahti%2CgtfsKuopio%2CgtfsRovaniemi%2CgtfsKajaani%2CgtfsSalo&layers=stop%2Cstation
+*/
+/*
 const GEOCODING_BASE_URL =
   process.env.GEOCODING_BASE_URL || `${API_URL}/geocoding/v1`;
+*/
+const GEOCODING_BASE_URL = `${GEOCODING_API_URL}/geocoding/v1`;
+
 const MAP_URL =
   process.env.MAP_URL || 'https://digitransit-dev-cdn-origin.azureedge.net';
 const MAP_VERSION = process.env.MAP_VERSION || 'v2';

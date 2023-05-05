@@ -3,7 +3,7 @@ import safeJsonParse from '../util/safeJsonParser';
 import { BIKEAVL_WITHMAX } from '../util/citybikes';
 
 const CONFIG = process.env.CONFIG || 'default';
-const API_URL = process.env.API_URL || 'https://dev-api.digitransit.fi';
+const API_URL = process.env.API_URL || 'https://api.digitransit.fi';
 const GEOCODING_BASE_URL =
   process.env.GEOCODING_BASE_URL || `${API_URL}/geocoding/v1`;
 const MAP_URL =

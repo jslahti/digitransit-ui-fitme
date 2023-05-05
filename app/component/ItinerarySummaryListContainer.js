@@ -210,7 +210,7 @@ function ItinerarySummaryListContainer(
     const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
-        
+      console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
       // NOTE: We check waiting candidates ONLY to ACTIVE itinerary.
       // IF waiting place set has changed (it usually changes when itinerary is changed), 
       // then we fetch the list of POIs and store it to the PoiStore (setPoiPoints) => 
@@ -227,7 +227,6 @@ function ItinerarySummaryListContainer(
       }));
       
       compressedLegs.forEach((leg, i) => {
-        console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
         let waitTime;
         const nextLeg = compressedLegs[i + 1];
         if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {

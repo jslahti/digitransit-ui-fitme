@@ -132,9 +132,14 @@ async function init() {
 
   // Query parameter is used instead of header because browsers send
   // OPTIONS queries where you can't define headers
+  /*
   const queryParameters = config.hasAPISubscriptionQueryParameter
     ? `?${config.API_SUBSCRIPTION_QUERY_PARAMETER_NAME}=${config.API_SUBSCRIPTION_TOKEN}`
     : '';
+  */
+  // TESTING!!!!!
+  const queryParameters = `?${config.API_SUBSCRIPTION_QUERY_PARAMETER_NAME}=${config.API_SUBSCRIPTION_TOKEN}`;
+  console.log(['queryParameters=',queryParameters]);
 
   let middleware = [
     relaySSRMiddleware.getMiddleware(),

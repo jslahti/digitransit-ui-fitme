@@ -13,7 +13,7 @@ const GEOCODING_BASE_URL =
 //const GEOCODING_BASE_URL = `${GEOCODING_API_URL}/geocoding/v1`;
 
 const MAP_URL =
-  process.env.MAP_URL || 'https://digitransit-dev-cdn-origin.azureedge.net';
+  process.env.MAP_URL || 'https://digitransit-prod-cdn-origin.azureedge.net';
 const MAP_VERSION = process.env.MAP_VERSION || 'v2';
 const APP_PATH = process.env.APP_CONTEXT || '';
 const {

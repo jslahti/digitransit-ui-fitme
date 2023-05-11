@@ -129,7 +129,7 @@ Example of POI object in JSON:
     1. accommodation
     2. attraction
     3. event
-    4. experience
+    4. experience
     5. rental_service
     6. restaurant
     7. shop

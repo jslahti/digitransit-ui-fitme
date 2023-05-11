@@ -5,12 +5,12 @@ import { BIKEAVL_WITHMAX } from '../util/citybikes';
 const CONFIG = process.env.CONFIG || 'default';
 const API_URL = process.env.API_URL || 'https://api.digitransit.fi';
 /* Different API_URL entry for geocoding: */ 
-const GEOCODING_API_URL = 'https://dev-api.digitransit.fi';
-/*
+//const GEOCODING_API_URL = 'https://dev-api.digitransit.fi';
+
 const GEOCODING_BASE_URL =
   process.env.GEOCODING_BASE_URL || `${API_URL}/geocoding/v1`;
-*/
-const GEOCODING_BASE_URL = `${GEOCODING_API_URL}/geocoding/v1`;
+
+//const GEOCODING_BASE_URL = `${GEOCODING_API_URL}/geocoding/v1`;
 
 const MAP_URL =
   process.env.MAP_URL || 'https://digitransit-dev-cdn-origin.azureedge.net';
@@ -45,7 +45,7 @@ export default {
     API_URL,
     ASSET_URL: process.env.ASSET_URL,
     MAP_URL,
-    OTP: process.env.OTP_URL || `${API_URL}/routing/v2/routers/finland/`,
+    OTP: process.env.OTP_URL || `${API_URL}/routing/v1/routers/finland/`,
     MAP: {
       default: `${MAP_URL}/map/${MAP_VERSION}/hsl-map/`,
       sv: `${MAP_URL}/map/${MAP_VERSION}/hsl-map-sv/`,

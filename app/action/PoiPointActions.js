@@ -4,9 +4,9 @@ export function addPoiPoint(actionContext, val) {
   //console.log('dispatch done');
 }
 
-export function setPoiPoints(actionContext, points, viapoints) {
+export function setPoiPoints(actionContext, po) {
   //console.log(['setPoiPoints call actionContext=',actionContext,' points=',points]);
-  actionContext.dispatch('setPoiPoints', points, viapoints);
+  actionContext.dispatch('setPoiPoints', po);
   //console.log('dispatch done');
 }
 /*

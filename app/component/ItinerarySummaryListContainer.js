@@ -278,7 +278,7 @@ function ItinerarySummaryListContainer(
               flattened.forEach(d=>{
                 allpois.push(createPOI(d));
               });
-              context.executeAction(setPoiPoints, allpois, intermediatePlaces);
+              context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }
           })
           .catch(err => {

@@ -115,8 +115,10 @@ class PoiStore extends Store {
       }
     }
   }*/
-
-  setPoiPoints(pois, viapoints) {
+  // po is an object with two arrays mapped as {poi: poi_array, via: viapoint_array }
+  setPoiPoints(po) {
+    const pois = po.poi;
+    const viapoints = po.via;
     const oldlen = this.poiPoints.length;
     const keeps = [];
     const news = [];

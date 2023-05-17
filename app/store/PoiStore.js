@@ -141,7 +141,8 @@ class PoiStore extends Store {
         pois.forEach(poi=>{
           let isSame = false; // new poi by default
           this.poiPoints.every(oldpoi=>{
-            if (distance(oldpoi,poi) < 30) { // 30 m
+            // if points are close and has same index => same
+            if (distance(oldpoi,poi) < 30 && oldpoi.index === poi.index) {
               // match found (=same as old poi)
               // if not already in keeps => put this poi in there
               isSame = true;

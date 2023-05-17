@@ -10,7 +10,7 @@ class PoiStore extends Store {
     this.poiPoints.push(val);
     this.emitChange();
   }
-  
+  /*
   lockPoiPoint(poi) {
     console.log(['lockPoiPoint poi.lat=',poi.lat,' poi.lon=',poi.lon]);
     this.poiPoints.every(p=>{
@@ -22,7 +22,8 @@ class PoiStore extends Store {
       return true; // continue with next p
     });
   }
-  
+  */
+  /*
   unlockPoiPoint(poi) {
     console.log(['unlockPoiPoint poi.lat=',poi.lat,' poi.lon=',poi.lon]);
     this.poiPoints.every(p=>{
@@ -34,6 +35,9 @@ class PoiStore extends Store {
       return true; // continue with next p
     });
   }
+  */
+  
+  
   /*
     poiPoints that has an "lock"-flag true, don't get removed.
     They are kept as long as flag exist.
@@ -57,7 +61,8 @@ class PoiStore extends Store {
     index
     
   */
-  setPoiPoints(pois) {
+  /*
+  setPoiPoints(pois, viapoints) {
     const oldlen = this.poiPoints.length;
     const keeps = [];
     const news = [];
@@ -109,8 +114,76 @@ class PoiStore extends Store {
         this.emitChange();
       }
     }
-  }
+  }*/
 
+  setPoiPoints(pois, viapoints) {
+    const oldlen = this.poiPoints.length;
+    const keeps = [];
+    const news = [];
+    if (oldlen > 0) {
+      // Store has old POIs and a new set is being added.
+      // If POI is included in viapoints array => keep it.
+      this.poiPoints.forEach(oldpoi=>{
+        // If POIs exist => we go through the list and check which ones to keep.
+        viapoints.every(p=>{
+          if (p.lat === oldpoi.lat && p.lon === oldpoi.lon) {
+            keeps.push(oldpoi);
+            return false; // break out from the .every loop
+          }
+          return true; // continue with next p
+        });
+      });
+      if (pois.length > 0) {
+        pois.forEach(poi=>{
+          let isSame = false; // new poi by default
+          this.poiPoints.every(oldpoi=>{
+            if (distance(oldpoi,poi) < 30) { // 30 m
+              // match found (=same as old poi)
+              // if not already in keeps => put this poi in there
+              isSame = true;
+              let already = false; //if not already in keeps => put this poi in there
+              keeps.every(k=>{
+                if (k.lat === oldpoi.lat && k.lon === oldpoi.lon) {
+                  // Yes, we are already in keeps
+                  already = true;// Yes, we are already in keeps
+                  return false; // break out from the .every loop
+                }
+                return true; // continue with next k
+              });
+              if (!already) {
+                keeps.push(oldpoi);
+              }
+              return false; // break out from the every loop.
+            }
+            return true; // continue with next oldpoi
+          });
+          if (!isSame) {
+            news.push(poi);
+          }
+        });
+        if (news.length > 0 || keeps.length < oldlen) {
+          // new ones to store or old ones removed
+          this.poiPoints = keeps.concat(news);
+          console.log(['keeps=',keeps,' news=',news,' this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+          this.emitChange();
+        } else { // NEW POIs is the same as old POIs
+          console.log(['NO CHANGES TO POI STORAGE! this.poiPoints=',this.poiPoints]);
+        }
+      } else { // There were oldpois but new set is empty!
+        this.poiPoints = [];
+        console.log('NOW this.emitChange()');
+        this.emitChange();
+      }
+    } else {
+      // Store has NO old POIs and a new set is being added.
+      if (pois.length > 0) {
+        this.poiPoints = pois;
+        console.log(['this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+        this.emitChange();
+      }
+    }
+  }
+  
   getPoiPoints() {
     return this.poiPoints;
   }
@@ -118,8 +191,8 @@ class PoiStore extends Store {
   static handlers = {
     addPoiPoint: 'addPoiPoint',
     setPoiPoints: 'setPoiPoints',
-    lockPoiPoint: 'lockPoiPoint',
-    unlockPoiPoint: 'unlockPoiPoint',
+    //lockPoiPoint: 'lockPoiPoint',
+    //unlockPoiPoint: 'unlockPoiPoint',
   };
 }
 

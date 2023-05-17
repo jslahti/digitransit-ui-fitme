@@ -4,12 +4,12 @@ export function addPoiPoint(actionContext, val) {
   //console.log('dispatch done');
 }
 
-export function setPoiPoints(actionContext, points) {
+export function setPoiPoints(actionContext, points, viapoints) {
   //console.log(['setPoiPoints call actionContext=',actionContext,' points=',points]);
-  actionContext.dispatch('setPoiPoints', points);
+  actionContext.dispatch('setPoiPoints', points, viapoints);
   //console.log('dispatch done');
 }
-
+/*
 export function lockPoiPoint(actionContext, poi) {
   actionContext.dispatch('lockPoiPoint', poi);
 }
@@ -17,3 +17,4 @@ export function lockPoiPoint(actionContext, poi) {
 export function unlockPoiPoint(actionContext, poi) {
   actionContext.dispatch('unlockPoiPoint', poi);
 }
+*/

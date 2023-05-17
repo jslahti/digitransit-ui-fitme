@@ -1878,7 +1878,24 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     
-    
+    // NEW 20230517: Check all POIs against viaPoints, if lock should be removed.
+    // NOTE: This is needed because when viaPoint is removed from Summary Navigation Container
+    // the lock in POI still remains, whereas in Popup it works correctly.
+    // Using directly code from PoiStore.js, not with executeAction, since context is not clear to me.
+    // The idea is to unlockPoiPoint here if no ViaPoint is found and POI is locked.
+    /*
+    viaPoints.forEach(vp => {
+      this.poiPoints.every(pp=>{
+        if (vp.lat === pp.lat && vp.lon === pp.lon && pp.lock) {
+          console.log(['POI lock removed!']);
+          pp.lock = false;
+          return false; // break out from the loop.
+        } else {
+          return true; // continue with next pp
+        }
+      });
+    });
+    */
     // NEW 20230504: Use here only those POI points where index === activeIndex
     const filteredPOIPoints = [];
     this.props.poiPoints.forEach(p=>{
@@ -1886,6 +1903,7 @@ class SummaryPage extends React.Component {
         filteredPOIPoints.push(p);
       }
     });
+    console.log(['SummaryPage activeIndex=',activeIndex,' this.props.poiPoints=',this.props.poiPoints,' filteredPOIPoints=',filteredPOIPoints]);
     return (
       <ItineraryPageMap
         {...mwtProps}

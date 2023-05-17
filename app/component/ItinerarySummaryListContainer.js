@@ -226,8 +226,8 @@ function ItinerarySummaryListContainer(
       compressedLegs.forEach((leg, i) => {
         let waitTime;
         const nextLeg = compressedLegs[i + 1];
-        if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
-          // don't show waiting in intermediate places
+        //if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
+        if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
           //console.log(['waitTime=',waitTime]);
           if (waitTime > waitThreshold) {
@@ -261,6 +261,9 @@ function ItinerarySummaryListContainer(
         //console.log(['settings.walkSpeed=',settings.walkSpeed]);
       }
       setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
+      
+      console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
+      
       // Generate an API call and return with POI results => show on the map.
       if (wPlaces.length > 0) {
         const allpois = [];
@@ -275,7 +278,7 @@ function ItinerarySummaryListContainer(
               flattened.forEach(d=>{
                 allpois.push(createPOI(d));
               });
-              context.executeAction(setPoiPoints, allpois);
+              context.executeAction(setPoiPoints, allpois, intermediatePlaces);
             }
           })
           .catch(err => {

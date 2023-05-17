@@ -140,7 +140,7 @@ const createPOI = (data) => {
   For POI to be compatible with ViaPoint, put 
   locationSlack and address to "root-level" also.
   */
-  console.log(['createPOI data=',data]);
+  //console.log(['createPOI data=',data]);
   //const waiting = typeof data.waiting === 'string' ? parseInt(data.waiting) : data.waiting;
   //const _locationSlack = waiting * 60; // in seconds
   const _locationSlack = 0; // in seconds
@@ -148,9 +148,6 @@ const createPOI = (data) => {
   const lonF = typeof data.geolocation[1] === 'string' ? parseFloat(data.geolocation[1]) : data.geolocation[1];
   const index = typeof data.index === 'string' ? parseInt(data.index) : data.index;
   
-  if (index === 30) {
-    index = 0; // Temporary HACK to fix error in POI server logic.
-  }
   const poi = {
     lat: latF,
     lon: lonF,
@@ -210,7 +207,7 @@ function ItinerarySummaryListContainer(
     const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
-      console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
+      //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
       // NOTE: We check waiting candidates ONLY to ACTIVE itinerary.
       // IF waiting place set has changed (it usually changes when itinerary is changed), 
       // then we fetch the list of POIs and store it to the PoiStore (setPoiPoints) => 
@@ -259,9 +256,9 @@ function ItinerarySummaryListContainer(
     if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
       // walkSpeed in m/s
       const settings = getCurrentSettings(config);
-      console.log(['settings=',settings]);
+      //console.log(['settings=',settings]);
       if (settings.walkSpeed) {
-        console.log(['settings.walkSpeed=',settings.walkSpeed]);
+        //console.log(['settings.walkSpeed=',settings.walkSpeed]);
       }
       setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
       // Generate an API call and return with POI results => show on the map.

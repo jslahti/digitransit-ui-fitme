@@ -123,16 +123,18 @@ class PoiStore extends Store {
     if (oldlen > 0) {
       // Store has old POIs and a new set is being added.
       // If POI is included in viapoints array => keep it.
-      this.poiPoints.forEach(oldpoi=>{
-        // If POIs exist => we go through the list and check which ones to keep.
-        viapoints.every(p=>{
-          if (p.lat === oldpoi.lat && p.lon === oldpoi.lon) {
-            keeps.push(oldpoi);
-            return false; // break out from the .every loop
-          }
-          return true; // continue with next p
+      if (viapoints.length > 0) {
+        this.poiPoints.forEach(oldpoi=>{
+          // If POIs exist => we go through the list and check which ones to keep.
+          viapoints.every(p=>{
+            if (p.lat === oldpoi.lat && p.lon === oldpoi.lon) {
+              keeps.push(oldpoi);
+              return false; // break out from the .every loop
+            }
+            return true; // continue with next p
+          });
         });
-      });
+      }
       if (pois.length > 0) {
         pois.forEach(poi=>{
           let isSame = false; // new poi by default

@@ -204,7 +204,8 @@ function ItinerarySummaryListContainer(
     // FITME!
     const waitingCandidates = [];
     
-    const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
+    //const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
+    const waitThreshold = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
       //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
@@ -230,7 +231,7 @@ function ItinerarySummaryListContainer(
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
           //console.log(['waitTime=',waitTime]);
-          if (waitTime > waitThreshold) {
+          if (waitTime >= waitThreshold) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);

@@ -77,7 +77,7 @@ const POITypesSection = (
                   onToggle={() => {
                     console.log(['TOGGLE!']);
                     executeAction(saveRoutingSettings, {
-                      types: togglePOIType(type, config),
+                      poiTypes: togglePOIType(type, config),
                     })
                     }
                   }

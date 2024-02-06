@@ -19,6 +19,7 @@ class RoutingSettingsStore extends Store {
   }
 
   saveRoutingSettings(changedSettings) {
+    console.log(['changedSettings=',changedSettings]);
     const oldSettings = this.getRoutingSettings();
     const newSettings = { ...oldSettings, ...changedSettings };
     setSearchSettingsStorage(newSettings);

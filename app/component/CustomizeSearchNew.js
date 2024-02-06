@@ -7,11 +7,13 @@ import Icon from './Icon';
 import FareZoneSelector from './customizesearch/FareZoneSelector';
 import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
+import POITypesSection from './customizesearch/POITypesSection'; // New!
 import WalkingOptionsSection from './customizesearch/WalkingOptionsSection';
 import AccessibilityOptionSection from './customizesearch/AccessibilityOptionSection';
 import TransferOptionsSection from './customizesearch/TransferOptionsSection';
 import CityBikeNetworkSelector from './customizesearch/CityBikeNetworkSelector';
 import { showModeSettings, useCitybikes } from '../util/modeUtils';
+import { showTypeSettings } from '../util/poiTypeUtils'; // New!
 import ScrollableWrapper from './ScrollableWrapper';
 import { getDefaultSettings } from '../util/planParamUtil';
 import { getCitybikeNetworks } from '../util/citybikes';
@@ -90,6 +92,13 @@ class CustomizeSearch extends React.Component {
           </h2>
         </div>
         <ScrollableWrapper>
+          <div className="settings-section">
+            {showTypeSettings(config) && (
+              <div className="settings-option-container">
+                <POITypesSection config={config} />
+              </div>
+            )}
+          </div>
           <div className="settings-section compact-settings-section">
             <WalkingOptionsSection
               walkSpeedOptions={config.defaultOptions.walkSpeed}

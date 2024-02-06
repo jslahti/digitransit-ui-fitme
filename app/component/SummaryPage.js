@@ -1904,6 +1904,8 @@ class SummaryPage extends React.Component {
       }
     });
     console.log(['SummaryPage activeIndex=',activeIndex,' this.props.poiPoints=',this.props.poiPoints,' filteredPOIPoints=',filteredPOIPoints]);
+    console.log(['this.context.config=',this.context.config]);
+    
     return (
       <ItineraryPageMap
         {...mwtProps}

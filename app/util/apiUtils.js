@@ -51,7 +51,7 @@ params is an array of
   
   http://datahub.northeurope.cloudapp.azure.com:4000/match?
   http://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000
-  https://datahub.northeurope.cloudapp.azure.com:4000/match?lat=60.189272&lon=24.771822&range=3000&index=0
+  https://datahub.northeurope.cloudapp.azure.com/match?lat=60.189272&lon=24.771822&range=3000&index=0
   
   each call results as an array of objects
   [ {...},{...},{...} ]

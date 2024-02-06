@@ -372,6 +372,9 @@ export default {
       'mode-rail': '#af8dbc',
       'mode-ferry': '#247C7B',
       'mode-citybike': '#f2b62d',
+      // new:
+      'type-citybike': '#f2b62d',
+      
     },
   },
   iconModeSet: 'digitransit',
@@ -473,6 +476,41 @@ export default {
     citybike: {
       availableForSelection: false,
       defaultValue: false, // always false
+    },
+  },
+
+  poiTypes: {
+    accommodation: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    attraction: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    event: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    experience: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    rentalService: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    restaurant: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    shop: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    venue: {
+      availableForSelection: true,
+      defaultValue: true,
     },
   },
 

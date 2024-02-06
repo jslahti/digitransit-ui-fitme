@@ -262,7 +262,7 @@ export const showTypeSettings = config =>
  * @returns {String[]} returns user set modes or default modes
  */
 export const getTypes = config => {
-  const types = getCustomizedSettings();
+  const { types } = getCustomizedSettings();
   console.log(['======CUSTOMIZED SETTINGS getTypes types=',types]);
   //const defaultSettings = getDefaultTypes(config);
   //const currentSettings = [ ...defaultSettings, ...customizedSettings ];

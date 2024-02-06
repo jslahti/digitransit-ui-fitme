@@ -35,7 +35,7 @@ const POITypesSection = (
           //.filter(type => type !== 'CITYBIKE')
           .map(type => (
             <div
-              className="type-option-container"
+              className="mode-option-container"
               key={`type-option-${type.toLowerCase()}`}
             >
               <label

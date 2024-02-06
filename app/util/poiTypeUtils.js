@@ -167,8 +167,8 @@ export const getAvailablePOITypes = config =>
  * @param {*} config The configuration for the software installation
  * @param {String} mode The mode to check
  */
-export const isPOITypeAvailable = (config, mode) =>
-  getAvailablePOITypes(config).includes(mode.toUpperCase());
+export const isPOITypeAvailable = (config, type) =>
+  getAvailablePOITypes(config).includes(type.toUpperCase());
 
 /**
  * Checks if mode does not exist in config's modePolygons or
@@ -262,11 +262,17 @@ export const showTypeSettings = config =>
  * @returns {String[]} returns user set modes or default modes
  */
 export const getTypes = config => {
-  const customizedSettings = getCustomizedSettings();
-  const defaultSettings = getDefaultTypes(config);
-  const currentSettings = [ ...defaultSettings, ...customizedSettings ];
-  console.log(['getTypes currentSettings=',currentSettings]);
-  return currentSettings;
+  const types = getCustomizedSettings();
+  //const defaultSettings = getDefaultTypes(config);
+  //const currentSettings = [ ...defaultSettings, ...customizedSettings ];
+  //console.log(['getTypes currentSettings=',currentSettings]);
+  
+  if (showTypeSettings(config) && Array.isArray(types) && types.length > 0) {
+    const poitypes = types.filter(type =>
+      isPOITypeAvailable(config, type),
+    );
+    return poiTypes;
+  }
   /*const { modes, allowedBikeRentalNetworks } = getCustomizedSettings();
   
   const activeAndAllowedBikeRentalNetworks = allowedBikeRentalNetworks
@@ -293,8 +299,8 @@ export const getTypes = config => {
     const modesWithCitybike = getDefaultTypes(config);
     modesWithCitybike.push(TransportMode.Citybike);
     return modesWithCitybike;
-  }
-  return getDefaultTypes(config);*/
+  }*/
+  return getDefaultTypes(config);
 };
 
 /**

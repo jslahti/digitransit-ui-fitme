@@ -310,18 +310,21 @@ export const userHasChangedModes = config => {
  * @returns {String[]} an array of currently selected modes
  */
 export function toggleTransportMode(transportMode, config) {
+  console.log(['toggleTransportMode transportModee=',transportMode,' config=',config]);
   let actionName;
   if (getModes(config).includes(transportMode.toUpperCase())) {
     actionName = 'SettingsDisableTransportMode';
   } else {
     actionName = 'SettingsEnableTransportMode';
   }
+  console.log(['actionName=',actionName]);
   addAnalyticsEvent({
     action: actionName,
     category: 'ItinerarySettings',
     name: transportMode,
   });
   const modes = xor(getModes(config), [transportMode.toUpperCase()]);
+  console.log(['modes=',modes]);
   return modes;
 }
 

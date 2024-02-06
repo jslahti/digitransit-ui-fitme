@@ -315,18 +315,21 @@ export const userHasChangedTypes = config => {
  * @returns {String[]} an array of currently selected types
  */
 export function togglePOIType(poiType, config) {
+  console.log(['togglePOIType poiType=',poiType,' config=',config]);
   let actionName;
   if (getTypes(config).includes(poiType.toUpperCase())) {
     actionName = 'SettingsDisablePOIType'; // SettingsDisableTransportMode
   } else {
     actionName = 'SettingsEnablePOIType'; // SettingsEnableTransportMode
   }
+  console.log(['actionName=',actionName]);
   addAnalyticsEvent({
     action: actionName,
     category: 'ItinerarySettings',
     name: poiType,
   });
   const types = xor(getTypes(config), [poiType.toUpperCase()]);
+  console.log(['types=',types]);
   return types;
 }
 

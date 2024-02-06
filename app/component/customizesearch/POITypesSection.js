@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable jsx-a11y/label-has-as	sociated-control */
 import PropTypes from 'prop-types';
 import React from 'react';
 import { intlShape, FormattedMessage } from 'react-intl';
@@ -21,7 +21,7 @@ const POITypesSection = (
 ) => {
   const { iconColors } = config.colors;
   const alternativeNames = []; //config.useAlternativeNameForModes || [];
-
+  console.log(['poiTypes=',poiTypes]);
   return (
     <fieldset>
       <legend className="poi-type-subheader settings-header">
@@ -74,10 +74,12 @@ const POITypesSection = (
                 <Toggle
                   id={`settings-toggle-${type}`}
                   toggled={types.filter(o2 => o2 === type).length > 0}
-                  onToggle={() =>
+                  onToggle={() => {
+                    console.log(['TOGGLE!']);
                     executeAction(saveRoutingSettings, {
                       types: togglePOIType(type, config),
                     })
+                    }
                   }
                 />
               </label>

@@ -276,7 +276,15 @@ function ItinerarySummaryListContainer(
               // 
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
+              // Here we can filter out types that are not included (see: Settings)
+              // Also source (osm or datahub) can be used as filtering 
+              // 
+              // 
+              // 
               flattened.forEach(d=>{
+                // if (d.source === 'osm') { ...
+                // if (d.source === 'datahub') { ...
+                // if (d.type === 'transportation') { ...
                 allpois.push(createPOI(d));
               });
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});

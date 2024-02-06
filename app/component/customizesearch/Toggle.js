@@ -6,6 +6,12 @@ import { matchShape, routerShape } from 'found';
 
 const Toggle = ({ toggled, title, onToggle, id }) => {
   const useId = id || uniqueId('input-');
+  
+  console.log(['toggled=',toggled]);
+  console.log(['title=',title]);
+  console.log(['id=',id]);
+  
+  
   return (
     <div className="option-toggle-container" title={title}>
       <div className="toggle">

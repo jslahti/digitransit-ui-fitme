@@ -264,7 +264,7 @@ export const showTypeSettings = config =>
 export const getTypes = config => {
   const customizedSettings = getCustomizedSettings();
   const defaultSettings = getDefaultTypes(config);
-  const currentSettings = { ...defaultSettings, ...customizedSettings };
+  const currentSettings = [ ...defaultSettings, ...customizedSettings ];
   console.log(['getTypes currentSettings=',currentSettings]);
   return currentSettings;
   /*const { modes, allowedBikeRentalNetworks } = getCustomizedSettings();

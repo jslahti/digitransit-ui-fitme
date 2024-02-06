@@ -36,13 +36,13 @@ const POITypesSection = (
   console.log(['types=',types]);
   return (
     <fieldset>
-      <legend className="poi-type-subheader settings-header">
+      <legend className="transport-mode-subheader settings-header">
         <FormattedMessage
           id="pick-type"
           defaultMessage="POI types"
         />
       </legend>
-      <div className="poi-types-container">
+      <div className="transport-modes-container">
         {poiTypes
           //.filter(type => type !== 'CITYBIKE')
           .map(type => (
@@ -60,7 +60,7 @@ const POITypesSection = (
                   },
                 )}
               >
-                <div className="type-icon">
+                <div className="mode-icon">
                   <Icon
                     className={`${type}-icon`}
                     img={`icon-icon_mapMarker-poi-${type.toLowerCase()}-map`}
@@ -73,7 +73,7 @@ const POITypesSection = (
                     }
                   />
                 </div>
-                <div className="type-name">
+                <div className="mode-name">
                   <FormattedMessage
                     id={
                       alternativeNames.includes(type.toLowerCase())

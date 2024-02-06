@@ -263,6 +263,7 @@ export const showTypeSettings = config =>
  */
 export const getTypes = config => {
   const types = getCustomizedSettings();
+  console.log(['======CUSTOMIZED SETTINGS getTypes types=',types]);
   //const defaultSettings = getDefaultTypes(config);
   //const currentSettings = [ ...defaultSettings, ...customizedSettings ];
   //console.log(['getTypes currentSettings=',currentSettings]);

@@ -13,6 +13,17 @@ import {
   togglePOIType,
 } from '../../util/poiTypeUtils';
 
+/*
+svg symbols:
+icon-icon_mapMarker-poi-accommodation
+icon-icon_mapMarker-poi-attraction
+icon-icon_mapMarker-poi-event
+icon-icon_mapMarker-poi-experience
+icon-icon_mapMarker-poi-rental_service
+icon-icon_mapMarker-poi-restaurant
+icon-icon_mapMarker-poi-shop
+icon-icon_mapMarker-poi-venue
+*/
 const POITypesSection = (
   { config },
   { executeAction },
@@ -52,7 +63,7 @@ const POITypesSection = (
                 <div className="type-icon">
                   <Icon
                     className={`${type}-icon`}
-                    img={`icon-icon_${type.toLowerCase()}`}
+                    img={`icon-icon_mapMarker-poi-${type.toLowerCase()}`}
                     color={
                       iconColors[
                         type.toLowerCase() === 'subway'

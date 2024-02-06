@@ -22,6 +22,7 @@ const POITypesSection = (
   const { iconColors } = config.colors;
   const alternativeNames = []; //config.useAlternativeNameForModes || [];
   console.log(['poiTypes=',poiTypes]);
+  console.log(['types=',types]);
   return (
     <fieldset>
       <legend className="poi-type-subheader settings-header">
@@ -75,9 +76,8 @@ const POITypesSection = (
                   id={`settings-toggle-${type}`}
                   toggled={types.filter(o2 => o2 === type).length > 0}
                   onToggle={() => {
-                    console.log(['TOGGLE!']);
                     executeAction(saveRoutingSettings, {
-                      poiTypes: togglePOIType(type, config),
+                      types: togglePOIType(type, config),
                     })
                     }
                   }

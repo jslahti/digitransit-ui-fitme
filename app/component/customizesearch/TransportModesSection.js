@@ -21,6 +21,8 @@ const TransportModesSection = (
 ) => {
   const { iconColors } = config.colors;
   const alternativeNames = config.useAlternativeNameForModes || [];
+  console.log(['transportModes=',transportModes]);
+  console.log(['modes=',modes]);
 
   return (
     <fieldset>

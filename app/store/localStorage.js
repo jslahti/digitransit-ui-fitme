@@ -102,7 +102,7 @@ export function setCustomizedSettings(data) {
     ),
     bikeSpeed: getNumberValueOrDefault(data.bikeSpeed, oldSettings.bikeSpeed),
     modes: getValueOrDefault(data.modes, oldSettings.modes),
-    poiTypes: getValueOrDefault(data.poiTypes, oldSettings.poiTypes),
+    types: getValueOrDefault(data.types, oldSettings.types),
     ticketTypes: getValueOrDefault(data.ticketTypes, oldSettings.ticketTypes),
     walkBoardCost: getNumberValueOrDefault(
       data.walkBoardCost,

@@ -272,7 +272,7 @@ export const getTypes = config => {
     const poitypes = types.filter(type =>
       isPOITypeAvailable(config, type),
     );
-    return poiTypes;
+    return poitypes;
   }
   /*const { modes, allowedBikeRentalNetworks } = getCustomizedSettings();
   

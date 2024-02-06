@@ -15,14 +15,14 @@ import {
 
 /*
 svg symbols:
-icon-icon_mapMarker-poi-accommodation
-icon-icon_mapMarker-poi-attraction
-icon-icon_mapMarker-poi-event
-icon-icon_mapMarker-poi-experience
-icon-icon_mapMarker-poi-rental_service
-icon-icon_mapMarker-poi-restaurant
-icon-icon_mapMarker-poi-shop
-icon-icon_mapMarker-poi-venue
+icon-icon_mapMarker-poi-accommodation-map
+icon-icon_mapMarker-poi-attraction-map
+icon-icon_mapMarker-poi-event-map
+icon-icon_mapMarker-poi-experience-map
+icon-icon_mapMarker-poi-rental_service-map
+icon-icon_mapMarker-poi-restaurant-map
+icon-icon_mapMarker-poi-shop-map
+icon-icon_mapMarker-poi-venue-map
 */
 const POITypesSection = (
   { config },
@@ -63,7 +63,7 @@ const POITypesSection = (
                 <div className="type-icon">
                   <Icon
                     className={`${type}-icon`}
-                    img={`icon-icon_mapMarker-poi-${type.toLowerCase()}`}
+                    img={`icon-icon_mapMarker-poi-${type.toLowerCase()}-map`}
                     color={
                       iconColors[
                         type.toLowerCase() === 'subway'

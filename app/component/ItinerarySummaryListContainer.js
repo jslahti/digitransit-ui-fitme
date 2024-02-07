@@ -294,8 +294,8 @@ function ItinerarySummaryListContainer(
                   } else {
                     console.log(['TYPE ',ucType,' NOT INCLUDED!'])
                   }
-                }
-              });
+                });
+              }
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }
           })

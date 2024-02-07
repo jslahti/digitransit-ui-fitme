@@ -53,7 +53,7 @@
   padding-left: 15px;
   padding-right: 15px;
   overflow: hidden;
-  background-color: $white;
+  background-color: $light-gray;
   display: flex;
   user-select: none;
   font-size: $font-size-normal;
@@ -72,6 +72,7 @@
     }
   }
   &.passive {
+    background-color: $white;
     .summary-clickable-area {
       border-bottom: 1px solid $light-gray;
     }

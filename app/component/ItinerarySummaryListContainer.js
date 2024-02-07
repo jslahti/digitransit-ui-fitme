@@ -22,10 +22,9 @@ import Loading from './Loading';
 
 // FITME!
 import { compressLegs } from '../util/legUtils';
-//import { getPOIs } from '../util/apiUtils';
-import { getFitMePOITest } from '../util/apiUtils';
 import { getFitMePOIs } from '../util/apiUtils';
 import { setPoiPoints } from '../action/PoiPointActions';
+import { getTypes } from '../util/poiTypeUtils';
 
 const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
@@ -257,9 +256,9 @@ function ItinerarySummaryListContainer(
     if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
       // walkSpeed in m/s
       const settings = getCurrentSettings(config);
-      //console.log(['settings=',settings]);
+      console.log(['settings=',settings]);
       if (settings.walkSpeed) {
-        //console.log(['settings.walkSpeed=',settings.walkSpeed]);
+        console.log(['settings.walkSpeed=',settings.walkSpeed]);
       }
       setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
       
@@ -276,6 +275,8 @@ function ItinerarySummaryListContainer(
               // 
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
+              const types = getTypes(config);
+              console.log(['===== getTypes types=',types]);
               // Here we can filter out types that are not included (see: Settings)
               // Also source (osm or datahub) can be used as filtering 
               // 

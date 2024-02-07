@@ -53,7 +53,7 @@ const POITypesSection = (
               <label
                 htmlFor={`settings-toggle-${type}`}
                 className={cx(
-                  [`type-option-block`, 'toggle-label'],
+                  [`mode-option-block`, 'toggle-label'],
                   type.toLowerCase(),
                   {
                     disabled: !types.includes(type),
@@ -62,8 +62,6 @@ const POITypesSection = (
               >
                 <div className="mode-icon">
                   <Icon
-                    height={'40px'}
-                    width={'40px'}
                     className={`${type}-icon`}
                     img={`icon-icon_mapMarker-poi-${type.toLowerCase()}-map`}
                     color={

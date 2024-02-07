@@ -496,7 +496,7 @@ export default {
       availableForSelection: true,
       defaultValue: true,
     },
-    rentalService: {
+    rental_service: {
       availableForSelection: true,
       defaultValue: true,
     },

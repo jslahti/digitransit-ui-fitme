@@ -1,5 +1,5 @@
 import Store from 'fluxible/addons/BaseStore';
-import distance from '@digitransit-search-util/digitransit-search-util-distance';
+//import distance from '@digitransit-search-util/digitransit-search-util-distance';
 
 class PoiStore extends Store {
   static storeName = 'PoiStore';
@@ -145,7 +145,8 @@ class PoiStore extends Store {
           let isSame = false; // new poi by default
           this.poiPoints.every(oldpoi=>{
             // if points are close and has same index => same
-            if (distance(oldpoi,poi) < 30 && oldpoi.index === poi.index) {
+            //if (distance(oldpoi,poi) < 30 && oldpoi.index === poi.index) {
+            if (oldpoi.lat === poi.lat && oldpoi.lon === poi.lon && oldpoi.index === poi.index) {
               // match found (=same as old poi)
               // if not already in keeps => put this poi in there
               isSame = true;

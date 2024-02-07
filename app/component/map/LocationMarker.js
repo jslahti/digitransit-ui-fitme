@@ -41,6 +41,7 @@ export default function LocationMarker({
     6. restaurant
     7. shop
     8. venue
+    9. transportation
     
     id="icon-icon_mapMarker-poi-accommodation-map"
     id="icon-icon_mapMarker-poi-attraction-map"
@@ -50,6 +51,7 @@ export default function LocationMarker({
     id="icon-icon_mapMarker-poi-restaurant-map"
     id="icon-icon_mapMarker-poi-shop-map"
     id="icon-icon_mapMarker-poi-venue-map"
+    id="icon-icon_mapMarker-poi-transportation-map"
   */
   const validType = getValidType(type);
   const validTypeExtra = validType === 'poi' ? 'poi-'+position.extra.type : validType;

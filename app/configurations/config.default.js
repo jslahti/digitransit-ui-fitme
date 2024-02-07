@@ -380,6 +380,7 @@ export default {
       'type-restaurant': '#ed8c00',
       'type-shop': '#ed8c00',
       'type-venue': '#ed8c00',
+      'type-transportation': '#ed8c00',
     },
   },
   iconModeSet: 'digitransit',
@@ -514,6 +515,10 @@ export default {
       defaultValue: true,
     },
     venue: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    transportation: {
       availableForSelection: true,
       defaultValue: true,
     },

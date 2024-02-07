@@ -23,6 +23,7 @@ icon-icon_mapMarker-poi-rental_service-map
 icon-icon_mapMarker-poi-restaurant-map
 icon-icon_mapMarker-poi-shop-map
 icon-icon_mapMarker-poi-venue-map
+icon-icon_mapMarker-poi-transportation-map
 */
 const POITypesSection = (
   { config },

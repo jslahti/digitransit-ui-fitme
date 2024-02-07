@@ -58,7 +58,8 @@ const removeDuplicateCandidates = (candidates) => {
       let isSame = false;
       waitPlaces.every(p=>{
         // if closer than 30 m and address is same => duplicate => don't use.
-        if (distance(p,wp) < 30 && p.address === wp.address && p.index === wp.index) {
+        //if (distance(p,wp) < 30 && p.address === wp.address && p.index === wp.index) {
+        if (p.lat === wp.lat && p.lon === wp.lon && p.address === wp.address && p.index === wp.index) {
           isSame = true;
           return false; // break out from the loop.
         }
@@ -79,7 +80,8 @@ const areTwoArraysEqual = (a, b) => {
   let isSame = true;
   a.every((pa,i) => {
     const pb = b[i];
-    if (pa.address !== pb.address || pa.waiting !== pb.waiting || distance(pa,pb) > 30 || pa.index !== pb.index) {
+    //if (pa.address !== pb.address || pa.waiting !== pb.waiting || distance(pa,pb) > 30 || pa.index !== pb.index) {
+    if (pa.address !== pb.address || pa.waiting !== pb.waiting || pa.lat !== pb.lat || pa.lon !== pb.lon || pa.index !== pb.index) {
       isSame = false;
       return false; // break out from the loop.
     }
@@ -133,6 +135,7 @@ Example of POI object in JSON:
     6. restaurant
     7. shop
     8. venue
+    9. transportation
 */
 const createPOI = (data) => {
   /*
@@ -285,6 +288,9 @@ function ItinerarySummaryListContainer(
               // Also source (osm or datahub) can be used as filtering 
               if (types && Array.isArray(types) && types.length > 0) {
                 flattened.forEach(d=>{
+                  if (d.type === 'accomodation') {
+                    d.type = 'accommodation';
+                  }
                   const ucType = d.type.toUpperCase();
                   if (types.includes(ucType)) {
                   // if (d.source === 'osm') { ...
@@ -519,7 +525,7 @@ function ItinerarySummaryListContainer(
   } else if (!inside([to.lon, to.lat], config.areaPolygon)) {
     msgId = 'destination-outside-service';
     outside = true;
-  } else if (distance(from, to) < config.minDistanceBetweenFromAndTo) {
+  } else if (distance(from, to) < config.minDistanceBetweenFromAndTo) { // 20 m
     iconType = 'info';
     iconImg = 'icon-icon_info';
     if (

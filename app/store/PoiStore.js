@@ -122,6 +122,9 @@ class PoiStore extends Store {
     const oldlen = this.poiPoints.length;
     const keeps = [];
     const news = [];
+    
+    console.log(['setPoiPoints pois=',pois,' viapoints=',viapoints]);
+    
     if (oldlen > 0) {
       // Store has old POIs and a new set is being added.
       // If POI is included in viapoints array => keep it.

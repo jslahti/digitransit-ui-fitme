@@ -372,9 +372,14 @@ export default {
       'mode-rail': '#af8dbc',
       'mode-ferry': '#247C7B',
       'mode-citybike': '#f2b62d',
-      // new:
-      'type-citybike': '#f2b62d',
-      
+      'type-accommodation': '#ed8c00',
+      'type-attraction': '#ed8c00',
+      'type-event': '#ed8c00',
+      'type-experience': '#ed8c00',
+      'type-rental_service': '#ed8c00',
+      'type-restaurant': '#ed8c00',
+      'type-shop': '#ed8c00',
+      'type-venue': '#ed8c00',
     },
   },
   iconModeSet: 'digitransit',

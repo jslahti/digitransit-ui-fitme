@@ -276,17 +276,25 @@ function ItinerarySummaryListContainer(
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
               const types = getTypes(config);
-              console.log(['===== getTypes types=',types]);
+              console.log(['ItinerarySummaryListContainer === getTypes types=',types]);
+              // "ACCOMMODATION"
+              // "EVENT"
+              // "ATTRACTION"
+              // "EXPERIENCE"
               // Here we can filter out types that are not included (see: Settings)
               // Also source (osm or datahub) can be used as filtering 
-              // 
-              // 
-              // 
-              flattened.forEach(d=>{
-                // if (d.source === 'osm') { ...
-                // if (d.source === 'datahub') { ...
-                // if (d.type === 'transportation') { ...
-                allpois.push(createPOI(d));
+              if (types && Array.isArray(types) && types.length > 0) {
+                flattened.forEach(d=>{
+                  const ucType = d.type.toUpperCase();
+                  if (types.includes(ucType)) {
+                  // if (d.source === 'osm') { ...
+                  // if (d.source === 'datahub') { ...
+                  // if (d.type === 'transportation') { ...
+                    allpois.push(createPOI(d));
+                  } else {
+                    console.log(['TYPE ',ucType,' NOT INCLUDED!'])
+                  }
+                }
               });
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }

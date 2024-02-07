@@ -297,8 +297,6 @@ function ItinerarySummaryListContainer(
                   // if (d.source === 'datahub') { ...
                   // if (d.type === 'transportation') { ...
                     allpois.push(createPOI(d));
-                  } else {
-                    console.log(['TYPE ',ucType,' NOT INCLUDED!'])
                   }
                 });
               }

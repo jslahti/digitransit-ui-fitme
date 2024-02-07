@@ -132,7 +132,7 @@ class PoiStore extends Store {
         this.poiPoints.forEach(oldpoi=>{
           // If POIs exist => we go through the list and check which ones to keep.
           viapoints.every(p=>{
-            if (p.lat === oldpoi.lat && p.lon === oldpoi.lon) {
+            if (p.lat === oldpoi.lat && p.lon === oldpoi.lon && p.index === oldpoi.index) {
               keeps.push(oldpoi);
               return false; // break out from the .every loop
             }
@@ -152,7 +152,7 @@ class PoiStore extends Store {
               isSame = true;
               let already = false; //if not already in keeps => put this poi in there
               keeps.every(k=>{
-                if (k.lat === oldpoi.lat && k.lon === oldpoi.lon) {
+                if (k.lat === oldpoi.lat && k.lon === oldpoi.lon && k.index === oldpoi.index) {
                   // Yes, we are already in keeps
                   already = true;// Yes, we are already in keeps
                   return false; // break out from the .every loop

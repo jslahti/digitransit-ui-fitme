@@ -266,10 +266,9 @@ function ItinerarySummaryListContainer(
       setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
       
       console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
-      
+      const allpois = [];
       // Generate an API call and return with POI results => show on the map.
       if (wPlaces.length > 0) {
-        const allpois = [];
         getFitMePOIs(wPlaces)
           .then(res => {
             if (Array.isArray(res)) {
@@ -309,6 +308,8 @@ function ItinerarySummaryListContainer(
           .finally(() => {
             //console.log('FINALLY OK!');
           });
+      } else {
+        context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
       }
     }
     // FITME!

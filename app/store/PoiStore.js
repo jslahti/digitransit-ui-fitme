@@ -173,21 +173,22 @@ class PoiStore extends Store {
         if (news.length > 0 || keeps.length < oldlen) {
           // new ones to store or old ones removed
           this.poiPoints = keeps.concat(news);
-          console.log(['keeps=',keeps,' news=',news,' this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+          console.log(['CHANGES TO Store keeps=',keeps,' news=',news,' this.poiPoints=',this.poiPoints,' and EMIT CHANGE!']);
           this.emitChange();
+          
         } else { // NEW POIs is the same as old POIs
           console.log(['NO CHANGES TO POI STORAGE! this.poiPoints=',this.poiPoints]);
         }
       } else { // There were oldpois but new set is empty!
         this.poiPoints = [];
-        console.log('NOW this.emitChange()');
+        console.log('=== EMPTY the Store and EMIT change! ===');
         this.emitChange();
       }
     } else {
       // Store has NO old POIs and a new set is being added.
       if (pois.length > 0) {
         this.poiPoints = pois;
-        console.log(['this.poiPoints=',this.poiPoints,' NOW this.emitChange()']);
+        console.log(['NO OLD BUT NEW this.poiPoints=',this.poiPoints,' and EMIT change!']);
         this.emitChange();
       }
     }

@@ -269,6 +269,7 @@ function ItinerarySummaryListContainer(
       const allpois = [];
       // Generate an API call and return with POI results => show on the map.
       if (wPlaces.length > 0) {
+        console.log('========================== getFitMePOIs =================================');
         getFitMePOIs(wPlaces)
           .then(res => {
             if (Array.isArray(res)) {

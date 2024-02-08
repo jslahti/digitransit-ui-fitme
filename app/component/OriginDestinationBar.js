@@ -15,6 +15,7 @@ import {
 import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
 import { dtLocationShape } from '../util/shapes';
 import { setViaPoints } from '../action/ViaPointActions';
+import { setPoiPoints } from '../action/PoiPointActions';
 import { LightenDarkenColor } from '../util/colorUtils';
 import { getRefPoint } from '../util/apiUtils';
 import { useCitybikes } from '../util/modeUtils';
@@ -94,6 +95,9 @@ class OriginDestinationBar extends React.Component {
 
   onLocationSelect = (item, id) => {
     let action;
+    console.log('======== TEST: RESET POI Store ==============');
+    this.context.executeAction(setPoiPoints, {poi:[], via:[]});
+    console.log('======== SEE IF POIs are fetched or NOT? ==========');
     if (id === parseInt(id, 10)) {
       // id = via point index
       action = 'EditJourneyViaPoint';

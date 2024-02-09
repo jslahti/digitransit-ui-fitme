@@ -42,6 +42,7 @@ class CustomizeSearch extends React.Component {
     const { onToggleClick, customizedSettings, mobile } = this.props;
     // Merge default and customized settings
     const currentSettings = { ...this.defaultSettings, ...customizedSettings };
+    const overrideStyle = {};
     let ticketOptions = [];
     if (config.showTicketSelector && config.availableTickets) {
       Object.keys(config.availableTickets).forEach(key => {

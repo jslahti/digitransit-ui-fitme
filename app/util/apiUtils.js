@@ -72,7 +72,7 @@ export function getFitMePOIs(places, maxRange, walkSpeed) {
       const index = wp.index;
       const waiting = wp.waiting;
       // multiply with 30 (not 60), because we need to go there and come back.
-      let range = waiting * walkSpeed*30;
+      let range = Math.round(waiting * walkSpeed*30);
       if (range > maxRange) {
         range = maxRange;
       }

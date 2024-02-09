@@ -103,7 +103,7 @@ class CustomizeSearch extends React.Component {
           <div className="settings-section">
             <WaitThresholdOptionsSection
               waitThreshold={currentSettings.waitThreshold}
-              defaultSettings={defaultSettings}
+              defaultSettings={this.defaultSettings}
               waitThresholdOptions={config.defaultOptions.waitThreshold}
               overrideStyle={overrideStyle}
             />

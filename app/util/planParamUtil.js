@@ -301,6 +301,10 @@ export const preparePlanParams = (config, useDefaultModes) => (
       nullOrUndefined,
     ),
     modes: formattedModes,
+    // Following two new props can be left out, because they don't affect routing (?)
+    // They are used when POI results are displayed.
+    //types: what about the new ones? (POI ?)
+    //waitThreshold: 
     ticketTypes,
     allowedBikeRentalNetworks: allowedBikeRentalNetworksMapped,
     shouldMakeWalkQuery:

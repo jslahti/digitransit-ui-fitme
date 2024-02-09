@@ -25,6 +25,7 @@ import { compressLegs } from '../util/legUtils';
 import { getFitMePOIs } from '../util/apiUtils';
 import { setPoiPoints } from '../action/PoiPointActions';
 import { getTypes } from '../util/poiTypeUtils';
+import { getCustomizedSettings } from '../store/localStorage';
 
 const getViaPointIndex = (leg, intermediatePlaces) => {
   if (!leg || !Array.isArray(intermediatePlaces)) {
@@ -207,7 +208,12 @@ function ItinerarySummaryListContainer(
     const waitingCandidates = [];
     
     //const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
-    const waitThreshold = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
+    const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
+    // TESTING!!!
+    const { waitThreshold } = getCustomizedSettings();
+    console.log('======  TESTING ============');
+    console.log(['waitThreshold=',waitThreshold]);
+    console.log('======  TESTING ============');
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
       //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
@@ -233,7 +239,7 @@ function ItinerarySummaryListContainer(
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
           //console.log(['waitTime=',waitTime]);
-          if (waitTime >= waitThreshold) {
+          if (waitTime >= waitThresholdCONST) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);

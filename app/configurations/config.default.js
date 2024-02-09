@@ -173,6 +173,7 @@ export default {
   defaultSettings: {
     accessibilityOption: 0,
     bikeSpeed: 5.55,
+    waitThreshold: 30, // new: POI wait threshold
     ticketTypes: 'none',
     walkBoardCost: 600,
     walkReluctance: 2,
@@ -203,6 +204,7 @@ export default {
     },
     walkSpeed: [0.69, 0.97, 1.2, 1.67, 2.22],
     bikeSpeed: [2.77, 4.15, 5.55, 6.94, 8.33],
+    waitThreshold: [10, 20, 30, 40, 50],
   },
 
   walkBoardCost: 600,

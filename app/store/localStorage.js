@@ -102,7 +102,8 @@ export function setCustomizedSettings(data) {
     ),
     bikeSpeed: getNumberValueOrDefault(data.bikeSpeed, oldSettings.bikeSpeed),
     modes: getValueOrDefault(data.modes, oldSettings.modes),
-    types: getValueOrDefault(data.types, oldSettings.types),
+    types: getValueOrDefault(data.types, oldSettings.types), // new (see: POI)
+    waitThreshold: getNumberValueOrDefault(data.waitThreshold, oldSettings.waitThreshold), // new (see: POI)
     ticketTypes: getValueOrDefault(data.ticketTypes, oldSettings.ticketTypes),
     walkBoardCost: getNumberValueOrDefault(
       data.walkBoardCost,

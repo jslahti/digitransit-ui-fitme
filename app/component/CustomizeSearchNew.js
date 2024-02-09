@@ -8,6 +8,7 @@ import FareZoneSelector from './customizesearch/FareZoneSelector';
 import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
 import POITypesSection from './customizesearch/POITypesSection'; // New!
+import WaitThresholdOptionsSection from './customizesearch/WaitThresholdOptionsSection'; // New!
 import WalkingOptionsSection from './customizesearch/WalkingOptionsSection';
 import AccessibilityOptionSection from './customizesearch/AccessibilityOptionSection';
 import TransferOptionsSection from './customizesearch/TransferOptionsSection';
@@ -98,6 +99,14 @@ class CustomizeSearch extends React.Component {
                 <POITypesSection config={config} />
               </div>
             )}
+          </div>
+          <div className="settings-section">
+            <WaitThresholdOptionsSection
+              waitThreshold={currentSettings.waitThreshold}
+              defaultSettings={defaultSettings}
+              waitThresholdOptions={config.defaultOptions.waitThreshold}
+              overrideStyle={overrideStyle}
+            />
           </div>
           <div className="settings-section compact-settings-section">
             <WalkingOptionsSection

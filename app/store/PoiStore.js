@@ -131,8 +131,9 @@ class PoiStore extends Store {
       if (viapoints.length > 0) {
         this.poiPoints.forEach(oldpoi=>{
           // If POIs exist => we go through the list and check which ones to keep.
+          // NOTE: viapoints do NOT have index, only address, lat and lon
           viapoints.every(p=>{
-            if (p.lat === oldpoi.lat && p.lon === oldpoi.lon && p.index === oldpoi.index) {
+            if (p.lat === oldpoi.lat && p.lon === oldpoi.lon) {
               keeps.push(oldpoi);
               return false; // break out from the .every loop
             }

@@ -208,12 +208,15 @@ function ItinerarySummaryListContainer(
     const waitingCandidates = [];
     
     //const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
-    const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
+    //const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
     // TESTING!!!
     const { waitThreshold, maxRange } = getCustomizedSettings();
     console.log('======  TESTING ============');
     console.log(['waitThreshold=',waitThreshold,' maxRange=',maxRange]);
     console.log('======  TESTING ============');
+    // NOTE: CONVERT waitThreshold from minutes to milliseconds
+    const waitThresholdMS = waitThreshold * 60 * 1000;
+    
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
       //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
@@ -239,7 +242,7 @@ function ItinerarySummaryListContainer(
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
           //console.log(['waitTime=',waitTime]);
-          if (waitTime >= waitThresholdCONST) {
+          if (waitTime >= waitThresholdMS) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
@@ -265,9 +268,11 @@ function ItinerarySummaryListContainer(
     if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
       // walkSpeed in m/s
       const settings = getCurrentSettings(config);
+      let walkSpeed = 1.2;
       console.log(['settings=',settings]);
       if (settings.walkSpeed) {
         console.log(['settings.walkSpeed=',settings.walkSpeed]);
+        walkSpeed = settings.walkSpeed;
       }
       setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
       
@@ -276,7 +281,8 @@ function ItinerarySummaryListContainer(
       // Generate an API call and return with POI results => show on the map.
       if (wPlaces.length > 0) {
         console.log('========================== getFitMePOIs =================================');
-        getFitMePOIs(wPlaces)
+        // getFitMePOIs(places, maxRange, walkSpeed) {
+        getFitMePOIs(wPlaces, maxRange, walkSpeed)
           .then(res => {
             if (Array.isArray(res)) {
               console.log(['res=',res]);

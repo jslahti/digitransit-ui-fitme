@@ -59,13 +59,13 @@ params is an array of
   before storing:
   context.executeAction(setPoiPoints, res);
 */
-export function getFitMePOIs(places) {
+export function getFitMePOIs(places, maxRange, walkSpeed) {
   // places is an array of waiting places.
   // maxRange is a param now in settings.
-  const maxRange = 1000;
-  const walkSpeed = 1.2;
+  //const maxRange = 1000;
+  //const walkSpeed = 1.2;
   // walkSpeed: [0.69, 0.97, 1.2, 1.67, 2.22], m/s
-  // waiting is minutes => change speed to m/min
+  // waiting is minutes => change speed to metres/minute
   return new Promise(function(resolve) {
     const promises = [];
     places.forEach(wp=>{

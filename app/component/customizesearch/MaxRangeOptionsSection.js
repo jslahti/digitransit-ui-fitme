@@ -4,45 +4,45 @@ import { matchShape } from 'found';
 import { intlShape } from 'react-intl';
 import { saveRoutingSettings } from '../../action/SearchSettingsActions';
 
-import MinuteSettingsDropdown, {
-  getFiveWaitOptionsNumerical,
-  valueMinutesShape,
-} from './MinuteSettingsDropdown';
+import SearchSettingsDropdown, {
+  getFiveStepOptionsNumerical,
+  valueShape,
+} from './SearchSettingsDropdown';
 import { addAnalyticsEvent } from '../../util/analyticsUtils';
 import { findNearestOption } from '../../util/planParamUtil';
 
 // eslint-disable-next-line react/prefer-stateless-function
-class WaitThresholdOptionsSection extends React.Component {
+class MaxRangeOptionsSection extends React.Component {
   render() {
-    const { defaultSettings, waitThreshold, overrideStyle } = this.props;
+    const { defaultSettings, maxRange, overrideStyle } = this.props;
     const { intl } = this.context;
-    const options = getFiveStepOptionsNumerical(this.props.waitThresholdOptions);
+    const options = getFiveStepOptionsNumerical(this.props.maxRangeOptions);
     const currentSelection =
-      options.find(option => option.value === waitThreshold) ||
+      options.find(option => option.value === maxRange) ||
       options.find(
         option =>
           option.value ===
-          findNearestOption(waitThreshold, this.props.waitThresholdOptions),
+          findNearestOption(maxRange, this.props.maxRangeOptions),
       );
     return (
       <React.Fragment>
-        <MinuteSettingsDropdown
-          name="wait-threshold-selector"
+        <SearchSettingsDropdown
+          name="max-range-selector"
           currentSelection={currentSelection}
-          defaultValue={defaultSettings.waitThreshold}
+          defaultValue={defaultSettings.maxRange}
           onOptionSelected={value => {
             this.context.executeAction(saveRoutingSettings, {
-              waitThreshold: value,
+              maxRange: value,
             });
             addAnalyticsEvent({
               category: 'ItinerarySettings',
-              action: 'ChangeWaitThreshold',
+              action: 'ChangemaxRange',
               name: value,
             });
           }}
           options={options}
           formatOptions
-          labelText={intl.formatMessage({ id: 'wait-threshold' })}
+          labelText={intl.formatMessage({ id: 'max-range' })}
           translateLabels={false}
           overrideStyle={overrideStyle}
         />
@@ -51,19 +51,19 @@ class WaitThresholdOptionsSection extends React.Component {
   }
 }
 
-WaitThresholdOptionsSection.propTypes = {
-  waitThreshold: valueShape.isRequired,
-  waitThresholdOptions: PropTypes.array.isRequired,
+MaxRangeOptionsSection.propTypes = {
+  maxRange: valueShape.isRequired,
+  maxRangeOptions: PropTypes.array.isRequired,
   overrideStyle: PropTypes.object,
   defaultSettings: PropTypes.shape({
-    waitThreshold: PropTypes.number.isRequired,
+    maxRange: PropTypes.number.isRequired,
   }).isRequired,
 };
 
-WaitThresholdOptionsSection.contextTypes = {
+MaxRangeOptionsSection.contextTypes = {
   match: matchShape.isRequired,
   intl: intlShape.isRequired,
   executeAction: PropTypes.func.isRequired,
 };
 
-export default WaitThresholdOptionsSection;
+export default MaxRangeOptionsSection;

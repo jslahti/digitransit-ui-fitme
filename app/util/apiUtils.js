@@ -61,14 +61,20 @@ params is an array of
 */
 export function getFitMePOIs(places) {
   // places is an array of waiting places.
+  // maxRange is a param now in settings.
+  const maxRange = 1000;
+  const walkSpeed = 1.2;
+  // walkSpeed: [0.69, 0.97, 1.2, 1.67, 2.22], m/s
+  // waiting is minutes => change speed to m/min
   return new Promise(function(resolve) {
     const promises = [];
     places.forEach(wp=>{
       const index = wp.index;
       const waiting = wp.waiting;
-      let range = waiting * 20; // each waiting minute gives 20 metres of range.
-      if (range > 1000) {
-        range = 1000;
+      // multiply with 30 (not 60), because we need to go there and come back.
+      let range = waiting * walkSpeed*30;
+      if (range > maxRange) {
+        range = maxRange;
       }
       const queryUrl = 'https://datahub.northeurope.cloudapp.azure.com/match?'+
         'lat='+wp.lat+

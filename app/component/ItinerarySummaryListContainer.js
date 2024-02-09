@@ -210,9 +210,9 @@ function ItinerarySummaryListContainer(
     //const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
     const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
     // TESTING!!!
-    const { waitThreshold } = getCustomizedSettings();
+    const { waitThreshold, maxRange } = getCustomizedSettings();
     console.log('======  TESTING ============');
-    console.log(['waitThreshold=',waitThreshold]);
+    console.log(['waitThreshold=',waitThreshold,' maxRange=',maxRange]);
     console.log('======  TESTING ============');
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {

@@ -17,6 +17,7 @@ class WaitThresholdOptionsSection extends React.Component {
     const { defaultSettings, waitThreshold, overrideStyle } = this.props;
     const { intl } = this.context;
     const options = getFiveStepOptionsNumerical(this.props.waitThresholdOptions);
+    const overrideStyle = {};
     const currentSelection =
       options.find(option => option.value === waitThreshold) ||
       options.find(

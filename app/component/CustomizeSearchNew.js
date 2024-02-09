@@ -9,6 +9,7 @@ import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
 import POITypesSection from './customizesearch/POITypesSection'; // New!
 import WaitThresholdOptionsSection from './customizesearch/WaitThresholdOptionsSection'; // New!
+import MaxRangeOptionsSection from './customizesearch/MaxRangeOptionsSection'; // New!
 import WalkingOptionsSection from './customizesearch/WalkingOptionsSection';
 import AccessibilityOptionSection from './customizesearch/AccessibilityOptionSection';
 import TransferOptionsSection from './customizesearch/TransferOptionsSection';
@@ -106,6 +107,14 @@ class CustomizeSearch extends React.Component {
               waitThreshold={currentSettings.waitThreshold}
               defaultSettings={this.defaultSettings}
               waitThresholdOptions={config.defaultOptions.waitThreshold}
+              overrideStyle={overrideStyle}
+            />
+          </div>
+          <div className="settings-section">
+            <MaxRangeOptionsSection
+              maxRange={currentSettings.maxRange}
+              defaultSettings={this.defaultSettings}
+              maxRangeOptions={config.defaultOptions.maxRange}
               overrideStyle={overrideStyle}
             />
           </div>

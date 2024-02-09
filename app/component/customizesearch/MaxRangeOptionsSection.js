@@ -4,10 +4,10 @@ import { matchShape } from 'found';
 import { intlShape } from 'react-intl';
 import { saveRoutingSettings } from '../../action/SearchSettingsActions';
 
-import SearchSettingsDropdown, {
-  getFiveStepOptionsNumerical,
-  valueShape,
-} from './SearchSettingsDropdown';
+import RangeSettingsDropdown, {
+  getFiveRangeOptionsNumerical,
+  valueRangeShape,
+} from './RangeSettingsDropdown';
 import { addAnalyticsEvent } from '../../util/analyticsUtils';
 import { findNearestOption } from '../../util/planParamUtil';
 
@@ -16,7 +16,7 @@ class MaxRangeOptionsSection extends React.Component {
   render() {
     const { defaultSettings, maxRange, overrideStyle } = this.props;
     const { intl } = this.context;
-    const options = getFiveStepOptionsNumerical(this.props.maxRangeOptions);
+    const options = getFiveRangeOptionsNumerical(this.props.maxRangeOptions);
     const currentSelection =
       options.find(option => option.value === maxRange) ||
       options.find(
@@ -26,7 +26,7 @@ class MaxRangeOptionsSection extends React.Component {
       );
     return (
       <React.Fragment>
-        <SearchSettingsDropdown
+        <RangeSettingsDropdown
           name="max-range-selector"
           currentSelection={currentSelection}
           defaultValue={defaultSettings.maxRange}
@@ -52,7 +52,7 @@ class MaxRangeOptionsSection extends React.Component {
 }
 
 MaxRangeOptionsSection.propTypes = {
-  maxRange: valueShape.isRequired,
+  maxRange: valueRangeShape.isRequired,
   maxRangeOptions: PropTypes.array.isRequired,
   overrideStyle: PropTypes.object,
   defaultSettings: PropTypes.shape({

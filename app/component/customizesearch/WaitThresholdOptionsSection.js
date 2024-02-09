@@ -6,7 +6,7 @@ import { saveRoutingSettings } from '../../action/SearchSettingsActions';
 
 import MinuteSettingsDropdown, {
   getFiveWaitOptionsNumerical,
-  valueMinutesShape,
+  valueMinuteShape,
 } from './MinuteSettingsDropdown';
 import { addAnalyticsEvent } from '../../util/analyticsUtils';
 import { findNearestOption } from '../../util/planParamUtil';
@@ -16,7 +16,7 @@ class WaitThresholdOptionsSection extends React.Component {
   render() {
     const { defaultSettings, waitThreshold, overrideStyle } = this.props;
     const { intl } = this.context;
-    const options = getFiveStepOptionsNumerical(this.props.waitThresholdOptions);
+    const options = getFiveWaitOptionsNumerical(this.props.waitThresholdOptions);
     const currentSelection =
       options.find(option => option.value === waitThreshold) ||
       options.find(
@@ -52,7 +52,7 @@ class WaitThresholdOptionsSection extends React.Component {
 }
 
 WaitThresholdOptionsSection.propTypes = {
-  waitThreshold: valueShape.isRequired,
+  waitThreshold: valueMinuteShape.isRequired,
   waitThresholdOptions: PropTypes.array.isRequired,
   overrideStyle: PropTypes.object,
   defaultSettings: PropTypes.shape({

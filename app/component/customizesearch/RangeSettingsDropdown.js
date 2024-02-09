@@ -17,39 +17,39 @@ const roundToOneDecimal = number => {
  *
  * @param {*} options The options to select from.
  */
-export const getFiveWaitOptions = options => [
+export const getFiveRangeOptions = options => [
   {
     title: 'option-least',
     value: options.least || options[0],
-    minuteValue: `${options[0]} minutes`,
+    rangeValue: `${options[0]} m`,
   },
   {
     title: 'option-less',
     value: options.less || options[1],
-    minuteValue: `${options[1]} minutes`,
+    rangeValue: `${options[1]} m`,
   },
   {
     title: 'option-default',
     value: options[2],
-    minuteValue: `${options[2]} minutes`,
+    rangeValue: `${options[2]} m`,
   },
   {
     title: 'option-more',
     value: options.more || options[3],
-    minuteValue: `${options[3]} minutes`,
+    rangeValue: `${options[3]} m`,
   },
   {
     title: 'option-most',
     value: options.most || options[4],
-    minuteValue: `${options[4]} minutes`,
+    rangeValue: `${options[4]} m`,
   },
 ];
 
-export const getFiveWaitOptionsNumerical = options => {
+export const getFiveRangeOptionsNumerical = options => {
   const numericalOptions = [];
   options.forEach(item => {
     numericalOptions.push({
-      title: `${item} minutes`,
+      title: `${item} metres`,
       value: item,
     });
   });
@@ -59,19 +59,19 @@ export const getFiveWaitOptionsNumerical = options => {
 /**
  * Represents the types of acceptable values.
  */
-export const valueMinuteShape = PropTypes.oneOfType([
+export const valueRangeShape = PropTypes.oneOfType([
   PropTypes.string,
   PropTypes.number,
 ]);
 
-class MinuteSettingsDropdown extends React.Component {
+class RangeSettingsDropdown extends React.Component {
   static propTypes = {
     labelText: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     displayValueFormatter: PropTypes.func,
     currentSelection: PropTypes.object.isRequired,
     highlightDefaultValue: PropTypes.bool,
-    defaultValue: valueMinuteShape,
+    defaultValue: valueRangeShape,
     displayPattern: PropTypes.string,
     onOptionSelected: PropTypes.func.isRequired,
     formatOptions: PropTypes.bool,
@@ -134,7 +134,7 @@ class MinuteSettingsDropdown extends React.Component {
               : option.displayName}
           </span>
           <span className="right-side">
-            <span className="kmh-value">{option.minuteValue}</span>
+            <span className="kmh-value">{option.rangeValue}</span>
             <span className="checkmark">
               &nbsp;
               {option.value === this.props.currentSelection.value && (
@@ -208,7 +208,7 @@ class MinuteSettingsDropdown extends React.Component {
                     : o.title,
                 ),
                 value: o.value,
-                minuteValue: o.minuteValue || undefined,
+                rangeValue: o.rangeValue || undefined,
               }
             : {
                 displayName: `${this.props.displayPattern}_${o}`,
@@ -228,7 +228,7 @@ class MinuteSettingsDropdown extends React.Component {
                     : getFormattedValue(o),
                 ),
                 value: o,
-                minuteValue: o.minuteValue || undefined,
+                rangeValue: o.rangeValue || undefined,
               },
         )
       : options;
@@ -283,4 +283,4 @@ class MinuteSettingsDropdown extends React.Component {
   }
 }
 
-export default MinuteSettingsDropdown;
+export default RangeSettingsDropdown;

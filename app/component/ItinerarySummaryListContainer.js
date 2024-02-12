@@ -162,6 +162,7 @@ const createPOI = (data) => {
       locationSlack: _locationSlack,
       name: data.name,
       type: data.type,
+      source: data.source,
       address: data.address,
       contactInfo: data.contactInfo,
       url: data.url,

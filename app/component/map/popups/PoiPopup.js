@@ -49,6 +49,7 @@ function PoiPopup(
   const info_email = extra.contactInfo.email;
   const info_phone = extra.contactInfo.phone;
   const info_url = extra.url;
+  const source = extra.source;
   const thumbnailArray = extra.thumbnailsURls;
   //console.log(['PoiPopup thumbnailArray=',thumbnailArray]);
   let imgUrl = '';
@@ -94,6 +95,9 @@ function PoiPopup(
             {info_email}<br/>
             {info_phone}<br/>
             <a href={info_url} target='_blank'>{info_url}</a>
+          </div>
+          <div className="poi-source">
+            Source: {source}
           </div>
         </div>
         <div className="location-popup-wrapper">

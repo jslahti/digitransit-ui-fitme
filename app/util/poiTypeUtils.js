@@ -3,7 +3,7 @@
 import xor from 'lodash/xor';
 import isEqual from 'lodash/isEqual';
 //import inside from 'point-in-polygon';
-import { getCustomizedSettings } from '../store/localStorage';
+import { getPOISettings } from '../store/localStorage';
 //import { isInBoundingBox } from './geo-utils';
 import { addAnalyticsEvent } from './analyticsUtils';
 //import { ExtendedRouteTypes, TransportMode } from '../constants';
@@ -262,8 +262,8 @@ export const showTypeSettings = config =>
  * @returns {String[]} returns user set modes or default modes
  */
 export const getTypes = config => {
-  const { types } = getCustomizedSettings();
-  console.log(['======CUSTOMIZED SETTINGS getTypes types=',types]);
+  const { types } = getPoiSettings();
+  console.log(['======POI SETTINGS getTypes types=',types]);
   //const defaultSettings = getDefaultTypes(config);
   //const currentSettings = [ ...defaultSettings, ...customizedSettings ];
   //console.log(['getTypes currentSettings=',currentSettings]);

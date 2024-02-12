@@ -306,6 +306,9 @@ function ItinerarySummaryListContainer(
                   if (d.type === 'accomodation') {
                     d.type = 'accommodation';
                   }
+                  if (d.source === 'osm') {
+                    d.source = 'openstreetmap';
+                  }
                   const ucType = d.type ? d.type.toUpperCase() : 'UNKNOWN';
                   const ucSource = d.source ? d.source.toUpperCase() : 'UNKNOWN';
                   if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {

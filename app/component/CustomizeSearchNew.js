@@ -203,7 +203,7 @@ class CustomizeSearch extends React.Component {
 
 const withStore = connectToStores(
   CustomizeSearch,
-  ['RoutingSettingsStore'],
+  ['RoutingSettingsStore','PoiSettingsStore'],
   context => ({
     customizedSettings: context
       .getStore('RoutingSettingsStore')

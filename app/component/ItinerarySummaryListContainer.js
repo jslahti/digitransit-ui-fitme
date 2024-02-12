@@ -211,9 +211,9 @@ function ItinerarySummaryListContainer(
     //const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
     // TESTING!!!
     const { waitThreshold, maxRange } = getCustomizedSettings();
-    console.log('======  TESTING ============');
-    console.log(['waitThreshold=',waitThreshold,' maxRange=',maxRange]);
-    console.log('======  TESTING ============');
+    //console.log('======  TESTING ============');
+    //console.log(['waitThreshold=',waitThreshold,' maxRange=',maxRange]);
+    //console.log('======  TESTING ============');
     // NOTE: CONVERT waitThreshold from minutes to milliseconds
     const waitThresholdMS = waitThreshold * 60 * 1000;
     

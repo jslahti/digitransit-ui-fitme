@@ -102,7 +102,7 @@ class CustomizeSearch extends React.Component {
               </div>
             )}
           </div>
-          <div className="settings-section">
+          <div className="settings-section extra-padding-here">
             <WaitThresholdOptionsSection
               waitThreshold={currentSettings.waitThreshold}
               defaultSettings={this.defaultSettings}
@@ -110,7 +110,7 @@ class CustomizeSearch extends React.Component {
               overrideStyle={overrideStyle}
             />
           </div>
-          <div className="settings-section">
+          <div className="settings-section extra-padding-here">
             <MaxRangeOptionsSection
               maxRange={currentSettings.maxRange}
               defaultSettings={this.defaultSettings}

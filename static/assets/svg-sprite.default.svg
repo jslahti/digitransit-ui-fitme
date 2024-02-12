@@ -821,7 +821,7 @@ M 12 30 L 28 30" />
 	L 20 8" />
 </symbol>
 
-<symbol id="icon-icon_mapMarker-poi-source-osm" viewBox="0 0 40 40">
+<symbol id="icon-icon_mapMarker-poi-source-openstreetmap" viewBox="0 0 40 40">
 <!-- outline -->
 <path fill="#777" stroke="#333" stroke-width="2" d="
 	M 20 1
@@ -834,8 +834,9 @@ M 12 30 L 28 30" />
 	L 1 5
 	A 4 4 0 0 1 5 1
 	L 20 1" />
-<text x="1.8" y="21" style="font: bold 16px sans-serif; fill: #fff;">OSM</text>
-<text x="2.4" y="27" style="font: 5px sans-serif; fill: #fff;">OpenStreetMap</text>
+<text x="3" y="13" style="font: bold 13px sans-serif; fill: #fff;">Open</text>
+<text x="1.6" y="24" style="font: bold 13px sans-serif; fill: #fff;">Street</text>
+<text x="7" y="34" style="font: bold 13px sans-serif; fill: #fff;">Map</text>
 </symbol>
 
 <symbol id="icon-icon_mapMarker-poi-source-datahub" viewBox="0 0 40 40">

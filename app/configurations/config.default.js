@@ -490,7 +490,7 @@ export default {
   },
   
   poiSources: {
-    osm: {
+    openstreetmap: {
       availableForSelection: true,
       defaultValue: true,
     },

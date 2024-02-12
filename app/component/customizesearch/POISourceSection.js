@@ -15,7 +15,7 @@ import {
 
 /*
 svg symbols:
-icon-icon_mapMarker-poi-source-osm
+icon-icon_mapMarker-poi-source-openstreetmap
 icon-icon_mapMarker-poi-source-datahub
 */
 const POISourceSection = (

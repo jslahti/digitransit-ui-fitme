@@ -300,7 +300,7 @@ function ItinerarySummaryListContainer(
               // "ATTRACTION"
               // "EXPERIENCE"
               // Here we can filter out types that are not included (see: Settings)
-              // Also source (osm or datahub) can be used as filtering 
+              // Also source (openstreetmap or datahub) can be used as filtering 
               if (types && Array.isArray(types) && types.length > 0 && sources && Array.isArray(sources) && sources.length > 0 ) {
                 flattened.forEach(d=>{
                   if (d.type === 'accomodation') {

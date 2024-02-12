@@ -106,7 +106,7 @@ export function setPOISettings(data) {
     maxRange: getNumberValueOrDefault(data.maxRange, oldSettings.maxRange), // new (see: POI)
   };
   setItem('POISettings', newSettings);
-},
+}
 
 export function setCustomizedSettings(data) {
   const getNumberValueOrDefault = (value, defaultValue) =>

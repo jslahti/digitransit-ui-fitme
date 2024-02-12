@@ -7,7 +7,7 @@ import Icon from './Icon';
 import FareZoneSelector from './customizesearch/FareZoneSelector';
 import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
-import POISourcesSection from './customizesearch/POISourcesSection'; // New!
+import POISourceSection from './customizesearch/POISourceSection'; // New!
 import POITypesSection from './customizesearch/POITypesSection'; // New!
 import WaitThresholdOptionsSection from './customizesearch/WaitThresholdOptionsSection'; // New!
 import MaxRangeOptionsSection from './customizesearch/MaxRangeOptionsSection'; // New!
@@ -100,7 +100,7 @@ class CustomizeSearch extends React.Component {
           <div className="settings-section">
             {showSourceSettings(config) && (
               <div className="settings-option-container">
-                <POISourcesSection config={config} />
+                <POISourceSection config={config} />
               </div>
             )}
           </div>

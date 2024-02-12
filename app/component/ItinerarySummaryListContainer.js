@@ -24,6 +24,7 @@ import Loading from './Loading';
 import { compressLegs } from '../util/legUtils';
 import { getFitMePOIs } from '../util/apiUtils';
 import { setPoiPoints } from '../action/PoiPointActions';
+import { getSources } from '../util/poiSourceUtils';
 import { getTypes } from '../util/poiTypeUtils';
 import { getCustomizedSettings } from '../store/localStorage';
 
@@ -291,23 +292,27 @@ function ItinerarySummaryListContainer(
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
               const types = getTypes(config);
-              console.log(['ItinerarySummaryListContainer === getTypes types=',types]);
+              const sources = getSources(config);
+              console.log(['ItinerarySummaryListContainer types=',types,' sources=',sources]);
               // "ACCOMMODATION"
               // "EVENT"
               // "ATTRACTION"
               // "EXPERIENCE"
               // Here we can filter out types that are not included (see: Settings)
               // Also source (osm or datahub) can be used as filtering 
-              if (types && Array.isArray(types) && types.length > 0) {
+              if (types && Array.isArray(types) && types.length > 0 && sources && Array.isArray(sources) && sources.length > 0 ) {
                 flattened.forEach(d=>{
                   if (d.type === 'accomodation') {
                     d.type = 'accommodation';
                   }
-                  const ucType = d.type.toUpperCase();
-                  if (types.includes(ucType)) {
-                  // if (d.source === 'osm') { ...
-                  // if (d.source === 'datahub') { ...
-                  // if (d.type === 'transportation') { ...
+                  const ucType = d.type ? d.type.toUpperCase() : 'UNKNOWN';
+                  const ucSource = d.source ? d.source.toUpperCase() : 'UNKNOWN';
+                  if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {
+                    console.log('============================================');
+                    console.log('    WARNING! POI type or source NOT KNOWN!  ');
+                    console.log('============================================');
+                  }
+                  if (types.includes(ucType) && sources.includes(ucSource)) {
                     allpois.push(createPOI(d));
                   }
                 });

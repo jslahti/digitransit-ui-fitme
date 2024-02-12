@@ -488,7 +488,18 @@ export default {
       defaultValue: false, // always false
     },
   },
-
+  
+  poiSources: {
+    osm: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+    datahub: {
+      availableForSelection: true,
+      defaultValue: true,
+    },
+  },
+  
   poiTypes: {
     accommodation: {
       availableForSelection: true,

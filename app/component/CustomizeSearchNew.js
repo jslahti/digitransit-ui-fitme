@@ -7,6 +7,7 @@ import Icon from './Icon';
 import FareZoneSelector from './customizesearch/FareZoneSelector';
 import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
+import POISourcesSection from './customizesearch/POISourcesSection'; // New!
 import POITypesSection from './customizesearch/POITypesSection'; // New!
 import WaitThresholdOptionsSection from './customizesearch/WaitThresholdOptionsSection'; // New!
 import MaxRangeOptionsSection from './customizesearch/MaxRangeOptionsSection'; // New!
@@ -15,6 +16,7 @@ import AccessibilityOptionSection from './customizesearch/AccessibilityOptionSec
 import TransferOptionsSection from './customizesearch/TransferOptionsSection';
 import CityBikeNetworkSelector from './customizesearch/CityBikeNetworkSelector';
 import { showModeSettings, useCitybikes } from '../util/modeUtils';
+import { showSourceSettings } from '../util/poiSourceUtils'; // New!
 import { showTypeSettings } from '../util/poiTypeUtils'; // New!
 import ScrollableWrapper from './ScrollableWrapper';
 import { getDefaultSettings } from '../util/planParamUtil';
@@ -95,6 +97,13 @@ class CustomizeSearch extends React.Component {
           </h2>
         </div>
         <ScrollableWrapper>
+          <div className="settings-section">
+            {showSourceSettings(config) && (
+              <div className="settings-option-container">
+                <POISourcesSection config={config} />
+              </div>
+            )}
+          </div>
           <div className="settings-section">
             {showTypeSettings(config) && (
               <div className="settings-option-container">

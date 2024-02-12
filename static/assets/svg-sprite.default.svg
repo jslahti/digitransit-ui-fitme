@@ -821,6 +821,40 @@ M 12 30 L 28 30" />
 	L 20 8" />
 </symbol>
 
+<symbol id="icon-icon_mapMarker-poi-source-osm" viewBox="0 0 40 40">
+<!-- outline -->
+<path fill="#777" stroke="#333" stroke-width="2" d="
+	M 20 1
+	L 35 1
+	A 4 4 0 0 1 39 5
+	L 39 35
+	A 4 4 0 0 1 35 39
+	L 5 39
+	A 4 4 0 0 1 1 35
+	L 1 5
+	A 4 4 0 0 1 5 1
+	L 20 1" />
+<text x="1.8" y="21" style="font: bold 16px sans-serif; fill: #fff;">OSM</text>
+<text x="2.4" y="27" style="font: 5px sans-serif; fill: #fff;">OpenStreetMap</text>
+</symbol>
+
+<symbol id="icon-icon_mapMarker-poi-source-datahub" viewBox="0 0 40 40">
+<!-- outline -->
+<path fill="#777" stroke="#333" stroke-width="2" d="
+	M 20 1
+	L 35 1
+	A 4 4 0 0 1 39 5
+	L 39 35
+	A 4 4 0 0 1 35 39
+	L 5 39
+	A 4 4 0 0 1 1 35
+	L 1 5
+	A 4 4 0 0 1 5 1
+	L 20 1" />
+<text x="4" y="17" style="font: bold 12px sans-serif; fill: #fff;">DATA</text>
+<text x="4" y="31" style="font: bold 15px sans-serif; fill: #fff;">HUB</text>
+</symbol>
+
 <symbol id="icon-icon_mapMarker-to" viewBox="0 0 16 24">
   <path fill-rule="evenodd" d="M4.5 8c0-1.93 1.57-3.5 3.5-3.5s3.5 1.57 3.5 3.5-1.57 3.5-3.5 3.5S4.5 9.93 4.5 8zM8 24c5.333-7.721 8-13.054 8-16A8 8 0 1 0 0 8c0 2.946 2.667 8.279 8 16z"/>
 </symbol>

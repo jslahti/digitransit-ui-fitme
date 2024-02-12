@@ -304,7 +304,7 @@ export function togglePOISource(poiSource, config) {
     category: 'ItinerarySettings',
     name: poiSource,
   });
-  const sources = xor(getSources(config), [poiSources.toUpperCase()]);
+  const sources = xor(getSources(config), [poiSource.toUpperCase()]);
   console.log(['sources=',sources]);
   return sources;
 }

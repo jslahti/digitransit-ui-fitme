@@ -262,7 +262,7 @@ export const showTypeSettings = config =>
  * @returns {String[]} returns user set modes or default modes
  */
 export const getTypes = config => {
-  const { types } = getPoiSettings();
+  const { types } = getPOISettings();
   console.log(['======POI SETTINGS getTypes types=',types]);
   //const defaultSettings = getDefaultTypes(config);
   //const currentSettings = [ ...defaultSettings, ...customizedSettings ];

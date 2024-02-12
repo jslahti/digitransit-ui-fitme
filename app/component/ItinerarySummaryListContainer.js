@@ -710,6 +710,81 @@ ItinerarySummaryListContainer.contextTypes = {
   executeAction: PropTypes.func.isRequired
   // FITME!
 };
+/*
+
+How to connect this container with stores?
+
+we must have createFragmentContainer
+and connectToStores
+
+
+
+const ItinerarySummaryListContainerWithStores = connectToStores(
+  ItinerarySummaryListContainer,
+  [
+    'MapSettingsStore'
+  ],
+};
+
+const containerComponent = createFragmentContainer(
+  ItinerarySummaryListContainerWithStores,
+  {
+  ...
+
+
+
+
+
+
+const connectedComponent = connectToStores(
+  FavouritesContainer,
+  ['FavouriteStore', 'UserStore'],
+  context => ({
+    favourites:
+      !context.config.allowLogin ||
+      context.config.allowFavouritesFromLocalstorage ||
+      context.getStore('UserStore').getUser().sub !== undefined
+        ? context.getStore('FavouriteStore').getFavourites()
+        : [],
+    favouriteStatus: context.getStore('FavouriteStore').getStatus(),
+    requireLoggedIn: !context.config.allowFavouritesFromLocalstorage,
+    isLoggedIn:
+      context.config.allowLogin &&
+      context.getStore('UserStore').getUser().sub !== undefined,
+    color: context.config.colors.primary,
+    hoverColor:
+      context.config.colors.hover ||
+      LightenDarkenColor(context.config.colors.primary, -20),
+  }),
+);
+const StopsNearYouMapWithStores = connectToStores(
+  StopsNearYouFavoritesMapContainer,
+  [TimeStore, PreferencesStore, FavouriteStore],
+  ({ getStore }) => {
+    const currentTime = getStore(TimeStore).getCurrentTime().unix();
+    const language = getStore(PreferencesStore).getLanguage();
+    return {
+      language,
+      currentTime,
+    };
+  },
+);
+const containerComponent = createFragmentContainer(StopsNearYouMapWithStores, {
+
+
+
+const connectedComponent = connectToStores(
+  PointFeatureMarker,
+  [PreferencesStore],
+  ({ getStore }) => ({
+    language: getStore(PreferencesStore).getLanguage(),
+  }),
+);
+
+export { connectedComponent as default, PointFeatureMarker as Component };
+
+
+*/
 
 const containerComponent = createFragmentContainer(
   ItinerarySummaryListContainer,

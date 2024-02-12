@@ -4,7 +4,7 @@ import React from 'react';
 import { intlShape, FormattedMessage } from 'react-intl';
 
 import cx from 'classnames';
-import { saveRoutingSettings } from '../../action/SearchSettingsActions';
+import { savePoiSettings } from '../../action/PoiSettingsActions';
 import Toggle from './Toggle';
 import Icon from '../Icon';
 import {
@@ -80,7 +80,7 @@ const POISourceSection = (
                   id={`settings-toggle-${source}`}
                   toggled={sources.filter(o2 => o2 === source).length > 0}
                   onToggle={() => {
-                    executeAction(saveRoutingSettings, {
+                    executeAction(savePoiSettings, {
                       sources: togglePOISource(source, config),
                     })
                     }

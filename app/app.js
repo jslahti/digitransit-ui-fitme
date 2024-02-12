@@ -17,6 +17,7 @@ import PoiStore from './store/PoiStore';
 import UserStore from './store/UserStore';
 import FavouriteStore from './store/FavouriteStore';
 import RoutingSettingsStore from './store/RoutingSettingsStore';
+import MapSettingsStore from './store/MapSettingsStore';
 import FutureRouteStore from './store/FutureRouteStore';
 
 export default config => {
@@ -40,6 +41,7 @@ export default config => {
   app.registerStore(UserStore);
   app.registerStore(FavouriteStore);
   app.registerStore(RoutingSettingsStore);
+  app.registerStore(MapSettingsStore);
   app.registerStore(FutureRouteStore);
 
   app.plug({

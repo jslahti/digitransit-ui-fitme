@@ -86,6 +86,28 @@ export function getCustomizedSettings() {
   return getItemAsJson('customizedSettings', '{}');
 }
 
+export function getPOISettings() {
+  return getItemAsJson('POISettings', '{}');
+}
+
+export function setPOISettings(data) {
+  const getNumberValueOrDefault = (value, defaultValue) =>
+    value !== undefined && value !== null ? Number(value) : defaultValue;
+  const getValueOrDefault = (value, defaultValue) =>
+    value !== undefined ? value : defaultValue;
+
+  // Get old settings and test if set values have changed
+  const oldSettings = getPOISettings();
+
+  const newSettings = {
+    sources: getValueOrDefault(data.sources, oldSettings.sources), // new (see: POI sources)
+    types: getValueOrDefault(data.types, oldSettings.types), // new (see: POI types)
+    waitThreshold: getNumberValueOrDefault(data.waitThreshold, oldSettings.waitThreshold), // new (see: POI)
+    maxRange: getNumberValueOrDefault(data.maxRange, oldSettings.maxRange), // new (see: POI)
+  };
+  setItem('POISettings', newSettings);
+},
+
 export function setCustomizedSettings(data) {
   const getNumberValueOrDefault = (value, defaultValue) =>
     value !== undefined && value !== null ? Number(value) : defaultValue;
@@ -102,10 +124,6 @@ export function setCustomizedSettings(data) {
     ),
     bikeSpeed: getNumberValueOrDefault(data.bikeSpeed, oldSettings.bikeSpeed),
     modes: getValueOrDefault(data.modes, oldSettings.modes),
-    sources: getValueOrDefault(data.sources, oldSettings.sources), // new (see: POI sources)
-    types: getValueOrDefault(data.types, oldSettings.types), // new (see: POI types)
-    waitThreshold: getNumberValueOrDefault(data.waitThreshold, oldSettings.waitThreshold), // new (see: POI)
-    maxRange: getNumberValueOrDefault(data.maxRange, oldSettings.maxRange), // new (see: POI)
     ticketTypes: getValueOrDefault(data.ticketTypes, oldSettings.ticketTypes),
     walkBoardCost: getNumberValueOrDefault(
       data.walkBoardCost,
@@ -137,7 +155,6 @@ export function setCustomizedSettings(data) {
       oldSettings.showBikeAndParkItineraries,
     ),
   };
-
   setItem('customizedSettings', newSettings);
 }
 
@@ -200,6 +217,15 @@ export function getSearchSettingsStorage() {
 export function setSearchSettingsStorage(data) {
   setItem('customizedSettings', data);
 }
+
+/*
+export function getMapSettingsStorage() {
+  return getItemAsJson('customizedSettings', '{}');
+}
+export function setMapSettingsStorage(data) {
+  setItem('customizedSettings', data);
+}
+*/
 
 export function setGeolocationState(state) {
   setItem('geolocationPermission', { state });

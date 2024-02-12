@@ -4,7 +4,7 @@ import React from 'react';
 import { intlShape, FormattedMessage } from 'react-intl';
 
 import cx from 'classnames';
-import { saveRoutingSettings } from '../../action/SearchSettingsActions';
+import { savePoiSettings } from '../../action/PoiSettingsActions';
 import Toggle from './Toggle';
 import Icon from '../Icon';
 import {
@@ -88,7 +88,7 @@ const POITypesSection = (
                   id={`settings-toggle-${type}`}
                   toggled={types.filter(o2 => o2 === type).length > 0}
                   onToggle={() => {
-                    executeAction(saveRoutingSettings, {
+                    executeAction(savePoiSettings, {
                       types: togglePOIType(type, config),
                     })
                     }

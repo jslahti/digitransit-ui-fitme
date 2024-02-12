@@ -7,10 +7,12 @@ import Icon from './Icon';
 import FareZoneSelector from './customizesearch/FareZoneSelector';
 import StreetModeSelectorPanel from './customizesearch/StreetModeSelectorPanel';
 import TransportModesSection from './customizesearch/TransportModesSection';
+
 import POISourceSection from './customizesearch/POISourceSection'; // New!
 import POITypesSection from './customizesearch/POITypesSection'; // New!
 import WaitThresholdOptionsSection from './customizesearch/WaitThresholdOptionsSection'; // New!
 import MaxRangeOptionsSection from './customizesearch/MaxRangeOptionsSection'; // New!
+
 import WalkingOptionsSection from './customizesearch/WalkingOptionsSection';
 import AccessibilityOptionSection from './customizesearch/AccessibilityOptionSection';
 import TransferOptionsSection from './customizesearch/TransferOptionsSection';
@@ -31,6 +33,7 @@ class CustomizeSearch extends React.Component {
   static propTypes = {
     onToggleClick: PropTypes.func.isRequired,
     customizedSettings: PropTypes.object.isRequired,
+    poiSettings: PropTypes.object.isRequired,
     mobile: PropTypes.bool,
   };
 
@@ -42,9 +45,9 @@ class CustomizeSearch extends React.Component {
 
   render() {
     const { config, intl } = this.context;
-    const { onToggleClick, customizedSettings, mobile } = this.props;
+    const { onToggleClick, customizedSettings, poiSettings, mobile } = this.props;
     // Merge default and customized settings
-    const currentSettings = { ...this.defaultSettings, ...customizedSettings };
+    const currentSettings = { ...this.defaultSettings, ...customizedSettings, ...poiSettings };
     const overrideStyle = {};
     let ticketOptions = [];
     if (config.showTicketSelector && config.availableTickets) {
@@ -205,6 +208,9 @@ const withStore = connectToStores(
     customizedSettings: context
       .getStore('RoutingSettingsStore')
       .getRoutingSettings(),
+    poiSettings: context
+      .getStore('PoiSettingsStore')
+      .getPoiSettings(),
   }),
 );
 

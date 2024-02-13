@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { matchShape } from 'found';
 import { intlShape } from 'react-intl';
-import { savePoiSettings } from '../../action/PoiSettingsActions';
+import { saveRoutingSettings } from '../../action/SearchSettingsActions';
+//import { savePoiSettings } from '../../action/PoiSettingsActions';
 
 import RangeSettingsDropdown, {
   getFiveRangeOptionsNumerical,
@@ -31,7 +32,7 @@ class MaxRangeOptionsSection extends React.Component {
           currentSelection={currentSelection}
           defaultValue={defaultSettings.maxRange}
           onOptionSelected={value => {
-            this.context.executeAction(savePoiSettings, {
+            this.context.executeAction(saveRoutingSettings, {
               maxRange: value,
             });
             addAnalyticsEvent({

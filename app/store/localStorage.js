@@ -91,8 +91,6 @@ export function getPOISettings() {
 }
 
 export function setPOISettings(data) {
-  const getNumberValueOrDefault = (value, defaultValue) =>
-    value !== undefined && value !== null ? Number(value) : defaultValue;
   const getValueOrDefault = (value, defaultValue) =>
     value !== undefined ? value : defaultValue;
 
@@ -102,8 +100,6 @@ export function setPOISettings(data) {
   const newSettings = {
     sources: getValueOrDefault(data.sources, oldSettings.sources), // new (see: POI sources)
     types: getValueOrDefault(data.types, oldSettings.types), // new (see: POI types)
-    waitThreshold: getNumberValueOrDefault(data.waitThreshold, oldSettings.waitThreshold), // new (see: POI)
-    maxRange: getNumberValueOrDefault(data.maxRange, oldSettings.maxRange), // new (see: POI)
   };
   setItem('POISettings', newSettings);
 }
@@ -124,6 +120,8 @@ export function setCustomizedSettings(data) {
     ),
     bikeSpeed: getNumberValueOrDefault(data.bikeSpeed, oldSettings.bikeSpeed),
     modes: getValueOrDefault(data.modes, oldSettings.modes),
+    waitThreshold: getNumberValueOrDefault(data.waitThreshold, oldSettings.waitThreshold), // new (see: POI)
+    maxRange: getNumberValueOrDefault(data.maxRange, oldSettings.maxRange), // new (see: POI)
     ticketTypes: getValueOrDefault(data.ticketTypes, oldSettings.ticketTypes),
     walkBoardCost: getNumberValueOrDefault(
       data.walkBoardCost,

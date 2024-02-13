@@ -2,7 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { matchShape } from 'found';
 import { intlShape } from 'react-intl';
-import { savePoiSettings } from '../../action/PoiSettingsActions';
+import { saveRoutingSettings } from '../../action/SearchSettingsActions';
+//import { savePoiSettings } from '../../action/PoiSettingsActions';
 
 import MinuteSettingsDropdown, {
   getFiveWaitOptionsNumerical,
@@ -31,7 +32,7 @@ class WaitThresholdOptionsSection extends React.Component {
           currentSelection={currentSelection}
           defaultValue={defaultSettings.waitThreshold}
           onOptionSelected={value => {
-            this.context.executeAction(savePoiSettings, {
+            this.context.executeAction(saveRoutingSettings, {
               waitThreshold: value,
             });
             addAnalyticsEvent({

@@ -338,6 +338,7 @@ class SummaryPage extends React.Component {
     mapLayers: mapLayerShape.isRequired,
     mapLayerOptions: mapLayerOptionsShape.isRequired,
     poiPoints: PropTypes.array,
+    //poiSettings: PropTypes.array,
     alertRef: PropTypes.string.isRequired,
   };
 
@@ -2863,10 +2864,12 @@ const SummaryPageWithBreakpoint = withBreakpoint(props => (
     )}
   </ReactRelayContext.Consumer>
 ));
-
+/*
+	Add 'PoiSettingsStore' here to see if it makes map refresh when POI settings is changed.
+*/
 const SummaryPageWithStores = connectToStores(
   SummaryPageWithBreakpoint,
-  ['MapLayerStore','PoiStore'],
+  ['MapLayerStore','PoiStore','PoiSettingsStore'],
   ({ getStore }) => ({
     mapLayers: getStore('MapLayerStore').getMapLayers({
       notThese: ['stop', 'citybike', 'vehicles'],
@@ -2876,6 +2879,7 @@ const SummaryPageWithStores = connectToStores(
       selectedMapLayers: ['vehicles'],
     }),
     poiPoints: getStore('PoiStore').getPoiPoints(),
+    //poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
   }),
 );
 

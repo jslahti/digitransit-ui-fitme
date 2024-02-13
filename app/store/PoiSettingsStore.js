@@ -15,6 +15,7 @@ class PoiSettingsStore extends Store {
       settings = {};
       setPOISettings(settings);
     }
+    console.log(['PoiSettingsStore getPoiSettings settings=',settings]);
     return settings;
   }
 

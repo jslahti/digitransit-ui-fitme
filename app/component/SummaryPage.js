@@ -69,6 +69,10 @@ import { mapLayerOptionsShape } from '../util/shapes';
 
 const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
 
+// New FITME POI filtering
+import { getSources } from '../util/poiSourceUtils';
+import { getTypes } from '../util/poiTypeUtils';
+
 /**
 /**
  * Returns the actively selected itinerary's index. Attempts to look for
@@ -338,7 +342,7 @@ class SummaryPage extends React.Component {
     mapLayers: mapLayerShape.isRequired,
     mapLayerOptions: mapLayerOptionsShape.isRequired,
     poiPoints: PropTypes.array,
-    //poiSettings: PropTypes.array,
+    poiSettings: PropTypes.object,
     alertRef: PropTypes.string.isRequired,
   };
 
@@ -1898,10 +1902,38 @@ class SummaryPage extends React.Component {
     });
     */
     // NEW 20230504: Use here only those POI points where index === activeIndex
+	/*
+	IDEA:
+	Move filtering from ItinerarySummaryListContainer to here:
+	*/
+    
+    const types = getTypes(this.context.config);
+    const sources = getSources(this.context.config);
+    console.log(['SummaryPage types=',types,' sources=',sources]);
     const filteredPOIPoints = [];
+    
+    console.log(['SummaryPage this.props.poiSettings=',this.props.poiSettings]);
+    
     this.props.poiPoints.forEach(p=>{
+      // use only POIs which belong to "active" index.
       if (p.index === activeIndex) {
-        filteredPOIPoints.push(p);
+        // and type and source are INCLUDED is settings.
+        if (p.extra.type === 'accomodation') {
+          p.extra.type = 'accommodation';
+        }
+        if (p.extra.source === 'osm') {
+          p.extra.source = 'openstreetmap';
+        }
+        const ucType = p.extra.type ? p.extra.type.toUpperCase() : 'UNKNOWN';
+        const ucSource = p.extra.source ? p.extra.source.toUpperCase() : 'UNKNOWN';
+        if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {
+          console.log('============================================');
+          console.log('    WARNING! POI type or source NOT KNOWN!  ');
+          console.log('============================================');
+        }
+        if (types.includes(ucType) && sources.includes(ucSource)) {
+          filteredPOIPoints.push(p);
+        }
       }
     });
     console.log(['SummaryPage activeIndex=',activeIndex,' this.props.poiPoints=',this.props.poiPoints,' filteredPOIPoints=',filteredPOIPoints]);
@@ -2879,7 +2911,7 @@ const SummaryPageWithStores = connectToStores(
       selectedMapLayers: ['vehicles'],
     }),
     poiPoints: getStore('PoiStore').getPoiPoints(),
-    //poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
+    poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
   }),
 );
 

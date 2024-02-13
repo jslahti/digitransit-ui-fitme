@@ -292,35 +292,9 @@ function ItinerarySummaryListContainer(
               // 
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
-              const types = getTypes(config);
-              const sources = getSources(config);
-              console.log(['ItinerarySummaryListContainer types=',types,' sources=',sources]);
-              // "ACCOMMODATION"
-              // "EVENT"
-              // "ATTRACTION"
-              // "EXPERIENCE"
-              // Here we can filter out types that are not included (see: Settings)
-              // Also source (openstreetmap or datahub) can be used as filtering 
-              if (types && Array.isArray(types) && types.length > 0 && sources && Array.isArray(sources) && sources.length > 0 ) {
-                flattened.forEach(d=>{
-                  if (d.type === 'accomodation') {
-                    d.type = 'accommodation';
-                  }
-                  if (d.source === 'osm') {
-                    d.source = 'openstreetmap';
-                  }
-                  const ucType = d.type ? d.type.toUpperCase() : 'UNKNOWN';
-                  const ucSource = d.source ? d.source.toUpperCase() : 'UNKNOWN';
-                  if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {
-                    console.log('============================================');
-                    console.log('    WARNING! POI type or source NOT KNOWN!  ');
-                    console.log('============================================');
-                  }
-                  if (types.includes(ucType) && sources.includes(ucSource)) {
-                    allpois.push(createPOI(d));
-                  }
-                });
-              }
+              flattened.forEach(d=>{
+                allpois.push(createPOI(d));
+              });
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }
           })
@@ -732,10 +706,6 @@ const containerComponent = createFragmentContainer(
   ...
 
 
-
-
-
-
 const connectedComponent = connectToStores(
   FavouritesContainer,
   ['FavouriteStore', 'UserStore'],
@@ -891,3 +861,32 @@ export {
   containerComponent as default,
   ItinerarySummaryListContainer as Component,
 };
+              /*const types = getTypes(config);
+              const sources = getSources(config);
+              console.log(['ItinerarySummaryListContainer types=',types,' sources=',sources]);
+               "ACCOMMODATION"
+               "EVENT"
+               "ATTRACTION"
+               "EXPERIENCE"
+               Here we can filter out types that are not included (see: Settings)
+               Also source (openstreetmap or datahub) can be used as filtering 
+              if (types && Array.isArray(types) && types.length > 0 && sources && Array.isArray(sources) && sources.length > 0 ) {
+                flattened.forEach(d=>{
+                  if (d.type === 'accomodation') {
+                    d.type = 'accommodation';
+                  }
+                  if (d.source === 'osm') {
+                    d.source = 'openstreetmap';
+                  }
+                  const ucType = d.type ? d.type.toUpperCase() : 'UNKNOWN';
+                  const ucSource = d.source ? d.source.toUpperCase() : 'UNKNOWN';
+                  if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {
+                    console.log('============================================');
+                    console.log('    WARNING! POI type or source NOT KNOWN!  ');
+                    console.log('============================================');
+                  }
+                  if (types.includes(ucType) && sources.includes(ucSource)) {
+                    allpois.push(createPOI(d));
+                  }
+                });
+              }*/

@@ -74,7 +74,7 @@ const removeDuplicateCandidates = (candidates) => {
   });
   return waitPlaces;
 };
-
+/*
 const areTwoArraysEqual = (a, b) => {
   if (a.length !== b.length) {
     return false;
@@ -90,7 +90,7 @@ const areTwoArraysEqual = (a, b) => {
     return true; // continue with next pa
   });
   return isSame;
-};
+};*/
 /*
 
 defaultOptions.walkSpeed = array
@@ -267,47 +267,47 @@ function ItinerarySummaryListContainer(
     //console.log(['wPlaces=',wPlaces]);
     //console.log(['waitingPlaces=',waitingPlaces]);
     // Check if waitingPlaces array is the same as wPlaces array.
-    if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
+
+    //if (!areTwoArraysEqual(waitingPlaces, wPlaces)) {
       // walkSpeed in m/s
-      const settings = getCurrentSettings(config);
-      let walkSpeed = 1.2;
-      console.log(['settings=',settings]);
-      if (settings.walkSpeed) {
-        console.log(['settings.walkSpeed=',settings.walkSpeed]);
-        walkSpeed = settings.walkSpeed;
-      }
-      setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
-      
-      console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
-      const allpois = [];
-      // Generate an API call and return with POI results => show on the map.
-      if (wPlaces.length > 0) {
-        console.log('========================== getFitMePOIs =================================');
-        // getFitMePOIs(places, maxRange, walkSpeed) {
-        getFitMePOIs(wPlaces, maxRange, walkSpeed)
-          .then(res => {
-            if (Array.isArray(res)) {
-              console.log(['res=',res]);
-              // returns an array of arrays!
-              // 
-              const flattened = res.flat();
-              console.log(['flattened result array=',flattened]);
-              flattened.forEach(d=>{
-                allpois.push(createPOI(d));
-              });
-              context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
-            }
-          })
-          .catch(err => {
-            console.log(['err=',err]);
-          })
-          .finally(() => {
-            //console.log('FINALLY OK!');
-          });
-      } else {
-        context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
-      }
+    const settings = getCurrentSettings(config);
+    let walkSpeed = 1.2;
+    console.log(['settings=',settings]);
+    if (settings.walkSpeed) {
+      console.log(['settings.walkSpeed=',settings.walkSpeed]);
+      walkSpeed = settings.walkSpeed;
     }
+    setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
+    
+    console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
+    const allpois = [];
+    // Generate an API call and return with POI results => show on the map.
+    if (wPlaces.length > 0) {
+      console.log('========================== getFitMePOIs =================================');
+      // getFitMePOIs(places, maxRange, walkSpeed) {
+      getFitMePOIs(wPlaces, maxRange, walkSpeed)
+        .then(res => {
+          if (Array.isArray(res)) {
+            console.log(['res=',res]);
+            // returns an array of arrays!
+            const flattened = res.flat();
+            console.log(['flattened result array=',flattened]);
+            flattened.forEach(d=>{
+              allpois.push(createPOI(d));
+            });
+            context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
+          }
+        })
+        .catch(err => {
+          console.log(['err=',err]);
+        })
+        .finally(() => {
+          //console.log('FINALLY OK!');
+        });
+    } else {
+      context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
+    }
+    //}
     // FITME!
     
     const summaries = itineraries.map((itinerary, i) => (

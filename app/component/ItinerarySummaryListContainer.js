@@ -243,11 +243,11 @@ function ItinerarySummaryListContainer(
         //if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
-          console.log(['waitTime=',waitTime]);
+          //console.log(['waitTime=',waitTime]);
           if (waitTime >= waitThresholdMS) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
+              //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
               const candi = {
                 waiting:waitingTimeinMin,
                 address:nextLeg.from.name, // or leg.to.name

@@ -280,6 +280,8 @@ const relevantRoutingSettingsChanged = config => {
     'walkBoardCost',
     'ticketTypes',
     'walkReluctance',
+    'waitThreshold',
+    'maxRange',
   ];
   const defaultSettingsToCompare = pick(
     getDefaultSettings(config),

@@ -200,7 +200,7 @@ function ItinerarySummaryListContainer(
   context,
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
-  const [waitingPlaces, setWaitingPlaces] = useState([]);
+  //const [waitingPlaces, setWaitingPlaces] = useState([]);
   //const { config, match } = context;
   // FITME! Add executeAction here => enable to access it?
   const { config, match, executeAction } = context;
@@ -277,7 +277,7 @@ function ItinerarySummaryListContainer(
       console.log(['settings.walkSpeed=',settings.walkSpeed]);
       walkSpeed = settings.walkSpeed;
     }
-    setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
+    //setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
     
     console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
     const allpois = [];

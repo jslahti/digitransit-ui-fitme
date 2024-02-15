@@ -201,7 +201,8 @@ function ItinerarySummaryListContainer(
 ) {
   const [showCancelled, setShowCancelled] = useState(false);
   const [waitingPlaces, setWaitingPlaces] = useState([]);
-  const [waitThrashOLD, setWaitThrashOLD] = useState(0);
+  const [waitThrashOLD, setWaitThrashOLD] = useState(30);
+  const [maxRangeOLD, setMaxRangeOLD] = useState(1000);
   
   //const { config, match } = context;
   // FITME! Add executeAction here => enable to access it?
@@ -210,17 +211,25 @@ function ItinerarySummaryListContainer(
   if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {
     // FITME!
     const waitingCandidates = [];
-    
-    //const waitThreshold = 600000; // 10 mins (10 x 60 x 1000 = 600 000) 
-    //const waitThresholdCONST = 1800000; // EDIT: 30 mins (30 x 60 x 1000 = 1 800 000) 
-    // TESTING!!!
     const { waitThreshold, maxRange } = getCustomizedSettings();
-    //console.log('======  TESTING ============');
-    //console.log(['waitThreshold=',waitThreshold,' maxRange=',maxRange]);
-    //console.log('======  TESTING ============');
+    // There has been problems with getting the default values for our own Settings -values.
+    // and since getting config custom/default values is so cryptic, lets just check and 
+    // give those defaults here:
+    // The default options are:
+    // waitThreshold: [10, 20, 30, 40, 50],
+    //maxRange: [250, 500, 1000, 2000, 4000],
+    console.log(['ItinerarySummaryListContainer waitThreshold=',waitThreshold,'maxRange=',maxRange]);
+    let waitThresholdAdjusted = 30;
+    if (waitThreshold && waitThreshold > 0) {
+        waitThresholdAdjusted = waitThreshold;
+    }
+    let maxRangeAdjusted = 1000;
+    if (maxRange && maxRange > 0) {
+        maxRangeAdjusted = maxRange;
+    }
+    console.log(['waitThresholdAdjusted=',waitThresholdAdjusted,'maxRangeAdjusted=',maxRangeAdjusted]);
     // NOTE: CONVERT waitThreshold from minutes to milliseconds
-    const waitThresholdMS = waitThreshold * 60 * 1000;
-    
+    const waitThresholdMS = waitThresholdAdjusted * 60 * 1000;
     itineraries.forEach((itinerary, iti_index) => {
       //if (i === activeIndex) {
       //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
@@ -244,11 +253,9 @@ function ItinerarySummaryListContainer(
         //if (nextLeg && !nextLeg.intermediatePlace && !connectsFromViaPoint(nextLeg, intermediatePlaces)) {
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
-          //console.log(['waitTime=',waitTime]);
           if (waitTime >= waitThresholdMS) {
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
-              //console.log(['waitingTimeinMin=',waitingTimeinMin,' leg=',leg]);
               const candi = {
                 waiting:waitingTimeinMin,
                 address:nextLeg.from.name, // or leg.to.name
@@ -268,10 +275,14 @@ function ItinerarySummaryListContainer(
     //console.log(['wPlaces=',wPlaces]);
     //console.log(['waitingPlaces=',waitingPlaces]);
     // Check if waitingPlaces array is the same as wPlaces array.
-    if (waitThrashOLD !== waitThreshold || !areTwoArraysEqual(waitingPlaces, wPlaces)) {
-      setWaitingPlaces(wPlaces); // Set this as the new state in STATE.
-      setWaitThrashOLD(waitThreshold); // Set this as the new state in STATE.
-      
+    if (waitThrashOLD !== waitThresholdAdjusted || 
+      maxRangeOLD !== maxRangeAdjusted || 
+      !areTwoArraysEqual(waitingPlaces, wPlaces)) {
+
+      setWaitingPlaces(wPlaces); // Set these as the new state.
+      setWaitThrashOLD(waitThresholdAdjusted);
+      setMaxRangeOLD(maxRangeAdjusted);
+
       const settings = getCurrentSettings(config);
       let walkSpeed = 1.2; // walkSpeed in m/s
       console.log(['settings=',settings]);
@@ -279,14 +290,13 @@ function ItinerarySummaryListContainer(
         console.log(['settings.walkSpeed=',settings.walkSpeed]);
         walkSpeed = settings.walkSpeed;
       }
-      
+
       console.log(['wPlaces=',wPlaces,' intermediatePlaces=',intermediatePlaces]);
       const allpois = [];
       // Generate an API call and return with POI results => show on the map.
       if (wPlaces.length > 0) {
         console.log('========================== getFitMePOIs =================================');
-        // getFitMePOIs(places, maxRange, walkSpeed) {
-        getFitMePOIs(wPlaces, maxRange, walkSpeed)
+        getFitMePOIs(wPlaces, maxRangeAdjusted, walkSpeed)
           .then(res => {
             if (Array.isArray(res)) {
               console.log(['res=',res]);
@@ -685,77 +695,6 @@ ItinerarySummaryListContainer.contextTypes = {
   executeAction: PropTypes.func.isRequired
   // FITME!
 };
-/*
-
-How to connect this container with stores?
-
-we must have createFragmentContainer
-and connectToStores
-
-
-
-const ItinerarySummaryListContainerWithStores = connectToStores(
-  ItinerarySummaryListContainer,
-  [
-    'MapSettingsStore'
-  ],
-};
-
-const containerComponent = createFragmentContainer(
-  ItinerarySummaryListContainerWithStores,
-  {
-  ...
-
-
-const connectedComponent = connectToStores(
-  FavouritesContainer,
-  ['FavouriteStore', 'UserStore'],
-  context => ({
-    favourites:
-      !context.config.allowLogin ||
-      context.config.allowFavouritesFromLocalstorage ||
-      context.getStore('UserStore').getUser().sub !== undefined
-        ? context.getStore('FavouriteStore').getFavourites()
-        : [],
-    favouriteStatus: context.getStore('FavouriteStore').getStatus(),
-    requireLoggedIn: !context.config.allowFavouritesFromLocalstorage,
-    isLoggedIn:
-      context.config.allowLogin &&
-      context.getStore('UserStore').getUser().sub !== undefined,
-    color: context.config.colors.primary,
-    hoverColor:
-      context.config.colors.hover ||
-      LightenDarkenColor(context.config.colors.primary, -20),
-  }),
-);
-const StopsNearYouMapWithStores = connectToStores(
-  StopsNearYouFavoritesMapContainer,
-  [TimeStore, PreferencesStore, FavouriteStore],
-  ({ getStore }) => {
-    const currentTime = getStore(TimeStore).getCurrentTime().unix();
-    const language = getStore(PreferencesStore).getLanguage();
-    return {
-      language,
-      currentTime,
-    };
-  },
-);
-const containerComponent = createFragmentContainer(StopsNearYouMapWithStores, {
-
-
-
-const connectedComponent = connectToStores(
-  PointFeatureMarker,
-  [PreferencesStore],
-  ({ getStore }) => ({
-    language: getStore(PreferencesStore).getLanguage(),
-  }),
-);
-
-export { connectedComponent as default, PointFeatureMarker as Component };
-
-
-*/
 
 const containerComponent = createFragmentContainer(
   ItinerarySummaryListContainer,
@@ -862,32 +801,3 @@ export {
   containerComponent as default,
   ItinerarySummaryListContainer as Component,
 };
-              /*const types = getTypes(config);
-              const sources = getSources(config);
-              console.log(['ItinerarySummaryListContainer types=',types,' sources=',sources]);
-               "ACCOMMODATION"
-               "EVENT"
-               "ATTRACTION"
-               "EXPERIENCE"
-               Here we can filter out types that are not included (see: Settings)
-               Also source (openstreetmap or datahub) can be used as filtering 
-              if (types && Array.isArray(types) && types.length > 0 && sources && Array.isArray(sources) && sources.length > 0 ) {
-                flattened.forEach(d=>{
-                  if (d.type === 'accomodation') {
-                    d.type = 'accommodation';
-                  }
-                  if (d.source === 'osm') {
-                    d.source = 'openstreetmap';
-                  }
-                  const ucType = d.type ? d.type.toUpperCase() : 'UNKNOWN';
-                  const ucSource = d.source ? d.source.toUpperCase() : 'UNKNOWN';
-                  if (ucType==='UNKNOWN' || ucSource==='UNKNOWN') {
-                    console.log('============================================');
-                    console.log('    WARNING! POI type or source NOT KNOWN!  ');
-                    console.log('============================================');
-                  }
-                  if (types.includes(ucType) && sources.includes(ucSource)) {
-                    allpois.push(createPOI(d));
-                  }
-                });
-              }*/

@@ -1904,18 +1904,25 @@ class SummaryPage extends React.Component {
     });
     */
     // NEW 20230504: Use here only those POI points where index === activeIndex
-	/*
-	IDEA:
-	Move filtering from ItinerarySummaryListContainer to here:
-	*/
-    
     const types = getTypes(this.context.config);
     const sources = getSources(this.context.config);
     console.log(['SummaryPage types=',types,' sources=',sources]);
+    // There has been problems with getting the default values for our own Settings -values.
+    // and since getting config custom/default values is so cryptic, lets just check and 
+    // give those defaults here:
+    // types: ['accommodation','attraction','event','experience','rental_service','restaurant','shop','venue','transportation']
+    // sources: ['openstreetmap','datahub']
+    let typesAdjusted = ['ACCOMMODATION','ATTRACTION','EVENT','EXPERIENCE','RENTAL_SERVICE','RESTAURANT','SHOP','VENUE','TRANSPORTATION'];
+    if (types && types.length > 0) {
+      typesAdjusted = types;
+    }
+    let sourcesAdjusted = ['OPENSTREETMAP','DATAHUB'];
+    if (sources && sources.length > 0) {
+      sourcesAdjusted = sources;
+    }
+    console.log(['SummaryPage typesAdjusted=',typesAdjusted,' sourcesAdjusted=',sourcesAdjusted]);
     const filteredPOIPoints = [];
-    
     console.log(['SummaryPage this.props.poiSettings=',this.props.poiSettings]);
-    
     this.props.poiPoints.forEach(p=>{
       // use only POIs which belong to "active" index.
       if (p.index === activeIndex) {
@@ -1933,7 +1940,7 @@ class SummaryPage extends React.Component {
           console.log('    WARNING! POI type or source NOT KNOWN!  ');
           console.log('============================================');
         }
-        if (types.includes(ucType) && sources.includes(ucSource)) {
+        if (typesAdjusted.includes(ucType) && sourcesAdjusted.includes(ucSource)) {
           filteredPOIPoints.push(p);
         }
       }

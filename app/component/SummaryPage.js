@@ -1923,6 +1923,7 @@ class SummaryPage extends React.Component {
     console.log(['SummaryPage typesAdjusted=',typesAdjusted,' sourcesAdjusted=',sourcesAdjusted]);
     const filteredPOIPoints = [];
     console.log(['SummaryPage this.props.poiSettings=',this.props.poiSettings]);
+    
     this.props.poiPoints.forEach(p=>{
       // use only POIs which belong to "active" index.
       if (p.index === activeIndex) {

@@ -54,14 +54,17 @@ class PoiStore extends Store {
           });
         });
       }
-      if (pois.length > 0) {
+    }
+    if (pois.length > 0) {
+      if (this.poiPoints.length > 0) {
         if (this.isEqual(pois, this.poiPoints)) {
           isSame = true;
-        } else {
-          pois.forEach(poi=>{
-            newpois.push(poi);
-          });
         }
+      }
+      if (!isSame) {
+        pois.forEach(poi=>{
+          newpois.push(poi);
+        });
       }
     }
     if (isSame) {

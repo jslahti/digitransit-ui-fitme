@@ -8,23 +8,21 @@ class PoiStore extends Store {
 
   isEqual(a_new, an_old) {
     let isSame = true;
-    if (a_new.length > 0 && an_old.length > 0) {
-      a_new.every(poi=>{
-        let found = false;
-        an_old.every(oldpoi=>{
-          if (oldpoi.lat === poi.lat && oldpoi.lon === poi.lon && oldpoi.index === poi.index) {
-            found = true;
-            return false; // break out from the every loop.
-          }
-          return true; // continue with next oldpoi
-        });
-        if (!found) {
-          isSame = false;
+    a_new.every(poi=>{
+      let found = false;
+      an_old.every(oldpoi=>{
+        if (oldpoi.lat === poi.lat && oldpoi.lon === poi.lon && oldpoi.index === poi.index) {
+          found = true;
           return false; // break out from the every loop.
         }
-        return true; // continue with next poi
+        return true; // continue with next oldpoi
       });
-    }
+      if (!found) {
+        isSame = false;
+        return false; // break out from the every loop.
+      }
+      return true; // continue with next poi
+    });
     return isSame;
   }
 
@@ -37,33 +35,39 @@ class PoiStore extends Store {
   setPoiPoints(po) {
     const pois = po.poi;
     const viapoints = po.via;
-    const oldlen = this.poiPoints.length;
     const newpois = [];
+    let isSame = false;
     console.log(['setPoiPoints pois=',pois,' viapoints=',viapoints]);
-    if (oldlen > 0 && viapoints.length > 0) {
+    if (this.poiPoints.length > 0) {
       // Store has old POIs and viapoints are defined
       // If POI is included in viapoints array => keep it.
-      viapoints.forEach(vp=>{
-        this.poiPoints.every(oldpoi=>{
-          // If POIs exist => we go through the list and check which ones to keep.
-          // NOTE: viapoints do NOT have index, only address, lat and lon
-          if (vp.lat === oldpoi.lat && vp.lon === oldpoi.lon) {
-            newpois.push(oldpoi);
-            return false; // break out from the .every loop
-          }
-          return true; // continue with next oldpoi
-        });
-      });
-    }
-    if (this.isEqual(pois, this.poiPoints)) {
-      console.log('PoiStore NO CHANGE!');
-    } else {
-      if (pois.length > 0) {
-        pois.forEach(poi=>{
-          newpois.push(poi);
+      if (viapoints.length > 0) {
+        viapoints.forEach(vp=>{
+          this.poiPoints.every(oldpoi=>{
+            // If POIs exist => we go through the list and check which ones to keep.
+            // NOTE: viapoints do NOT have index, only address, lat and lon
+            if (vp.lat === oldpoi.lat && vp.lon === oldpoi.lon) {
+              newpois.push(oldpoi);
+              return false; // break out from the .every loop
+            }
+            return true; // continue with next oldpoi
+          });
         });
       }
-      if (newpois.length > 0) {
+      if (pois.length > 0) {
+        if (this.isEqual(pois, this.poiPoints)) {
+          isSame = true;
+        } else {
+          pois.forEach(poi=>{
+            newpois.push(poi);
+          });
+        }
+      }
+    }
+    if (isSame) {
+      console.log('=== PoiStore is NOT changed! ==='); 
+    } else {
+      if (newpois > 0) {
         this.poiPoints = newpois;
         console.log(['CHANGES TO Store this.poiPoints=',this.poiPoints,'and EMIT CHANGE!']);
         this.emitChange();

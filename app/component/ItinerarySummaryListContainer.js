@@ -303,9 +303,19 @@ function ItinerarySummaryListContainer(
               // returns an array of arrays!
               const flattened = res.flat();
               console.log(['flattened result array=',flattened]);
+              const test_index_hash = {};
               flattened.forEach(d=>{
+                const index = typeof d.index === 'string' ? parseInt(d.index) : d.index;
+                if (typeof test_index_hash[index] !== 'undefined') {
+                  test_index_hash[index].count++;
+                } else {
+                  test_index_hash[index] = {count: 1};
+                }
                 allpois.push(createPOI(d));
               });
+              console.log('=============8888888888888888888==============');
+              console.log(['test_index_hash=',test_index_hash]);
+              console.log('=============8888888888888888888==============');
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }
           })

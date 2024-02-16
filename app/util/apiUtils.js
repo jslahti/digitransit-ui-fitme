@@ -91,10 +91,11 @@ export function getFitMePOIs(places, maxRange, walkSpeed) {
     const nested=[];
     Promise.all(promises).then(res => {
       res.forEach(r=>{
+        const ressu = r.json();
         console.log('%%%%%%%%%%%%%%%%%%');
-        console.log(['r.json()=',r.json()]);
+        console.log(['ressu=',ressu]);
         console.log('%%%%%%%%%%%%%%%%%%');
-        nested.push(r.json());
+        nested.push(ressu);
       });
       Promise.all(nested).then(data=>{
         console.log('????????????????????????');

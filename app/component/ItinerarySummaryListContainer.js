@@ -313,9 +313,9 @@ function ItinerarySummaryListContainer(
                 }
                 allpois.push(createPOI(d));
               });
-              console.log('=============8888888888888888888==============');
+              console.log('=============TEST =================');
               console.log(['test_index_hash=',test_index_hash]);
-              console.log('=============8888888888888888888==============');
+              console.log('=============TEST =================');
               context.executeAction(setPoiPoints, {poi:allpois, via:intermediatePlaces});
             }
           })

@@ -85,23 +85,27 @@ export function getFitMePOIs(places, maxRange, walkSpeed) {
         queryUrl,
         {},
         2,
-        200);
+        1000);
       promises.push(p);
     });
     const nested=[];
     Promise.all(promises).then(res => {
       res.forEach(r=>{
+        console.log('%%%%%%%%%%%%%%%%%%');
+        console.log(['r.json()=',r.json()]);
+        console.log('%%%%%%%%%%%%%%%%%%');
         nested.push(r.json());
       });
       Promise.all(nested).then(data=>{
+        console.log('????????????????????????');
         console.log(['getFitMePOIs all data=',data]);
+        console.log('????????????????????????');
         // Check where we want to do the JSON => POI mapping?
         // Here or in ItinerarySummaryListContainer.js?
         // returns an array of arrays!
         // 
         // const flattened = data.flat();
         //console.log(['flattened result array=',flattened]);
-        
         resolve(data);
       });
     });

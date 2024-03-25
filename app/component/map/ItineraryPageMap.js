@@ -67,14 +67,12 @@ function ItineraryPageMap(
     );
   }
   if (from.lat && from.lon) {
-    leafletObjs.push(
-      <LocationMarker key="fromMarker" position={from} type="from" />,
-      console.log(['from=',from]);
-    );
+    console.log(['from=',from]);
+    leafletObjs.push(<LocationMarker key="fromMarker" position={from} type="from" />);
   }
   if (to.lat && to.lon) {
-    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
     console.log(['to=',to]);
+    leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
   }
   
   // FITME: BEGIN insert some code to show POIs in the map.

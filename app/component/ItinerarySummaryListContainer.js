@@ -218,7 +218,7 @@ function ItinerarySummaryListContainer(
     // The default options are:
     // waitThreshold: [10, 20, 30, 40, 50],
     //maxRange: [250, 500, 1000, 2000, 4000],
-    console.log(['ItinerarySummaryListContainer waitThreshold=',waitThreshold,'maxRange=',maxRange]);
+    //console.log(['ItinerarySummaryListContainer waitThreshold=',waitThreshold,'maxRange=',maxRange]);
     let waitThresholdAdjusted = 30;
     if (waitThreshold && waitThreshold > 0) {
         waitThresholdAdjusted = waitThreshold;
@@ -227,7 +227,7 @@ function ItinerarySummaryListContainer(
     if (maxRange && maxRange > 0) {
         maxRangeAdjusted = maxRange;
     }
-    console.log(['waitThresholdAdjusted=',waitThresholdAdjusted,'maxRangeAdjusted=',maxRangeAdjusted]);
+    //console.log(['waitThresholdAdjusted=',waitThresholdAdjusted,'maxRangeAdjusted=',maxRangeAdjusted]);
     // NOTE: CONVERT waitThreshold from minutes to milliseconds
     const waitThresholdMS = waitThresholdAdjusted * 60 * 1000;
     itineraries.forEach((itinerary, iti_index) => {
@@ -254,6 +254,7 @@ function ItinerarySummaryListContainer(
         if (nextLeg) {
           waitTime = nextLeg.startTime - leg.endTime;
           if (waitTime >= waitThresholdMS) {
+            // Optional chaining (?.)
             if (!nextLeg?.interlineWithPreviousLeg) {
               const waitingTimeinMin = Math.floor(waitTime / 1000 / 60);
               const candi = {

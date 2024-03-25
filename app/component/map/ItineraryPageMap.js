@@ -69,10 +69,12 @@ function ItineraryPageMap(
   if (from.lat && from.lon) {
     leafletObjs.push(
       <LocationMarker key="fromMarker" position={from} type="from" />,
+      console.log(['from=',from]);
     );
   }
   if (to.lat && to.lon) {
     leafletObjs.push(<LocationMarker key="toMarker" position={to} type="to" />);
+    console.log(['to=',to]);
   }
   
   // FITME: BEGIN insert some code to show POIs in the map.

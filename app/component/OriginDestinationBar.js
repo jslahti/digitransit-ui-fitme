@@ -98,6 +98,7 @@ class OriginDestinationBar extends React.Component {
     console.log('======== TEST: RESET POI Store ==============');
     this.context.executeAction(setPoiPoints, {poi:[], via:[]});
     console.log('======== SEE IF POIs are fetched or NOT? ==========');
+    console.log(['======== onLocationSelect item=',item,' id=',id]);
     if (id === parseInt(id, 10)) {
       // id = via point index
       action = 'EditJourneyViaPoint';

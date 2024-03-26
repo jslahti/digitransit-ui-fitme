@@ -142,50 +142,7 @@ class FitmeTestBar extends React.Component {
     const filter = config.stopSearchFilter
       ? results => results.filter(config.stopSearchFilter)
       : undefined;
-    return (
-      <div
-        className={cx(
-          'origin-destination-bar',
-          this.props.className,
-          'flex-horizontal',
-        )}
-      >
-      <h1>FITME TEST BAR HERE!</h1>
-      {/*<DTAutosuggestPanelWithSearchContext
-          appElement="#app"
-          origin={this.props.origin}
-          destination={this.props.destination}
-          refPoint={refPoint}
-          originPlaceHolder="search-origin-index"
-          destinationPlaceHolder="search-destination-index"
-          showMultiPointControls={this.context.config.viaPointsEnabled}
-          viaPoints={this.props.viaPoints}
-          updateViaPoints={this.updateViaPoints}
-          addAnalyticsEvent={addAnalyticsEvent}
-          swapOrder={this.swapEndpoints}
-          selectHandler={this.onLocationSelect}
-          sources={[
-            'History',
-            'Datasource',
-            this.props.showFavourites ? 'Favourite' : '',
-          ]}
-          targets={this.props.isMobile ? mobileTargets : desktopTargets}
-          lang={this.props.language}
-          disableAutoFocus={this.props.isMobile}
-          isMobile={this.props.isMobile}
-          itineraryParams={this.context.match.location.query}
-          color={this.context.config.colors.primary}
-          hoverColor={
-            this.context.config.colors.hover ||
-            LightenDarkenColor(this.context.config.colors.primary, -20)
-          }
-          modeSet={this.props.modeSet}
-          onFocusChange={() => {}}
-          filterResults={filter}
-      />{' '}
-      */}
-      </div>
-    );
+    return <div>Hello, World!</div>;
   }
 }
 

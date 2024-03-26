@@ -458,6 +458,10 @@ export function getFavouriteBikeRentalStationsQuery(favourites, input) {
  *        by this method
  */
 export function getRoutesQuery(input, feedIds, transportMode, pathOpts) {
+  
+  
+  console.log(['search-util-query-utils getRoutesQuery input=',input,' feedIds=',feedIds,' transportMode=',transportMode,' pathOpts=',pathOpts]);
+  
   if (!relayEnvironment) {
     return Promise.resolve([]);
   }
@@ -468,6 +472,9 @@ export function getRoutesQuery(input, feedIds, transportMode, pathOpts) {
   if (number && number[0].length > 3) {
     return Promise.resolve([]);
   }
+  
+  console.log(['search-util-query-utils getRoutesQuery STILL RUNNNING number=',number]);
+  
   let modes;
   if (transportMode) {
     [, modes] = transportMode.split('-');
@@ -486,6 +493,7 @@ export function getRoutesQuery(input, feedIds, transportMode, pathOpts) {
       [result => match(normalizedTerm, result.properties)],
       ['desc', 'desc'],
     );
+    console.log(['orderedResults=',orderedResults]);
     return take(orderedResults, 100);
   });
 }

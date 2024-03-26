@@ -5,6 +5,7 @@ import { matchShape, routerShape } from 'found';
 import { FormattedMessage } from 'react-intl';
 
 import OriginDestinationBar from './OriginDestinationBar';
+import FitmeTestBar from './FitmeTestBar';
 import QuickSettingsPanel from './QuickSettingsPanel';
 import { isBrowser } from '../util/browser';
 import { parseLocation, PREFIX_ITINERARY_SUMMARY } from '../util/path';
@@ -94,6 +95,13 @@ class SummaryNavigation extends React.Component {
             }
           />
         )}
+        <FitmeTestBar
+          className={className}
+          origin={parseLocation(this.props.params.from)}
+          destination={parseLocation(this.props.params.to)}
+          isMobile={this.props.breakpoint !== 'large'}
+          modeSet={this.context.config.iconModeSet}
+        />
         <span className="sr-only">
           <FormattedMessage
             id="search-fields.sr-instructions"

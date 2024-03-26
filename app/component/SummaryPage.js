@@ -1106,7 +1106,10 @@ class SummaryPage extends React.Component {
     console.log('NOW FETCH QUERY ===============================');
     console.log(['this.props.relayEnvironment=',this.props.relayEnvironment,' query=',query,' planParams=',planParams]);
     console.log('===============================');
-
+    
+    
+    
+    
     fetchQuery(this.props.relayEnvironment, query, planParams, {
       force: true,
     }).then(({ plan: results }) => {

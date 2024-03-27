@@ -142,7 +142,7 @@ class FitmeTestBar extends React.Component {
     const filter = config.stopSearchFilter
       ? results => results.filter(config.stopSearchFilter)
       : undefined;
-    return <div>Hello, World!</div>;
+    return <div>Hello from FitmeTestBar!</div>;
   }
 }
 

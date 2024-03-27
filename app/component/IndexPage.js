@@ -37,6 +37,8 @@ import {
   useCitybikes,
 } from '../util/modeUtils';
 
+import FitmeTestBar from './FitmeTestBar';
+
 const StopRouteSearch = withSearchContext(DTAutoSuggest);
 const LocationSearch = withSearchContext(DTAutosuggestPanel);
 const modules = {
@@ -370,6 +372,13 @@ class IndexPage extends React.Component {
                     default="Journey Planner"
                   />
                 </h1>
+                <FitmeTestBar
+                  className={className}
+                  origin={origin}
+                  destination={destination}
+                  isMobile={breakpoint !== 'large'}
+                  modeSet={config.iconModeSet}
+                />
                 <CtrlPanel
                   instance="hsl"
                   language={lang}

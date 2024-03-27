@@ -208,6 +208,7 @@ class IndexPage extends React.Component {
 
   /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
   render() {
+    const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
     const { intl, config } = this.context;
     const { trafficNowLink, colors, fontWeights } = config;
     const color = colors.primary;

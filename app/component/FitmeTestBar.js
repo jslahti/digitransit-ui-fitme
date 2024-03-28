@@ -23,7 +23,7 @@ import { getRefPoint } from '../util/apiUtils';
 import { useCitybikes } from '../util/modeUtils';
 
 // FITME
-import getFitMeJourneys from '../util/apiUtils';
+import { getFitMeJourneys } from '../util/apiUtils';
 // FITME
 
 /*

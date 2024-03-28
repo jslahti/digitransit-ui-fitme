@@ -84,6 +84,40 @@ class FitmeTestBar extends React.Component {
     const viaPoints = getIntermediatePlaces(this.context.match.location.query);
     this.context.executeAction(setViaPoints, viaPoints);
     this.mounted = true;
+
+    console.log('========================== getFitMeJourneys =================================');
+    getFitMeJourneys()
+      .then(res => {
+        console.log(['res=',res]);
+        //const sid = document.getElementById('fitme-select-journey');
+        if (res && Array.isArray(res) && res.length > 0) {
+          const opts = [];
+          res.forEach((r,i) => {
+            opts.push({value:'index-'+i,label:r.title});
+            /*
+            const opt = document.createElement("option");
+            if (i===0) {
+              //<option selected>r.title</option>
+              opt.innerText = r.title;
+              opt.setAttribute("selected", "");
+            } else {
+              //<option>r.title</option>
+              opt.innerText = r.title;
+              opt.setAttribute("value", "journey-"+i);
+            }
+            sid.append(opt);
+            */
+          });
+          this.options = opts;
+          this.setState({selectedOption:'index-0'});
+        }
+      })
+      .catch(err => {
+        console.log(['err=',err]);
+      })
+      .finally(() => {
+        console.log('FINALLY OK!');
+      });
   }
 /*
   updateViaPoints = newViaPoints => {
@@ -157,39 +191,6 @@ class FitmeTestBar extends React.Component {
     if (useCitybikes(this.context.config.cityBike?.networks)) {
       desktopTargets.push('BikeRentalStations');
     }
-    console.log('========================== getFitMeJourneys =================================');
-    getFitMeJourneys()
-      .then(res => {
-        console.log(['res=',res]);
-        //const sid = document.getElementById('fitme-select-journey');
-        if (res && Array.isArray(res) && res.length > 0) {
-          const opts = [];
-          res.forEach((r,i) => {
-            opts.push({value:'index-'+i,label:r.title});
-            /*
-            const opt = document.createElement("option");
-            if (i===0) {
-              //<option selected>r.title</option>
-              opt.innerText = r.title;
-              opt.setAttribute("selected", "");
-            } else {
-              //<option>r.title</option>
-              opt.innerText = r.title;
-              opt.setAttribute("value", "journey-"+i);
-            }
-            sid.append(opt);
-            */
-          });
-          this.options = opts;
-          this.setState({selectedOption:'index-0'});
-        }
-      })
-      .catch(err => {
-        console.log(['err=',err]);
-      })
-      .finally(() => {
-        console.log('FINALLY OK!');
-      });
     
     const { selectedOption } = this.state;
     const mobileTargets = [...desktopTargets, 'MapPosition'];

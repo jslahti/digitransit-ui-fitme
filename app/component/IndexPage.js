@@ -209,7 +209,7 @@ class IndexPage extends React.Component {
 
   /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
   render() {
-    const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
+    //const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
     const { intl, config } = this.context;
     const { trafficNowLink, colors, fontWeights } = config;
     const color = colors.primary;
@@ -375,7 +375,7 @@ class IndexPage extends React.Component {
                   />
                 </h1>
                 <FitmeTestBar
-                  className={className}
+                  className="main-left"
                   origin={origin}
                   destination={destination}
                   isMobile={breakpoint !== 'large'}

@@ -147,7 +147,21 @@ class FitmeTestBar extends React.Component {
     getFitMeJourneys()
       .then(res => {
         console.log(['res=',res]);
-        document.getElementById('fitme-test-bar-text').innerText = 'JourneyList will be HERE!';
+        const sid = document.getElementById('fitme-select-journey');
+        if (res && Array.isArray(res) && res.length > 0) {
+          res.forEach((r,i) => {
+            const opt = document.createElement("option");
+            if (i===0) {
+              //<option selected>r.title</option>
+              opt.innerText = r.title;
+              opt.setAttribute("selected", "");
+            } else {
+              //<option>r.title</option>
+              opt.innerText = r.title;
+            }
+            sid.append(opt);
+          });
+        }
       })
       .catch(err => {
         console.log(['err=',err]);
@@ -168,7 +182,8 @@ class FitmeTestBar extends React.Component {
           'flex-horizontal',
         )}
       >
-        <p id="fitme-test-bar-text">Hello from FitmeTestBar!</p>
+        <select id="fitme-select-journey" className="form-select">
+        </select>
       </div>
     );
   }

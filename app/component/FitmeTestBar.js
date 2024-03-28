@@ -21,6 +21,11 @@ import { setViaPoints } from '../action/ViaPointActions';
 //import { LightenDarkenColor } from '../util/colorUtils';
 import { getRefPoint } from '../util/apiUtils';
 import { useCitybikes } from '../util/modeUtils';
+
+// FITME
+import getFitMeJourneys from '../util/apiUtils';
+// FITME
+
 /*
 const DTAutosuggestPanelWithSearchContext = withSearchContext(
   DTAutosuggestPanel,
@@ -138,6 +143,19 @@ class FitmeTestBar extends React.Component {
     if (useCitybikes(this.context.config.cityBike?.networks)) {
       desktopTargets.push('BikeRentalStations');
     }
+    console.log('========================== getFitMeJourneys =================================');
+    getFitMeJourneys()
+      .then(res => {
+        console.log(['res=',res]);
+        document.getElementById('fitme-test-bar-text').innerText = 'JourneyList will be HERE!';
+      })
+      .catch(err => {
+        console.log(['err=',err]);
+      })
+      .finally(() => {
+        console.log('FINALLY OK!');
+      });
+    
     const mobileTargets = [...desktopTargets, 'MapPosition'];
     const filter = config.stopSearchFilter
       ? results => results.filter(config.stopSearchFilter)
@@ -150,7 +168,7 @@ class FitmeTestBar extends React.Component {
           'flex-horizontal',
         )}
       >
-        <p>Hello from FitmeTestBar!</p>
+        <p id="fitme-test-bar-text">Hello from FitmeTestBar!</p>
       </div>
     );
   }

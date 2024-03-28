@@ -39,6 +39,37 @@ export function deleteFavourites(data) {
     res.json(),
   );
 }
+
+export function getFitMeJourneys() {
+  return new Promise(function(resolve) {
+    const promises = [];
+    const mock_data = [
+      {
+        title:"Espoo to Rovaniemi via Oulu",
+        from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
+        to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
+        via: [{address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}]
+      }
+    ];
+    const p = retryFetch(
+      'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+      {},
+      2,
+      200);
+    promises.push(p);
+    const nested=[];
+    Promise.all(promises).then(res => {
+      res.forEach(r=>{
+        nested.push(r.json());
+      });
+      Promise.all(nested).then(data=>{
+        console.log(['getFitMeJourneys data=',data]);
+        resolve(mock_data);
+      });
+    });
+  });
+}
+
 /*
 params is an array of
   { 

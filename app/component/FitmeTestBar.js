@@ -4,6 +4,7 @@ import React from 'react';
 import { intlShape } from 'react-intl';
 import { matchShape, routerShape } from 'found';
 import connectToStores from 'fluxible-addons-react/connectToStores';
+
 //import DTAutosuggestPanel from '@digitransit-component/digitransit-component-autosuggest-panel';
 //import { addAnalyticsEvent } from '../util/analyticsUtils';
 //import withSearchContext from './WithSearchContext';
@@ -22,9 +23,8 @@ import { setViaPoints } from '../action/ViaPointActions';
 import { getRefPoint } from '../util/apiUtils';
 import { useCitybikes } from '../util/modeUtils';
 
-// FITME
+import Select from 'react-select';
 import { getFitMeJourneys } from '../util/apiUtils';
-// FITME
 
 /*
 const DTAutosuggestPanelWithSearchContext = withSearchContext(
@@ -32,6 +32,20 @@ const DTAutosuggestPanelWithSearchContext = withSearchContext(
 );
 */
 class FitmeTestBar extends React.Component {
+  state = {
+    selectedOption: null,
+  };
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption }, () =>
+      console.log(`Option selected:`, this.state.selectedOption)
+    );
+  };
+  options = [
+    { value: 'chocolate', label: 'Chocolate' },
+    { value: 'strawberry', label: 'Strawberry' },
+    { value: 'vanilla', label: 'Vanilla' }
+  ];
+  
   static propTypes = {
     className: PropTypes.string,
     origin: dtLocationShape.isRequired,
@@ -147,9 +161,12 @@ class FitmeTestBar extends React.Component {
     getFitMeJourneys()
       .then(res => {
         console.log(['res=',res]);
-        const sid = document.getElementById('fitme-select-journey');
+        //const sid = document.getElementById('fitme-select-journey');
         if (res && Array.isArray(res) && res.length > 0) {
-          res.forEach((r,i) => {
+          const opts = [];
+          res.forEach(r => {
+            opts.push({value:'index-'+i,label:r.title});
+            /*
             const opt = document.createElement("option");
             if (i===0) {
               //<option selected>r.title</option>
@@ -158,9 +175,13 @@ class FitmeTestBar extends React.Component {
             } else {
               //<option>r.title</option>
               opt.innerText = r.title;
+              opt.setAttribute("value", "journey-"+i);
             }
             sid.append(opt);
+            */
           });
+          this.options = opts;
+          this.setState({selectedOption:'index-0'});
         }
       })
       .catch(err => {
@@ -170,6 +191,7 @@ class FitmeTestBar extends React.Component {
         console.log('FINALLY OK!');
       });
     
+    const { selectedOption } = this.state;
     const mobileTargets = [...desktopTargets, 'MapPosition'];
     const filter = config.stopSearchFilter
       ? results => results.filter(config.stopSearchFilter)
@@ -182,8 +204,11 @@ class FitmeTestBar extends React.Component {
           'flex-horizontal',
         )}
       >
-        <select id="fitme-select-journey" className="form-select">
-        </select>
+        <Select
+          value={selectedOption}
+          onChange={this.handleChange}
+          options={this.options}
+        />
       </div>
     );
   }

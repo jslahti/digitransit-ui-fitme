@@ -164,7 +164,7 @@ class FitmeTestBar extends React.Component {
         //const sid = document.getElementById('fitme-select-journey');
         if (res && Array.isArray(res) && res.length > 0) {
           const opts = [];
-          res.forEach(r => {
+          res.forEach((r,i) => {
             opts.push({value:'index-'+i,label:r.title});
             /*
             const opt = document.createElement("option");

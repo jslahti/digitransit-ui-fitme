@@ -1,0 +1,15 @@
+.fitme-test-bar {
+  background-color: #fff;
+  display: flex;
+  justify-content: space-around;
+  align-items: initial;
+  &.bp-large {
+    margin: 0 60px;
+  }
+}
+
+.mobile {
+  .fitme-test-bar {
+    z-index: 999;
+  }
+}

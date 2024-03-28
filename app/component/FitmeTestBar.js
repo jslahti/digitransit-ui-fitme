@@ -142,7 +142,17 @@ class FitmeTestBar extends React.Component {
     const filter = config.stopSearchFilter
       ? results => results.filter(config.stopSearchFilter)
       : undefined;
-    return <div>Hello from FitmeTestBar!</div>;
+    return (
+      <div
+        className={cx(
+          'fitme-test-bar',
+          this.props.className,
+          'flex-horizontal',
+        )}
+      >
+        <p>Hello from FitmeTestBar!</p>
+      </div>
+    );
   }
 }
 

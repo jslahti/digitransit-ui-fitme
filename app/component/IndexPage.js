@@ -434,6 +434,13 @@ class IndexPage extends React.Component {
                   backgroundColor: '#ffffff',
                 }}
               >
+                <FitmeTestBar
+                  className={className}
+                  origin={origin}
+                  destination={destination}
+                  isMobile
+                  modeSet={config.iconModeSet}
+                />
                 <CtrlPanel
                   instance="hsl"
                   language={lang}

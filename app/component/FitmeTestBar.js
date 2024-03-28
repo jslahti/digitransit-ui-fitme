@@ -205,11 +205,13 @@ class FitmeTestBar extends React.Component {
           'flex-horizontal',
         )}
       >
-        <Select
-          value={selectedOption}
-          onChange={this.handleChange}
-          options={this.options}
-        />
+        <div style={{width: '400px'}}>
+          <Select
+            value={selectedOption}
+            onChange={this.handleChange}
+            options={this.options}
+          />
+        </div>
       </div>
     );
   }

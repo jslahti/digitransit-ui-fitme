@@ -75,21 +75,23 @@ class FitmeTestBar extends React.Component {
         };
         const { location } = this.context.match;
         if (j.via && Array.isArray(j.via) && j.via.length > 0) {
-          const intermediatePlaces = [];
+          const vips = [];
           j.via.forEach(v=>{
-            intermediatePlaces.push({
+            vips.push({
               address:v.address + ', ' + v.city,
               lat: v.lat,
               lon: v.lon
             });
           });
+          console.log('======== NEXT: setViaPoints =======');
+          this.context.executeAction(setViaPoints, vips);
           console.log('======== NEXT: setIntermediatePlaces =======');
-          setIntermediatePlaces(this.context.router, this.context.match, intermediatePlaces);
+          setIntermediatePlaces(
+            this.context.router,
+            this.context.match,
+            vips.map(locationToOTP)
+          );
         }
-        /*const intermediatePlaces = getIntermediatePlaces(location.query);
-        if (intermediatePlaces.length > 1) {
-          location.query.intermediatePlaces.reverse();
-        }*/
         updateItinerarySearch(
           origin,
           destination,
@@ -138,8 +140,8 @@ class FitmeTestBar extends React.Component {
   }
 
   componentDidMount() {
-    const viaPoints = getIntermediatePlaces(this.context.match.location.query);
-    this.context.executeAction(setViaPoints, viaPoints);
+    //const viaPoints = getIntermediatePlaces(this.context.match.location.query);
+    //this.context.executeAction(setViaPoints, viaPoints);
     this.mounted = true;
 
     console.log('========================== getFitMeJourneys =================================');

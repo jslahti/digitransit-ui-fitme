@@ -8,12 +8,12 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 //import DTAutosuggestPanel from '@digitransit-component/digitransit-component-autosuggest-panel';
 //import { addAnalyticsEvent } from '../util/analyticsUtils';
 //import withSearchContext from './WithSearchContext';
-/*import {
-  setIntermediatePlaces,
-  updateItinerarySearch,
-  onLocationPopup,
+import {
+  //setIntermediatePlaces,
+  updateItinerarySearch
+  //onLocationPopup,
 } from '../util/queryUtils';
-*/
+
 //import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
 import { getIntermediatePlaces } from '../util/otpStrings';
 import { dtLocationShape } from '../util/shapes';
@@ -35,11 +35,11 @@ class FitmeTestBar extends React.Component {
   state = {
     selectedOption: null,
   };
-  options = [
-    { value: 'chocolate', label: 'Chocolate' },
-    { value: 'strawberry', label: 'Strawberry' },
-    { value: 'vanilla', label: 'Vanilla' }
-  ];
+  options = [];
+  //  { value: 'chocolate', label: 'Chocolate' },
+  //  { value: 'strawberry', label: 'Strawberry' },
+  //  { value: 'vanilla', label: 'Vanilla' }
+  //];
   
   /* list of journeys, each object contains 
   title:"Espoo to Rovaniemi via Oulu",
@@ -55,6 +55,19 @@ class FitmeTestBar extends React.Component {
     this.journeys.every(j=>{
       if (j.title === selectedOption.label) {
         console.log(['SELECTED journey=',j]);
+        console.log(['this.context=',this.context]);
+        /*const { location } = this.context.match;
+        const intermediatePlaces = getIntermediatePlaces(location.query);
+        if (intermediatePlaces.length > 1) {
+          location.query.intermediatePlaces.reverse();
+        }
+        updateItinerarySearch(
+          this.props.destination,
+          this.props.origin,
+          this.context.router,
+          location,
+          this.context.executeAction,
+        );*/
         return false; // break out from the every-loop.
       }
       return true; // continue with next poi

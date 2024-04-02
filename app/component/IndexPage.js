@@ -262,12 +262,12 @@ class IndexPage extends React.Component {
       hoverColor,
       accessiblePrimaryColor,
       refPoint,
-      searchPanelText: '',
+      //searchPanelText: '',
       // FITME: don't show "Where to:" -message
-      //searchPanelText: intl.formatMessage({
-      //  id: 'where',
-      //  defaultMessage: 'Where to?',
-      //}),
+      searchPanelText: intl.formatMessage({
+        id: 'where',
+        defaultMessage: 'Where to?',
+      }),
       originPlaceHolder: 'search-origin-index',
       destinationPlaceHolder: 'search-destination-index',
       selectHandler: this.onSelectLocation,
@@ -378,13 +378,6 @@ class IndexPage extends React.Component {
                     default="Journey Planner"
                   />
                 </h1>
-                <FitmeTestBar
-                  className={className}
-                  origin={origin}
-                  destination={destination}
-                  isMobile={breakpoint !== 'large'}
-                  modeSet={config.iconModeSet}
-                />
                 <CtrlPanel
                   instance="hsl"
                   language={lang}
@@ -409,6 +402,13 @@ class IndexPage extends React.Component {
                     favouriteModalAction={this.props.favouriteModalAction}
                     onClickFavourite={this.clickFavourite}
                     lang={lang}
+                  />
+                  <FitmeTestBar
+                    className={className}
+                    origin={origin}
+                    destination={destination}
+                    isMobile={breakpoint !== 'large'}
+                    modeSet={config.iconModeSet}
                   />
                   <CtrlPanel.SeparatorLine usePaddingBottom20 />
                   <>{NearStops(CtrlPanel)}</>
@@ -438,13 +438,6 @@ class IndexPage extends React.Component {
                   backgroundColor: '#ffffff',
                 }}
               >
-                <FitmeTestBar
-                  className={className}
-                  origin={origin}
-                  destination={destination}
-                  isMobile
-                  modeSet={config.iconModeSet}
-                />
                 <CtrlPanel
                   instance="hsl"
                   language={lang}
@@ -464,6 +457,13 @@ class IndexPage extends React.Component {
                     onClickFavourite={this.clickFavourite}
                     lang={lang}
                     isMobile
+                  />
+                  <FitmeTestBar
+                    className={className}
+                    origin={origin}
+                    destination={destination}
+                    isMobile
+                    modeSet={config.iconModeSet}
                   />
                   <CtrlPanel.SeparatorLine />
                   <>{NearStops(CtrlPanel)}</>

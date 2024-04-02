@@ -50,10 +50,7 @@ class FitmeTestBar extends React.Component {
   journeys = [];
   
   handleChange = (selectedOption) => {
-    this.setState({ selectedOption }, () =>
-      console.log(`Option selected:`, this.state.selectedOption);
-    );
-    
+    this.setState({ selectedOption });
     console.log(['OUTSIDE setState selectedOption=',selectedOption]);
     this.journeys.every(j=>{
       if (j.title === selectedOption.label) {

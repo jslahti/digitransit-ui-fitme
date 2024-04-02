@@ -15,7 +15,8 @@ import {
 } from '../util/queryUtils';
 
 //import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
-import { getIntermediatePlaces } from '../util/otpStrings';
+import { locationToOTP } from '../util/otpStrings';
+
 import { dtLocationShape } from '../util/shapes';
 import { setViaPoints } from '../action/ViaPointActions';
 //import { setPoiPoints } from '../action/PoiPointActions';

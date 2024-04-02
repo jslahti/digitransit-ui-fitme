@@ -2459,6 +2459,10 @@ class SummaryPage extends React.Component {
     const from = otpToLocation(match.params.from);
     const to = otpToLocation(match.params.to);
     const viaPoints = getIntermediatePlaces(match.location.query);
+    
+    console.log('============= SummaryPage ===================');
+    console.log(['SummaryPage from=',from,'to=',to,'viaPoints=',viaPoints]);
+    console.log('============= SummaryPage ===================');
 
     if (match.routes.some(route => route.printPage) && hasItineraries) {
       return React.cloneElement(this.props.content, {
@@ -2470,6 +2474,8 @@ class SummaryPage extends React.Component {
       });
     }
     
+    
+    console.log(['SummaryPage renderMap from=',from,'to=',to,'viaPoints=',viaPoints]);
     let map = this.renderMap(from, to, viaPoints);
 
     let earliestStartTime;

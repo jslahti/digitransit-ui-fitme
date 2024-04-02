@@ -86,11 +86,13 @@ class FitmeTestBar extends React.Component {
           });
           console.log('======== NEXT: setViaPoints =======');
           this.context.executeAction(setViaPoints, vips);
+          const l_vips = vips.map(locationToOTP);
           console.log('======== NEXT: setIntermediatePlaces =======');
+          console.log(['l_vips=',l_vips]);
           setIntermediatePlaces(
             this.context.router,
             this.context.match,
-            vips.map(locationToOTP)
+            l_vips
           );
         }
         updateItinerarySearch(

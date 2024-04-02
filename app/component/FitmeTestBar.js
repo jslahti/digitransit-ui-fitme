@@ -9,7 +9,7 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 //import { addAnalyticsEvent } from '../util/analyticsUtils';
 //import withSearchContext from './WithSearchContext';
 import {
-  //setIntermediatePlaces,
+  setIntermediatePlaces,
   updateItinerarySearch
   //onLocationPopup,
 } from '../util/queryUtils';
@@ -46,6 +46,13 @@ class FitmeTestBar extends React.Component {
   from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
   to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
   via: [{address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}]
+
+  updateItinerarySearch
+  - origin
+  - destination
+  - router
+  - location
+  - this.context.executeAction
   */
   journeys = [];
   
@@ -56,18 +63,40 @@ class FitmeTestBar extends React.Component {
       if (j.title === selectedOption.label) {
         console.log(['SELECTED journey=',j]);
         console.log(['this.context=',this.context]);
-        /*const { location } = this.context.match;
-        const intermediatePlaces = getIntermediatePlaces(location.query);
+        const origin = {
+          address:j.from.address + ', ' + j.from.city, 
+          lat:j.from.lat,
+          lon:j.from.lon
+        };
+        const destination = {
+          address:j.to.address + ', ' + j.to.city, 
+          lat:j.to.lat,
+          lon:j.to.lon
+        };
+        const { location } = this.context.match;
+        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
+          const intermediatePlaces = [];
+          j.via.forEach(v=>{
+            intermediatePlaces.push({
+              address:v.address + ', ' + v.city,
+              lat: v.lat,
+              lon: v.lon
+            });
+          });
+          console.log('======== NEXT: setIntermediatePlaces =======');
+          setIntermediatePlaces(this.context.router, this.context.match, intermediatePlaces);
+        }
+        /*const intermediatePlaces = getIntermediatePlaces(location.query);
         if (intermediatePlaces.length > 1) {
           location.query.intermediatePlaces.reverse();
-        }
+        }*/
         updateItinerarySearch(
-          this.props.destination,
-          this.props.origin,
+          origin,
+          destination,
           this.context.router,
           location,
-          this.context.executeAction,
-        );*/
+          this.context.executeAction
+        );
         return false; // break out from the every-loop.
       }
       return true; // continue with next poi

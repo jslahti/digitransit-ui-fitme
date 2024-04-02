@@ -262,10 +262,12 @@ class IndexPage extends React.Component {
       hoverColor,
       accessiblePrimaryColor,
       refPoint,
-      searchPanelText: intl.formatMessage({
-        id: 'where',
-        defaultMessage: 'Where to?',
-      }),
+      searchPanelText: '',
+      // FITME: don't show "Where to:" -message
+      //searchPanelText: intl.formatMessage({
+      //  id: 'where',
+      //  defaultMessage: 'Where to?',
+      //}),
       originPlaceHolder: 'search-origin-index',
       destinationPlaceHolder: 'search-destination-index',
       selectHandler: this.onSelectLocation,

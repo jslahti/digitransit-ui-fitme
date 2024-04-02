@@ -35,16 +35,34 @@ class FitmeTestBar extends React.Component {
   state = {
     selectedOption: null,
   };
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption }, () =>
-      console.log(`Option selected:`, this.state.selectedOption)
-    );
-  };
   options = [
     { value: 'chocolate', label: 'Chocolate' },
     { value: 'strawberry', label: 'Strawberry' },
     { value: 'vanilla', label: 'Vanilla' }
   ];
+  
+  /* list of journeys, each object contains 
+  title:"Espoo to Rovaniemi via Oulu",
+  from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
+  to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
+  via: [{address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}]
+  */
+  journeys = [];
+  
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption }, () =>
+      console.log(`Option selected:`, this.state.selectedOption);
+    );
+    
+    console.log(['OUTSIDE setState selectedOption=',selectedOption]);
+    this.journeys.every(j=>{
+      if (j.title === selectedOption.label) {
+        console.log(['SELECTED journey=',j]);
+        return false; // break out from the every-loop.
+      }
+      return true; // continue with next poi
+    });
+  };
   
   static propTypes = {
     className: PropTypes.string,
@@ -89,25 +107,12 @@ class FitmeTestBar extends React.Component {
     getFitMeJourneys()
       .then(res => {
         console.log(['res=',res]);
-        //const sid = document.getElementById('fitme-select-journey');
         if (res && Array.isArray(res) && res.length > 0) {
           const opts = [];
           res.forEach((r,i) => {
             opts.push({value:'index-'+i,label:r.title});
-            /*
-            const opt = document.createElement("option");
-            if (i===0) {
-              //<option selected>r.title</option>
-              opt.innerText = r.title;
-              opt.setAttribute("selected", "");
-            } else {
-              //<option>r.title</option>
-              opt.innerText = r.title;
-              opt.setAttribute("value", "journey-"+i);
-            }
-            sid.append(opt);
-            */
           });
+          this.journeys = res;
           this.options = opts;
           this.setState({selectedOption:'index-0'});
         }
@@ -191,6 +196,8 @@ class FitmeTestBar extends React.Component {
     if (useCitybikes(this.context.config.cityBike?.networks)) {
       desktopTargets.push('BikeRentalStations');
     }
+    
+    console.log('========== RENDER FITME TEST BAR!!! ============');
     
     const { selectedOption } = this.state;
     const mobileTargets = [...desktopTargets, 'MapPosition'];

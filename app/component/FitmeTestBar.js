@@ -149,29 +149,6 @@ class FitmeTestBar extends React.Component {
           lon:j.to.lon
         };
         const { location } = this.context.match;
-        // this.context.match.location.query.intermediatePlaces
-        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
-          const vips = [];
-          j.via.forEach(v=>{
-            vips.push({
-              address:v.address + ', ' + v.city,
-              lat: v.lat,
-              lon: v.lon
-            });
-          });
-          this.updateViaPoints(vips);
-          //console.log('======== NEXT: setViaPoints =======');
-          //this.context.executeAction(setViaPoints, vips);
-          //const l_vips = vips.map(locationToOTP);
-          // "Oulun linja-autoasema, Oulu::65.009861,25.484029"
-          //console.log('======== NEXT: setIntermediatePlaces =======');
-          //console.log(['l_vips=',l_vips]);
-          //setIntermediatePlaces(
-          //this.context.router,
-          //this.context.match,
-          //l_vips
-          //);
-        }
         updateItinerarySearch(
           origin,
           destination,
@@ -179,6 +156,21 @@ class FitmeTestBar extends React.Component {
           location,
           this.context.executeAction
         );
+        // this.context.match.location.query.intermediatePlaces
+        // Add intermediate places AFTER itinerary search!!!!
+        setTimeout(() => {
+          if (j.via && Array.isArray(j.via) && j.via.length > 0) {
+            const vips = [];
+            j.via.forEach(v=>{
+              vips.push({
+                address:v.address + ', ' + v.city,
+                lat: v.lat,
+                lon: v.lon
+              });
+            });
+            this.updateViaPoints(vips);
+          }
+        }, 5000);
         return false; // break out from the every-loop.
       }
       return true; // continue with next poi

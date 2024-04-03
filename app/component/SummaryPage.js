@@ -1111,6 +1111,10 @@ class SummaryPage extends React.Component {
     console.log(['this.context.match=',this.context.match]);
     console.log('=============== makeQueryWithAllModes =====================');
     
+    // HERE location.query is an empty object! 
+    // That is why planParams HAS NO intermediatePlaces!!!
+    // and therefore NO viapoints!
+    
     const planParams = preparePlanParams(this.context.config, true)(
       this.context.match.params,
       this.context.match,

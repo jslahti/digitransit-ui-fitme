@@ -1097,7 +1097,17 @@ class SummaryPage extends React.Component {
         }
       }
     `;
-
+    // check if this.context.match contains location.query.intermediatePlaces
+    // export const preparePlanParams = (config, useDefaultModes) => (
+    //   { from, to },
+    //     {
+    //        location: {
+    //           query: { arriveBy, intermediatePlaces, time, locale },
+    //       },
+    console.log('=============== makeQueryWithAllModes =====================');
+    console.log(['this.context.match=',this.context.match]);
+    console.log('=============== makeQueryWithAllModes =====================');
+    
     const planParams = preparePlanParams(this.context.config, true)(
       this.context.match.params,
       this.context.match,
@@ -1106,9 +1116,6 @@ class SummaryPage extends React.Component {
     console.log('NOW FETCH QUERY ===============================');
     console.log(['this.props.relayEnvironment=',this.props.relayEnvironment,' query=',query,' planParams=',planParams]);
     console.log('===============================');
-    
-    
-    
     
     fetchQuery(this.props.relayEnvironment, query, planParams, {
       force: true,

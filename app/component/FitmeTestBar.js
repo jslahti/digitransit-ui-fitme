@@ -90,7 +90,12 @@ class FitmeTestBar extends React.Component {
     super(props);
     this.state = {};
   }
-
+  
+  componentWillUpdate() {
+    console.log('=================== FitmeTestBar componentWillUpdate =================================');
+    console.log(['this.journeys=',this.journeys]);
+  }
+  
   componentDidMount() {
     //const viaPoints = getIntermediatePlaces(this.context.match.location.query);
     //this.context.executeAction(setViaPoints, viaPoints);

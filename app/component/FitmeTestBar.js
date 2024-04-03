@@ -158,19 +158,19 @@ class FitmeTestBar extends React.Component {
         );
         // this.context.match.location.query.intermediatePlaces
         // Add intermediate places AFTER itinerary search!!!!
-        setTimeout(() => {
-          if (j.via && Array.isArray(j.via) && j.via.length > 0) {
-            const vips = [];
-            j.via.forEach(v=>{
-              vips.push({
-                address:v.address + ', ' + v.city,
-                lat: v.lat,
-                lon: v.lon
-              });
+        
+        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
+          const vips = [];
+          j.via.forEach(v=>{
+            vips.push({
+              address:v.address + ', ' + v.city,
+              lat: v.lat,
+              lon: v.lon
             });
-            this.updateViaPoints(vips);
-          }
-        }, 5000);
+          });
+          this.updateViaPoints(vips);
+        }
+        
         return false; // break out from the every-loop.
       }
       return true; // continue with next poi

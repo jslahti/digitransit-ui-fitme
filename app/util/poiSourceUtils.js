@@ -263,7 +263,7 @@ export const showSourceSettings = config =>
  */
 export const getSources = config => {
   const { sources } = getPOISettings();
-  console.log(['======CUSTOMIZED SETTINGS getSources sources=',sources]);
+  //console.log(['======CUSTOMIZED SETTINGS getSources sources=',sources]);
   if (showSourceSettings(config) && Array.isArray(sources) && sources.length > 0) {
     const poisources = sources.filter(source =>
       isPOISourceAvailable(config, source),
@@ -291,21 +291,21 @@ export const userHasChangedSources = config => {
  * @returns {String[]} an array of currently selected sources
  */
 export function togglePOISource(poiSource, config) {
-  console.log(['togglePOISource poiSource=',poiSource,' config=',config]);
+  //console.log(['togglePOISource poiSource=',poiSource,' config=',config]);
   let actionName;
   if (getSources(config).includes(poiSource.toUpperCase())) {
     actionName = 'SettingsDisablePOISource'; // SettingsDisableTransportMode
   } else {
     actionName = 'SettingsEnablePOISource'; // SettingsEnableTransportMode
   }
-  console.log(['actionName=',actionName]);
+  //console.log(['actionName=',actionName]);
   addAnalyticsEvent({
     action: actionName,
     category: 'ItinerarySettings',
     name: poiSource,
   });
   const sources = xor(getSources(config), [poiSource.toUpperCase()]);
-  console.log(['sources=',sources]);
+  //console.log(['sources=',sources]);
   return sources;
 }
 

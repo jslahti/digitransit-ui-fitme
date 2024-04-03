@@ -63,7 +63,7 @@ export function getFitMeJourneys() {
         nested.push(r.json());
       });
       Promise.all(nested).then(data=>{
-        console.log(['getFitMeJourneys data=',data]);
+        //console.log(['getFitMeJourneys data=',data]);
         resolve(mock_data);
       });
     });
@@ -123,15 +123,15 @@ export function getFitMePOIs(places, maxRange, walkSpeed) {
     Promise.all(promises).then(res => {
       res.forEach(r=>{
         const ressu = r.json();
-        console.log('%%%%%%%%%%%%%%%%%%');
-        console.log(['ressu=',ressu]);
-        console.log('%%%%%%%%%%%%%%%%%%');
+        //console.log('%%%%%%%%%%%%%%%%%%');
+        //console.log(['ressu=',ressu]);
+        //console.log('%%%%%%%%%%%%%%%%%%');
         nested.push(ressu);
       });
       Promise.all(nested).then(data=>{
-        console.log('????????????????????????');
-        console.log(['getFitMePOIs all data=',data]);
-        console.log('????????????????????????');
+        //console.log('????????????????????????');
+        //console.log(['getFitMePOIs all data=',data]);
+        //console.log('????????????????????????');
         // Check where we want to do the JSON => POI mapping?
         // Here or in ItinerarySummaryListContainer.js?
         // returns an array of arrays!
@@ -172,7 +172,7 @@ export function getFitMePOITest(count) {
         nested.push(r.json());
       });
       Promise.all(nested).then(data=>{
-        console.log(['getFitMePOITest data=',data]);
+        //console.log(['getFitMePOITest data=',data]);
         resolve(data);
       });
     });

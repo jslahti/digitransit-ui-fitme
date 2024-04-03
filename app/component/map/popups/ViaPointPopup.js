@@ -7,7 +7,6 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 import ViaPointStore from '../../../store/ViaPointStore';
 import PoiStore from '../../../store/PoiStore';
 import { setViaPoints } from '../../../action/ViaPointActions';
-//import { unlockPoiPoint } from '../../../action/PoiPointActions';
 import { setIntermediatePlaces } from '../../../util/queryUtils';
 import { locationToOTP } from '../../../util/otpStrings';
 import Card from '../../Card';
@@ -45,7 +44,6 @@ function ViaPointPopup(
     const filteredViaPoints = filterViaPoint(viaPoints, currentPoint);
     executeAction(setViaPoints, filteredViaPoints);
     setIntermediatePlaces(router, match, filteredViaPoints.map(locationToOTP));
-    //executeAction(unlockPoiPoint, currentPoint);
   };
   
   // FITME!

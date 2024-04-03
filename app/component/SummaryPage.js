@@ -343,6 +343,7 @@ class SummaryPage extends React.Component {
     }).isRequired,
     mapLayers: mapLayerShape.isRequired,
     mapLayerOptions: mapLayerOptionsShape.isRequired,
+    journey: PropTypes.object,
     poiPoints: PropTypes.array,
     poiSettings: PropTypes.object,
     alertRef: PropTypes.string.isRequired,
@@ -1908,25 +1909,7 @@ class SummaryPage extends React.Component {
     }
     const onlyHasWalkingItineraries = this.onlyHasWalkingItineraries();
     
-    // NEW 20230517: Check all POIs against viaPoints, if lock should be removed.
-    // NOTE: This is needed because when viaPoint is removed from Summary Navigation Container
-    // the lock in POI still remains, whereas in Popup it works correctly.
-    // Using directly code from PoiStore.js, not with executeAction, since context is not clear to me.
-    // The idea is to unlockPoiPoint here if no ViaPoint is found and POI is locked.
-    /*
-    viaPoints.forEach(vp => {
-      this.poiPoints.every(pp=>{
-        if (vp.lat === pp.lat && vp.lon === pp.lon && pp.lock) {
-          console.log(['POI lock removed!']);
-          pp.lock = false;
-          return false; // break out from the loop.
-        } else {
-          return true; // continue with next pp
-        }
-      });
-    });
-    */
-    // NEW 20230504: Use here only those POI points where index === activeIndex
+    // Use here only those POI points where index === activeIndex
     const types = getTypes(this.context.config);
     const sources = getSources(this.context.config);
     console.log(['SummaryPage types=',types,' sources=',sources]);
@@ -1943,9 +1926,9 @@ class SummaryPage extends React.Component {
     if (sources && sources.length > 0) {
       sourcesAdjusted = sources;
     }
-    console.log(['SummaryPage typesAdjusted=',typesAdjusted,' sourcesAdjusted=',sourcesAdjusted]);
+    //console.log(['SummaryPage typesAdjusted=',typesAdjusted,' sourcesAdjusted=',sourcesAdjusted]);
     const filteredPOIPoints = [];
-    console.log(['SummaryPage this.props.poiSettings=',this.props.poiSettings]);
+    //console.log(['SummaryPage this.props.poiSettings=',this.props.poiSettings]);
     
     this.props.poiPoints.forEach(p=>{
       // use only POIs which belong to "active" index.
@@ -1969,7 +1952,11 @@ class SummaryPage extends React.Component {
         }
       }
     });
-    console.log(['SummaryPage activeIndex=',activeIndex,' this.props.poiPoints=',this.props.poiPoints,' filteredPOIPoints=',filteredPOIPoints]);
+    console.log(['SummaryPage activeIndex=',activeIndex,
+      ' this.props.poiPoints=',this.props.poiPoints,
+      ' this.props.journey=',this.props.journey,
+      ' filteredPOIPoints=',filteredPOIPoints]);
+    
     console.log(['this.context.config=',this.context.config]);
     
     return (
@@ -2474,9 +2461,9 @@ class SummaryPage extends React.Component {
     const to = otpToLocation(match.params.to);
     const viaPoints = getIntermediatePlaces(match.location.query);
     
-    console.log('============= SummaryPage ===================');
-    console.log(['SummaryPage from=',from,'to=',to,'viaPoints=',viaPoints]);
-    console.log('============= SummaryPage ===================');
+    console.log('============= SummaryPage render ===================');
+    console.log(['SummaryPage from=',from,'to=',to,'viaPoints=',viaPoints,'this.props.journey=',this.props.journey]);
+    console.log('============= SummaryPage render ===================');
 
     if (match.routes.some(route => route.printPage) && hasItineraries) {
       return React.cloneElement(this.props.content, {
@@ -2487,7 +2474,6 @@ class SummaryPage extends React.Component {
         to,
       });
     }
-    
     
     console.log(['SummaryPage renderMap from=',from,'to=',to,'viaPoints=',viaPoints]);
     let map = this.renderMap(from, to, viaPoints);
@@ -2940,7 +2926,7 @@ const SummaryPageWithBreakpoint = withBreakpoint(props => (
 */
 const SummaryPageWithStores = connectToStores(
   SummaryPageWithBreakpoint,
-  ['MapLayerStore','PoiStore','PoiSettingsStore'],
+  ['MapLayerStore','PoiStore','PoiSettingsStore','JourneyStore'],
   ({ getStore }) => ({
     mapLayers: getStore('MapLayerStore').getMapLayers({
       notThese: ['stop', 'citybike', 'vehicles'],
@@ -2950,6 +2936,7 @@ const SummaryPageWithStores = connectToStores(
       selectedMapLayers: ['vehicles'],
     }),
     poiPoints: getStore('PoiStore').getPoiPoints(),
+    journey: getStore('JourneyStore').getJourney();
     poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
   }),
 );

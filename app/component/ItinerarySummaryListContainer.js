@@ -231,19 +231,9 @@ function ItinerarySummaryListContainer(
     // NOTE: CONVERT waitThreshold from minutes to milliseconds
     const waitThresholdMS = waitThresholdAdjusted * 60 * 1000;
     itineraries.forEach((itinerary, iti_index) => {
-      //if (i === activeIndex) {
-      //console.log(['CHECK waiting place candidates for itinerary index=',iti_index]);
-      // NOTE: We check waiting candidates ONLY to ACTIVE itinerary.
-      // IF waiting place set has changed (it usually changes when itinerary is changed), 
-      // then we fetch the list of POIs and store it to the PoiStore (setPoiPoints) => 
-      // refresh is called to those components (emitChange) that are listening to PoiStore 
-      // ONLY if new POIs are added or old POIs are removed from the PoiStore.
-      //
-      // NEW 20230504: 
       // Fetch POIs for ALL itineraries.
       // Added index to POI points in POIStore.
       // Filter them when map is displayed.
-      //
       const compressedLegs = compressLegs(itinerary.legs).map(leg => ({
         ...leg,
       }));

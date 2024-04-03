@@ -19,6 +19,7 @@ import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
 
 import { dtLocationShape } from '../util/shapes';
 import { setViaPoints } from '../action/ViaPointActions';
+import { setJourney } from '../action/JourneyActions';
 //import { setPoiPoints } from '../action/PoiPointActions';
 //import { LightenDarkenColor } from '../util/colorUtils';
 import { getRefPoint } from '../util/apiUtils';
@@ -140,8 +141,11 @@ class FitmeTestBar extends React.Component {
     console.log(['OUTSIDE setState selectedOption=',selectedOption]);
     this.journeys.every(j=>{
       if (j.title === selectedOption.label) {
+        
         console.log(['SELECTED journey=',j]);
-        console.log(['this.context=',this.context]);
+        console.log('========== executeAction setJourney =======');
+        this.context.executeAction(setJourney, j);
+        
         const origin = {
           address:j.from.address + ', ' + j.from.city, 
           lat:j.from.lat,
@@ -177,7 +181,7 @@ class FitmeTestBar extends React.Component {
         */
         return false; // break out from the every-loop.
       }
-      return true; // continue with next poi
+      return true; // continue with next journey
     });
   }
   
@@ -269,11 +273,12 @@ class FitmeTestBar extends React.Component {
 
 const connectedComponent = connectToStores(
   FitmeTestBar,
-  ['PreferencesStore', 'FavouriteStore', 'ViaPointStore', 'PositionStore'],
+  ['PreferencesStore', 'FavouriteStore', 'ViaPointStore', 'PositionStore', 'JourneyStore'],
   ({ getStore }) => ({
     language: getStore('PreferencesStore').getLanguage(),
     showFavourites: getStore('FavouriteStore').getStatus() === 'has-data',
     viaPoints: getStore('ViaPointStore').getViaPoints(),
+    journey: getStore('JourneyStore').getJourney(),
     locationState: getStore('PositionStore').getLocationState(),
   }),
 );

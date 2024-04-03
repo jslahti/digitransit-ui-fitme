@@ -958,6 +958,9 @@ class SummaryPage extends React.Component {
         }
       }
     `;
+    console.log('=============== makeWalkAndBikeQueries =====================');
+    console.log(['this.context.match=',this.context.match]);
+    console.log('=============== makeWalkAndBikeQueries =====================');
 
     const planParams = preparePlanParams(this.context.config, false)(
       this.context.match.params,

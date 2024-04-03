@@ -96,26 +96,34 @@ class FitmeTestBar extends React.Component {
     this.context.executeAction(setViaPoints, viaPoints);
     this.mounted = true;
 
-    console.log('========================== getFitMeJourneys =================================');
-    getFitMeJourneys()
-      .then(res => {
-        console.log(['res=',res]);
-        if (res && Array.isArray(res) && res.length > 0) {
-          const opts = [];
-          res.forEach((r,i) => {
-            opts.push({value:'index-'+i,label:r.title});
-          });
-          this.journeys = res;
-          this.options = opts;
-          this.setState({selectedOption:'index-0'});
-        }
-      })
-      .catch(err => {
-        console.log(['err=',err]);
-      })
-      .finally(() => {
-        console.log('FINALLY OK!');
-      });
+    console.log('=========================== FitmeTestBar ===============================');
+    console.log(['FitmeTestBar componentDidMount viaPoints=',viaPoints]);
+    console.log('=========================== FitmeTestBar ===============================');
+
+    if(viaPoints && Array.isArray(viaPoints) && viaPoints.length > 0) {
+      console.log('========== viaPoints ALREADY HERE, NO NEED TO FETCH JOURNEYS! ==============');
+    } else {
+      console.log('========================== getFitMeJourneys =================================');
+      getFitMeJourneys()
+        .then(res => {
+          console.log(['res=',res]);
+          if (res && Array.isArray(res) && res.length > 0) {
+            const opts = [];
+            res.forEach((r,i) => {
+              opts.push({value:'index-'+i,label:r.title});
+            });
+            this.journeys = res;
+            this.options = opts;
+            this.setState({selectedOption:'index-0'});
+          }
+        })
+        .catch(err => {
+          console.log(['err=',err]);
+        })
+        .finally(() => {
+          console.log('FINALLY OK!');
+        });
+    }
   }
   
   updateViaPoints = newViaPoints => {
@@ -158,7 +166,7 @@ class FitmeTestBar extends React.Component {
         );
         // this.context.match.location.query.intermediatePlaces
         // Add intermediate places AFTER itinerary search!!!!
-        
+        /*
         if (j.via && Array.isArray(j.via) && j.via.length > 0) {
           const vips = [];
           j.via.forEach(v=>{
@@ -170,7 +178,7 @@ class FitmeTestBar extends React.Component {
           });
           this.updateViaPoints(vips);
         }
-        
+        */
         return false; // break out from the every-loop.
       }
       return true; // continue with next poi

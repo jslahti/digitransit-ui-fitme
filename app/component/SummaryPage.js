@@ -72,6 +72,10 @@ const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
 // New FITME POI filtering
 import { getSources } from '../util/poiSourceUtils';
 import { getTypes } from '../util/poiTypeUtils';
+// New FITME automatic Journey (viapoints) manipulation:
+import { setIntermediatePlaces } from '../util/queryUtils';
+import { locationToOTP } from '../util/otpStrings';
+import { setViaPoints } from '../action/ViaPointActions';
 
 /**
 /**
@@ -988,7 +992,7 @@ class SummaryPage extends React.Component {
         this.setState({ isFetchingWalkAndBike: false });
       });
   };
-
+  
   makeQueryWithAllModes = () => {
     this.setLoading(true);
 
@@ -1471,7 +1475,40 @@ class SummaryPage extends React.Component {
       this.stopClient();
     }
   }
+  
+  updateViaPoints = newViaPoints => {
+    // fixes the bug that DTPanel starts excecuting updateViaPoints before this component is even mounted
+    //if (this.mounted) {
+    const p = newViaPoints.filter(vp => vp.lat && vp.address);
+    this.context.executeAction(setViaPoints, p);
+    setIntermediatePlaces(
+      this.context.router,
+      this.context.match,
+      p.map(locationToOTP),
+    );
+    //}
+  }
+  
+  componentWillUpdate() {
+    console.log('========= SummaryPage componentWillUpdate ========================');
+    const jou = this.props.journey;
+    console.log(['jou=',jou]);
 
+    // this.context.match.location.query.intermediatePlaces
+    // Add intermediate places AFTER itinerary search!!!!
+    if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
+      const vips = [];
+      jou.via.forEach(v=>{
+        vips.push({
+          address:v.address + ', ' + v.city,
+          lat: v.lat,
+          lon: v.lon
+        });
+      });
+      this.updateViaPoints(vips);
+    }
+  }
+  
   componentDidUpdate(prevProps) {
     setCurrentTimeToURL(this.context.config, this.props.match);
     // screen reader alert when new itineraries are fetched

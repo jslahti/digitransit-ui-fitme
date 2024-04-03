@@ -2936,7 +2936,7 @@ const SummaryPageWithStores = connectToStores(
       selectedMapLayers: ['vehicles'],
     }),
     poiPoints: getStore('PoiStore').getPoiPoints(),
-    journey: getStore('JourneyStore').getJourney();
+    journey: getStore('JourneyStore').getJourney(),
     poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
   }),
 );

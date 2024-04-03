@@ -57,57 +57,6 @@ class FitmeTestBar extends React.Component {
   */
   journeys = [];
   
-  handleChange = (selectedOption) => {
-    this.setState({ selectedOption });
-    console.log(['OUTSIDE setState selectedOption=',selectedOption]);
-    this.journeys.every(j=>{
-      if (j.title === selectedOption.label) {
-        console.log(['SELECTED journey=',j]);
-        console.log(['this.context=',this.context]);
-        const origin = {
-          address:j.from.address + ', ' + j.from.city, 
-          lat:j.from.lat,
-          lon:j.from.lon
-        };
-        const destination = {
-          address:j.to.address + ', ' + j.to.city, 
-          lat:j.to.lat,
-          lon:j.to.lon
-        };
-        const { location } = this.context.match;
-        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
-          const vips = [];
-          j.via.forEach(v=>{
-            vips.push({
-              address:v.address + ', ' + v.city,
-              lat: v.lat,
-              lon: v.lon
-            });
-          });
-          console.log('======== NEXT: setViaPoints =======');
-          this.context.executeAction(setViaPoints, vips);
-          const l_vips = vips.map(locationToOTP);
-          console.log('======== NEXT: setIntermediatePlaces =======');
-          console.log(['l_vips=',l_vips]);
-          setIntermediatePlaces(
-            this.context.router,
-            this.context.match,
-            l_vips
-          );
-        }
-        updateItinerarySearch(
-          origin,
-          destination,
-          this.context.router,
-          location,
-          this.context.executeAction
-        );
-        return false; // break out from the every-loop.
-      }
-      return true; // continue with next poi
-    });
-  };
-  
   static propTypes = {
     className: PropTypes.string,
     origin: dtLocationShape.isRequired,
@@ -143,8 +92,8 @@ class FitmeTestBar extends React.Component {
   }
 
   componentDidMount() {
-    //const viaPoints = getIntermediatePlaces(this.context.match.location.query);
-    //this.context.executeAction(setViaPoints, viaPoints);
+    const viaPoints = getIntermediatePlaces(this.context.match.location.query);
+    this.context.executeAction(setViaPoints, viaPoints);
     this.mounted = true;
 
     console.log('========================== getFitMeJourneys =================================');
@@ -168,7 +117,7 @@ class FitmeTestBar extends React.Component {
         console.log('FINALLY OK!');
       });
   }
-/*
+  
   updateViaPoints = newViaPoints => {
     // fixes the bug that DTPanel starts excecuting updateViaPoints before this component is even mounted
     if (this.mounted) {
@@ -180,8 +129,62 @@ class FitmeTestBar extends React.Component {
         p.map(locationToOTP),
       );
     }
-  };
-  */
+  }
+  
+  handleChange = (selectedOption) => {
+    this.setState({ selectedOption });
+    console.log(['OUTSIDE setState selectedOption=',selectedOption]);
+    this.journeys.every(j=>{
+      if (j.title === selectedOption.label) {
+        console.log(['SELECTED journey=',j]);
+        console.log(['this.context=',this.context]);
+        const origin = {
+          address:j.from.address + ', ' + j.from.city, 
+          lat:j.from.lat,
+          lon:j.from.lon
+        };
+        const destination = {
+          address:j.to.address + ', ' + j.to.city, 
+          lat:j.to.lat,
+          lon:j.to.lon
+        };
+        const { location } = this.context.match;
+        // this.context.match.location.query.intermediatePlaces
+        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
+          const vips = [];
+          j.via.forEach(v=>{
+            vips.push({
+              address:v.address + ', ' + v.city,
+              lat: v.lat,
+              lon: v.lon
+            });
+          });
+          this.updateViaPoints(vips);
+          //console.log('======== NEXT: setViaPoints =======');
+          //this.context.executeAction(setViaPoints, vips);
+          //const l_vips = vips.map(locationToOTP);
+          // "Oulun linja-autoasema, Oulu::65.009861,25.484029"
+          //console.log('======== NEXT: setIntermediatePlaces =======');
+          //console.log(['l_vips=',l_vips]);
+          //setIntermediatePlaces(
+          //this.context.router,
+          //this.context.match,
+          //l_vips
+          //);
+        }
+        updateItinerarySearch(
+          origin,
+          destination,
+          this.context.router,
+          location,
+          this.context.executeAction
+        );
+        return false; // break out from the every-loop.
+      }
+      return true; // continue with next poi
+    });
+  }
+  
   /*
   swapEndpoints = () => {
     const { location } = this.context.match;

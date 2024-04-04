@@ -369,6 +369,7 @@ class SummaryPage extends React.Component {
     this.destination = undefined;
     this.expandMap = 0;
     this.allModesQueryDone = false;
+    this.journeyTitle = undefined;
 
     if (props.error) {
       reportError(props.error);
@@ -1493,19 +1494,21 @@ class SummaryPage extends React.Component {
     console.log('========= SummaryPage componentWillUpdate ========================');
     const jou = this.props.journey;
     console.log(['jou=',jou]);
-
-    // this.context.match.location.query.intermediatePlaces
-    // Add intermediate places AFTER itinerary search!!!!
-    if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
-      const vips = [];
-      jou.via.forEach(v=>{
-        vips.push({
-          address:v.address + ', ' + v.city,
-          lat: v.lat,
-          lon: v.lon
+    if (this.journeyTitle !== jou.title) {
+      this.journeyTitle = jou.title;
+      // this.context.match.location.query.intermediatePlaces
+      // Add intermediate places AFTER itinerary search!!!!
+      if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
+        const vips = [];
+        jou.via.forEach(v=>{
+          vips.push({
+            address:v.address + ', ' + v.city,
+            lat: v.lat,
+            lon: v.lon
+          });
         });
-      });
-      this.updateViaPoints(vips);
+        this.updateViaPoints(vips);
+      }
     }
   }
   

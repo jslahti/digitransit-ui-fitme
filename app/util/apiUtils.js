@@ -71,7 +71,7 @@ export function getFitMeJourneys() {
     // Old: 'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
     // New: 'https://prod-api.zoneatlas.com/collections'
     const p = retryFetch(
-      'https://prod-api.zoneatlas.com/collections',
+      'https://prod-api.zoneatlas.com:3006/collections',
       options,
       2,
       200);

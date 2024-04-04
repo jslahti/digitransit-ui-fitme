@@ -49,7 +49,7 @@ export function getFitMeJourneys() {
         from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
         to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
         via: [
-          {address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}
+          {address:"Oulun linja-autoasema",city:"Oulu",locationSlack:1200,lat:65.009861,lon:25.484029}
         ]
       },
       {
@@ -57,14 +57,22 @@ export function getFitMeJourneys() {
         from:{address:"Saaristotie 4529",city:"Nauvo",lat:60.192561829564454,lon:21.910686096477846},
         to:{address:"Saaristotie 4549",city:"Nauvo",lat:60.19300985237414,lon:21.907027827268365},
         via: [
-          {address:"Rantapolku 5",city:"Nauvo",lat:60.1937562468021,lon:21.911866146996186},
-          {address:"Nauvonranta 2",city:"Nauvo",lat:60.194092221310825,lon:21.910964469558074}
+          {address:"Rantapolku 5",city:"Nauvo",locationSlack:1200,lat:60.1937562468021,lon:21.911866146996186},
+          {address:"Nauvonranta 2",city:"Nauvo",locationSlack:1200,lat:60.194092221310825,lon:21.910964469558074}
         ]
       }
     ];
+    const options = {
+      method: 'GET',
+      headers: {
+        'x-container': 'clusterdemo_r6bna6yo'
+      }
+    };
+    // Old: 'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+    // New: 'https://prod-api.zoneatlas.com/collections'
     const p = retryFetch(
-      'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
-      {},
+      'https://prod-api.zoneatlas.com/collections',
+      options,
       2,
       200);
     promises.push(p);
@@ -74,7 +82,7 @@ export function getFitMeJourneys() {
         nested.push(r.json());
       });
       Promise.all(nested).then(data=>{
-        //console.log(['getFitMeJourneys data=',data]);
+        console.log(['getFitMeJourneys data=',data]);
         resolve(mock_data);
       });
     });

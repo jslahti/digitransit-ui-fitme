@@ -48,7 +48,18 @@ export function getFitMeJourneys() {
         title:"Espoo to Rovaniemi via Oulu",
         from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
         to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
-        via: [{address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}]
+        via: [
+          {address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}
+        ]
+      },
+      {
+        title:"Nauvo",
+        from:{address:"Saaristotie 4529",city:"Nauvo",lat:60.192561829564454,lon:21.910686096477846},
+        to:{address:"Saaristotie 4549",city:"Nauvo",lat:60.19300985237414,lon:21.907027827268365},
+        via: [
+          {address:"Rantapolku 5",city:"Nauvo",lat:60.1937562468021,lon:21.911866146996186},
+          {address:"Nauvonranta 2",city:"Nauvo",lat:60.194092221310825,lon:21.910964469558074}
+        ]
       }
     ];
     const p = retryFetch(

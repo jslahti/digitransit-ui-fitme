@@ -1477,41 +1477,6 @@ class SummaryPage extends React.Component {
     }
   }
   
-  updateViaPoints = newViaPoints => {
-    // fixes the bug that DTPanel starts excecuting updateViaPoints before this component is even mounted
-    //if (this.mounted) {
-    const p = newViaPoints.filter(vp => vp.lat && vp.address);
-    this.context.executeAction(setViaPoints, p);
-    setIntermediatePlaces(
-      this.context.router,
-      this.context.match,
-      p.map(locationToOTP),
-    );
-    //}
-  }
-  
-  componentWillUpdate() {
-    console.log('========= SummaryPage componentWillUpdate ========================');
-    const jou = this.props.journey;
-    console.log(['jou=',jou]);
-    if (this.journeyTitle !== jou.title) {
-      this.journeyTitle = jou.title;
-      // this.context.match.location.query.intermediatePlaces
-      // Add intermediate places AFTER itinerary search!!!!
-      if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
-        const vips = [];
-        jou.via.forEach(v=>{
-          vips.push({
-            address:v.address + ', ' + v.city,
-            lat: v.lat,
-            lon: v.lon
-          });
-        });
-        this.updateViaPoints(vips);
-      }
-    }
-  }
-  
   componentDidUpdate(prevProps) {
     setCurrentTimeToURL(this.context.config, this.props.match);
     // screen reader alert when new itineraries are fetched
@@ -2245,7 +2210,41 @@ class SummaryPage extends React.Component {
     return false;
   };
 
+  updateViaPoints = newViaPoints => {
+    // fixes the bug that DTPanel starts excecuting updateViaPoints before this component is even mounted
+    //if (this.mounted) {
+    const p = newViaPoints.filter(vp => vp.lat && vp.address);
+    this.context.executeAction(setViaPoints, p);
+    setIntermediatePlaces(
+      this.context.router,
+      this.context.match,
+      p.map(locationToOTP),
+    );
+    //}
+  }
+
   render() {
+    // Fitme automatic viaPoint insertion here:
+    console.log('========= SummaryPage render ========================');
+    const jou = this.props.journey;
+    console.log(['jou=',jou]);
+    if (this.journeyTitle !== jou.title) {
+      this.journeyTitle = jou.title;
+      // this.context.match.location.query.intermediatePlaces
+      // Add intermediate places AFTER itinerary search!!!!
+      if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
+        const vips = [];
+        jou.via.forEach(v=>{
+          vips.push({
+            address:v.address + ', ' + v.city,
+            lat: v.lat,
+            lon: v.lon
+          });
+        });
+        this.updateViaPoints(vips);
+      }
+    }
+    
     const { match, error } = this.props;
     const { walkPlan, bikePlan, carPlan, parkRidePlan } = this.state;
 

@@ -157,6 +157,9 @@ class FitmeTestBar extends React.Component {
           lon:j.to.lon
         };
         const { location } = this.context.match;
+        // this.context.match.location.query.intermediatePlaces
+        // Add intermediate places AFTER itinerary search!!!!
+        // Add them at SummaryPage render -method.
         updateItinerarySearch(
           origin,
           destination,
@@ -164,21 +167,6 @@ class FitmeTestBar extends React.Component {
           location,
           this.context.executeAction
         );
-        // this.context.match.location.query.intermediatePlaces
-        // Add intermediate places AFTER itinerary search!!!!
-        /*
-        if (j.via && Array.isArray(j.via) && j.via.length > 0) {
-          const vips = [];
-          j.via.forEach(v=>{
-            vips.push({
-              address:v.address + ', ' + v.city,
-              lat: v.lat,
-              lon: v.lon
-            });
-          });
-          this.updateViaPoints(vips);
-        }
-        */
         return false; // break out from the every-loop.
       }
       return true; // continue with next journey

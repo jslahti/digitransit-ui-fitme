@@ -2222,7 +2222,12 @@ class SummaryPage extends React.Component {
     );
     //}
   }
-
+  /*
+    via: [
+      {address:"Rantapolku 5",city:"Nauvo",locationSlack:1200,lat:60.1937562468021,lon:21.911866146996186},
+      {address:"Nauvonranta 2",city:"Nauvo",locationSlack:1200,lat:60.194092221310825,lon:21.910964469558074}
+    ]
+  */
   render() {
     // Fitme automatic viaPoint insertion here:
     console.log('========= SummaryPage render ========================');
@@ -2237,6 +2242,7 @@ class SummaryPage extends React.Component {
         jou.via.forEach(v=>{
           vips.push({
             address:v.address + ', ' + v.city,
+            locationSlack: v.locationSlack,
             lat: v.lat,
             lon: v.lon
           });

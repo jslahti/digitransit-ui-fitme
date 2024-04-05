@@ -349,7 +349,7 @@ const connectedContainer = createFragmentContainer(
   connectToStores(withConfig, [TimeStore, PositionStore, JourneyStore], context => ({
     currentTime: context.getStore(TimeStore).getCurrentTime().valueOf(),
     locationState: context.getStore(PositionStore).getLocationState(),
-    journey: getStore('JourneyStore').getJourney(),
+    journey: context.getStore('JourneyStore').getJourney(),
   })),
   {
     plan: graphql`

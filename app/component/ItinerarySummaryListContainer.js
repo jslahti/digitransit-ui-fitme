@@ -238,7 +238,7 @@ function ItinerarySummaryListContainer(
     itineraries.forEach((itinerary, iti_index) => {
       
       // NEW: Add intermediatePlaces to waitingCandidates if locationSlack >= waitThresholdAdjusted.
-      if (intermediatePlaces && isArray(intermediatePlaces) && intermediatePlaces.length > 0) {
+      if (intermediatePlaces && Array.isArray(intermediatePlaces) && intermediatePlaces.length > 0) {
         intermediatePlaces.forEach(place => {
           const slack_in_mins = place.locationSlack/60;
           if (slack_in_mins >= waitThresholdAdjusted) {

@@ -208,6 +208,10 @@ function ItinerarySummaryListContainer(
   // FITME! Add executeAction here => enable to access it?
   const { config, match, executeAction } = context;
   // FITME!
+  console.log('============== ItinerarySummaryListContainer ================');
+  console.log(['ItinerarySummaryListContainer itineraries=',itineraries]);
+  console.log('============== ItinerarySummaryListContainer ================');
+  
   if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {
     // FITME!
     const waitingCandidates = [];

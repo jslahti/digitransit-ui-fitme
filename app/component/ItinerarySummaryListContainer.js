@@ -236,6 +236,23 @@ function ItinerarySummaryListContainer(
     // NOTE: CONVERT waitThreshold from minutes to milliseconds
     const waitThresholdMS = waitThresholdAdjusted * 60 * 1000;
     itineraries.forEach((itinerary, iti_index) => {
+      
+      // NEW: Add intermediatePlaces to waitingCandidates if locationSlack >= waitThresholdAdjusted.
+      if (intermediatePlaces && isArray(intermediatePlaces) && intermediatePlaces.length > 0) {
+        intermediatePlaces.forEach(place => {
+          const slack_in_mins = place.locationSlack/60;
+          if (slack_in_mins >= waitThresholdAdjusted) {
+            const place_candi = {
+              waiting: slack_in_mins, // value in minutes
+              address: place.address,
+              lat: place.lat,
+              lon: place.lon,
+              index: iti_index
+            };
+            waitingCandidates.push(place_candi);
+          }
+        });
+      }
       // Fetch POIs for ALL itineraries.
       // Added index to POI points in POIStore.
       // Filter them when map is displayed.

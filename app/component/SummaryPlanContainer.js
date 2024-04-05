@@ -267,9 +267,9 @@ class SummaryPlanContainer extends React.Component {
     const disableButtons = !itineraries || itineraries.length === 0;
     const arriveBy = this.context.match.location.query.arriveBy === 'true';
 
-    console.log('=============================SummaryPlanContainer render=========================');
-    console.log(['SummaryPlanContainer render intermediatePlaces=',getIntermediatePlaces(location.query)]);
-    console.log('=============================SummaryPlanContainer render=========================');
+    //console.log('=============================SummaryPlanContainer render=========================');
+    //console.log(['SummaryPlanContainer render intermediatePlaces=',getIntermediatePlaces(location.query)]);
+    //console.log('=============================SummaryPlanContainer render=========================');
 
     return (
       <div className="summary">

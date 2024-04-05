@@ -2622,6 +2622,7 @@ class SummaryPage extends React.Component {
             />
           );
         }
+        console.log('SummaryPage FIRST pos to init SummaryPlanContainer');
         content = (
           <>
             <SummaryPlanContainer
@@ -2839,6 +2840,7 @@ class SummaryPage extends React.Component {
           </div>
         );
       } else {
+        console.log('SummaryPage SECOND pos to init SummaryPlanContainer');
         content = (
           <>
             <SummaryPlanContainer

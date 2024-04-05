@@ -1818,8 +1818,13 @@ class SummaryPage extends React.Component {
         id: 'itinerary-page.itineraries-loaded',
         defaultMessage: 'More itineraries loaded',
       });
+      // NOTE: After timeout must check that current still exist!
       setTimeout(() => {
-        this.props.alertRef.current.innerHTML = null;
+        if (this.props.alertRef.current) {
+          if (this.props.alertRef.current.innerHTML) {
+            this.props.alertRef.current.innerHTML = null;
+          }
+        }
       }, 100);
     }
   }

@@ -210,6 +210,7 @@ function ItinerarySummaryListContainer(
   // FITME!
   console.log('============== ItinerarySummaryListContainer ================');
   console.log(['ItinerarySummaryListContainer itineraries=',itineraries]);
+  console.log(['ItinerarySummaryListContainer intermediatePlaces=',intermediatePlaces]);
   console.log('============== ItinerarySummaryListContainer ================');
   
   if (!error && itineraries && itineraries.length > 0 && !itineraries.includes(undefined)) {

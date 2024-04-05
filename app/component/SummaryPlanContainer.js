@@ -16,6 +16,7 @@ import Icon from './Icon';
 import ItinerarySummaryListContainer from './ItinerarySummaryListContainer';
 import TimeStore from '../store/TimeStore';
 import PositionStore from '../store/PositionStore';
+import JourneyStore from '../store/JourneyStore';
 import { otpToLocation, getIntermediatePlaces } from '../util/otpStrings';
 import { getSummaryPath } from '../util/path';
 import { replaceQueryParams } from '../util/queryUtils';
@@ -37,6 +38,7 @@ class SummaryPlanContainer extends React.Component {
       }),
     ).isRequired,
     locationState: PropTypes.object,
+    journey: PropTypes.object,
     params: PropTypes.shape({
       from: PropTypes.string.isRequired,
       to: PropTypes.string.isRequired,
@@ -264,6 +266,11 @@ class SummaryPlanContainer extends React.Component {
       currentTime;
     const disableButtons = !itineraries || itineraries.length === 0;
     const arriveBy = this.context.match.location.query.arriveBy === 'true';
+
+    console.log('=============================SummaryPlanContainer render=========================');
+    console.log(['SummaryPlanContainer render intermediatePlaces=',getIntermediatePlaces(location.query)]);
+    console.log('=============================SummaryPlanContainer render=========================');
+
     return (
       <div className="summary">
         <h2 className="sr-only">
@@ -339,9 +346,10 @@ const withConfig = getContext({
 );
 
 const connectedContainer = createFragmentContainer(
-  connectToStores(withConfig, [TimeStore, PositionStore], context => ({
+  connectToStores(withConfig, [TimeStore, PositionStore, JourneyStore], context => ({
     currentTime: context.getStore(TimeStore).getCurrentTime().valueOf(),
     locationState: context.getStore(PositionStore).getLocationState(),
+    journey: getStore('JourneyStore').getJourney(),
   })),
   {
     plan: graphql`

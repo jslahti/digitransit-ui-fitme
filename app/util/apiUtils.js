@@ -40,25 +40,17 @@ export function deleteFavourites(data) {
   );
 }
 
-export function getFitMeJourneys() {
+export function getFitMeClusters() {
   return new Promise(function(resolve) {
     const promises = [];
     const mock_data = [
       {
-        title:"Espoo to Rovaniemi via Oulu",
-        from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
-        to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
-        via: [
-          {address:"Oulun linja-autoasema",city:"Oulu",locationSlack:1200,lat:65.009861,lon:25.484029}
-        ]
-      },
-      {
         title:"Nauvo",
-        from:{address:"Saaristotie 4529",city:"Nauvo",lat:60.192561829564454,lon:21.910686096477846},
-        to:{address:"Saaristotie 4549",city:"Nauvo",lat:60.19300985237414,lon:21.907027827268365},
         via: [
+          {address:"Saaristotie 4529",city:"Nauvo",locationSlack:1200,lat:60.192561829564454,lon:21.910686096477846},
           {address:"Rantapolku 5",city:"Nauvo",locationSlack:1200,lat:60.1937562468021,lon:21.911866146996186},
-          {address:"Nauvonranta 2",city:"Nauvo",locationSlack:1200,lat:60.194092221310825,lon:21.910964469558074}
+          {address:"Nauvonranta 2",city:"Nauvo",locationSlack:1200,lat:60.194092221310825,lon:21.910964469558074},
+          {address:"Saaristotie 4549",city:"Nauvo",locationSlack:1200,lat:60.19300985237414,lon:21.907027827268365}
         ]
       }
     ];
@@ -84,7 +76,7 @@ export function getFitMeJourneys() {
         nested.push(r.json());
       });
       Promise.all(nested).then(data=>{
-        console.log(['getFitMeJourneys data=',data]);
+        console.log(['getFitMeClusters data=',data]);
         resolve(mock_data);
       });
     });

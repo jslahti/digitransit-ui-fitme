@@ -1,5 +1,6 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-nested-ternary */
+import cx from 'classnames';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import React from 'react';
@@ -72,10 +73,13 @@ const POINT_FOCUS_ZOOM = 16; // used when focusing to a point
 // New FITME POI filtering
 import { getSources } from '../util/poiSourceUtils';
 import { getTypes } from '../util/poiTypeUtils';
-// New FITME automatic Journey (viapoints) manipulation:
-import { setIntermediatePlaces } from '../util/queryUtils';
-import { locationToOTP } from '../util/otpStrings';
-import { setViaPoints } from '../action/ViaPointActions';
+// FITME!
+import FitmeTestBar from './FitmeTestBar';
+// FITME!
+
+//import { setIntermediatePlaces, updateItinerarySearch } from '../util/queryUtils';
+//import { locationToOTP } from '../util/otpStrings';
+//import { setViaPoints } from '../action/ViaPointActions';
 
 /**
 /**
@@ -347,9 +351,9 @@ class SummaryPage extends React.Component {
     }).isRequired,
     mapLayers: mapLayerShape.isRequired,
     mapLayerOptions: mapLayerOptionsShape.isRequired,
-    journey: PropTypes.object,
     poiPoints: PropTypes.array,
     poiSettings: PropTypes.object,
+    cluster: PropTypes.object,
     alertRef: PropTypes.string.isRequired,
   };
 
@@ -369,7 +373,6 @@ class SummaryPage extends React.Component {
     this.destination = undefined;
     this.expandMap = 0;
     this.allModesQueryDone = false;
-    this.journeyTitle = undefined;
 
     if (props.error) {
       reportError(props.error);
@@ -1964,7 +1967,6 @@ class SummaryPage extends React.Component {
     });
     console.log(['SummaryPage activeIndex=',activeIndex,
       ' this.props.poiPoints=',this.props.poiPoints,
-      ' this.props.journey=',this.props.journey,
       ' filteredPOIPoints=',filteredPOIPoints]);
     
     console.log(['this.context.config=',this.context.config]);
@@ -2214,7 +2216,7 @@ class SummaryPage extends React.Component {
     }
     return false;
   };
-
+  /*
   updateViaPoints = newViaPoints => {
     // fixes the bug that DTPanel starts excecuting updateViaPoints before this component is even mounted
     //if (this.mounted) {
@@ -2227,6 +2229,7 @@ class SummaryPage extends React.Component {
     );
     //}
   }
+  */
   /*
     via: [
       {address:"Rantapolku 5",city:"Nauvo",locationSlack:1200,lat:60.1937562468021,lon:21.911866146996186},
@@ -2234,27 +2237,7 @@ class SummaryPage extends React.Component {
     ]
   */
   render() {
-    // Fitme automatic viaPoint insertion here:
     console.log('========= SummaryPage render ========================');
-    const jou = this.props.journey;
-    console.log(['jou=',jou]);
-    if (this.journeyTitle !== jou.title) {
-      this.journeyTitle = jou.title;
-      // this.context.match.location.query.intermediatePlaces
-      // Add intermediate places AFTER itinerary search!!!!
-      if (jou && jou.via && Array.isArray(jou.via) && jou.via.length > 0) {
-        const vips = [];
-        jou.via.forEach(v=>{
-          vips.push({
-            address:v.address + ', ' + v.city,
-            locationSlack: v.locationSlack,
-            lat: v.lat,
-            lon: v.lon
-          });
-        });
-        this.updateViaPoints(vips);
-      }
-    }
     
     const { match, error } = this.props;
     const { walkPlan, bikePlan, carPlan, parkRidePlan } = this.state;
@@ -2512,7 +2495,7 @@ class SummaryPage extends React.Component {
     const viaPoints = getIntermediatePlaces(match.location.query);
     
     console.log('============= SummaryPage render ===================');
-    console.log(['SummaryPage from=',from,'to=',to,'viaPoints=',viaPoints,'this.props.journey=',this.props.journey]);
+    console.log(['SummaryPage from=',from,'to=',to,'viaPoints=',viaPoints,'this.props.cluster=',this.props.cluster]);
     console.log('============= SummaryPage render ===================');
 
     if (match.routes.some(route => route.printPage) && hasItineraries) {
@@ -2623,8 +2606,12 @@ class SummaryPage extends React.Component {
           );
         }
         console.log('SummaryPage FIRST pos to init SummaryPlanContainer');
+        const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
         content = (
           <>
+            <FitmeTestBar
+              className={className}
+            />
             <SummaryPlanContainer
               activeIndex={activeIndex}
               plan={this.selectedPlan}
@@ -2843,6 +2830,9 @@ class SummaryPage extends React.Component {
         console.log('SummaryPage SECOND pos to init SummaryPlanContainer');
         content = (
           <>
+            <FitmeTestBar
+              className={className}
+            />
             <SummaryPlanContainer
               activeIndex={
                 hash || getActiveIndex(match.location, combinedItineraries)
@@ -2975,10 +2965,14 @@ const SummaryPageWithBreakpoint = withBreakpoint(props => (
 ));
 /*
 	Add 'PoiSettingsStore' here to see if it makes map refresh when POI settings is changed.
+	Testing: See if we can get the origin and destination from stores:
+	
+	
+	
 */
 const SummaryPageWithStores = connectToStores(
   SummaryPageWithBreakpoint,
-  ['MapLayerStore','PoiStore','PoiSettingsStore','JourneyStore'],
+  ['MapLayerStore','PoiStore','PoiSettingsStore','ClusterStore'],
   ({ getStore }) => ({
     mapLayers: getStore('MapLayerStore').getMapLayers({
       notThese: ['stop', 'citybike', 'vehicles'],
@@ -2988,8 +2982,8 @@ const SummaryPageWithStores = connectToStores(
       selectedMapLayers: ['vehicles'],
     }),
     poiPoints: getStore('PoiStore').getPoiPoints(),
-    journey: getStore('JourneyStore').getJourney(),
     poiSettings: getStore('PoiSettingsStore').getPoiSettings(),
+    cluster: getStore('ClusterStore').getCluster(),
   }),
 );
 

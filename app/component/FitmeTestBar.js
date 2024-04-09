@@ -9,24 +9,24 @@ import connectToStores from 'fluxible-addons-react/connectToStores';
 //import { addAnalyticsEvent } from '../util/analyticsUtils';
 //import withSearchContext from './WithSearchContext';
 import {
-  setIntermediatePlaces,
-  updateItinerarySearch
+  setIntermediatePlaces
+  //updateItinerarySearch
   //onLocationPopup,
 } from '../util/queryUtils';
 
-import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
-//import { locationToOTP } from '../util/otpStrings';
+//import { getIntermediatePlaces, locationToOTP } from '../util/otpStrings';
+import { locationToOTP } from '../util/otpStrings';
 
 import { dtLocationShape } from '../util/shapes';
 import { setViaPoints } from '../action/ViaPointActions';
-import { setJourney } from '../action/JourneyActions';
+import { setCluster } from '../action/ClusterActions';
 //import { setPoiPoints } from '../action/PoiPointActions';
 //import { LightenDarkenColor } from '../util/colorUtils';
 import { getRefPoint } from '../util/apiUtils';
 import { useCitybikes } from '../util/modeUtils';
 
 import Select from 'react-select';
-import { getFitMeJourneys } from '../util/apiUtils';
+import { getFitMeClusters } from '../util/apiUtils';
 
 /*
 const DTAutosuggestPanelWithSearchContext = withSearchContext(
@@ -43,11 +43,9 @@ class FitmeTestBar extends React.Component {
   //  { value: 'vanilla', label: 'Vanilla' }
   //];
   
-  /* list of journeys, each object contains 
+  /* list of clusters, each object contains 
   title:"Espoo to Rovaniemi via Oulu",
-  from:{address:"Mäenrinne 1",city:"Espoo",lat:60.1686016,lon:24.7988224},
-  to:{address:"Rovaniemen linja-autoasema",city:"Rovaniemi",lat:66.499062,lon:25.715245},
-  via: [{address:"Oulun linja-autoasema",city:"Oulu",lat:65.009861,lon:25.484029}]
+  via: [{address:"Oulun linja-autoasema",city:"Oulu",locationSlack:1200,lat:65.009861,lon:25.484029}]
 
   updateItinerarySearch
   - origin
@@ -56,12 +54,12 @@ class FitmeTestBar extends React.Component {
   - location
   - this.context.executeAction
   */
-  journeys = [];
+  clusters = [];
   
   static propTypes = {
     className: PropTypes.string,
-    origin: dtLocationShape.isRequired,
-    destination: dtLocationShape.isRequired,
+    //origin: dtLocationShape.isRequired,
+    //destination: dtLocationShape.isRequired,
     language: PropTypes.string,
     isMobile: PropTypes.bool,
     showFavourites: PropTypes.bool.isRequired,
@@ -94,15 +92,15 @@ class FitmeTestBar extends React.Component {
   
   componentWillUpdate() {
     console.log('=================== FitmeTestBar componentWillUpdate =================================');
-    console.log(['this.journeys=',this.journeys]);
+    console.log(['this.clusters=',this.clusters]);
   }
   
   componentDidMount() {
     //const viaPoints = getIntermediatePlaces(this.context.match.location.query);
     //this.context.executeAction(setViaPoints, viaPoints);
     this.mounted = true;
-    console.log('========================== getFitMeJourneys =================================');
-    getFitMeJourneys()
+    console.log('========================== getFitMeClusters =================================');
+    getFitMeClusters()
       .then(res => {
         console.log(['res=',res]);
         if (res && Array.isArray(res) && res.length > 0) {
@@ -110,7 +108,7 @@ class FitmeTestBar extends React.Component {
           res.forEach((r,i) => {
             opts.push({value:'index-'+i,label:r.title});
           });
-          this.journeys = res;
+          this.clusters = res;
           this.options = opts;
           this.setState({selectedOption:'index-0'});
         }
@@ -139,34 +137,23 @@ class FitmeTestBar extends React.Component {
   handleChange = (selectedOption) => {
     this.setState({ selectedOption });
     console.log(['OUTSIDE setState selectedOption=',selectedOption]);
-    this.journeys.every(j=>{
-      if (j.title === selectedOption.label) {
-        
-        console.log(['SELECTED journey=',j]);
-        console.log('========== executeAction setJourney =======');
-        this.context.executeAction(setJourney, j);
-        
-        const origin = {
-          address:j.from.address + ', ' + j.from.city, 
-          lat:j.from.lat,
-          lon:j.from.lon
-        };
-        const destination = {
-          address:j.to.address + ', ' + j.to.city, 
-          lat:j.to.lat,
-          lon:j.to.lon
-        };
-        const { location } = this.context.match;
-        // this.context.match.location.query.intermediatePlaces
-        // Add intermediate places AFTER itinerary search!!!!
-        // Add them at SummaryPage render -method.
-        updateItinerarySearch(
-          origin,
-          destination,
-          this.context.router,
-          location,
-          this.context.executeAction
-        );
+    this.clusters.every(c=>{
+      if (c.title === selectedOption.label) {
+        console.log(['SELECTED cluster=',c]);
+        if (c.via && Array.isArray(c.via) && c.via.length > 0) {
+          const vips = [];
+          c.via.forEach(v=>{
+            vips.push({
+              address:v.address + ', ' + v.city,
+              locationSlack: v.locationSlack,
+              lat: v.lat,
+              lon: v.lon
+            });
+          });
+          this.updateViaPoints(vips);
+        }
+        console.log('========== executeAction setCluster =======');
+        this.context.executeAction(setCluster, c);
         return false; // break out from the every-loop.
       }
       return true; // continue with next journey
@@ -222,11 +209,11 @@ class FitmeTestBar extends React.Component {
   */
   render() {
     const { config } = this.context;
-    const refPoint = getRefPoint(
+    /*const refPoint = getRefPoint(
       this.props.origin,
       this.props.destination,
       this.props.locationState,
-    );
+    );*/
     const desktopTargets = ['Locations', 'CurrentPosition', 'Stops'];
     if (useCitybikes(this.context.config.cityBike?.networks)) {
       desktopTargets.push('BikeRentalStations');
@@ -261,13 +248,23 @@ class FitmeTestBar extends React.Component {
 
 const connectedComponent = connectToStores(
   FitmeTestBar,
-  ['PreferencesStore', 'FavouriteStore', 'ViaPointStore', 'PositionStore', 'JourneyStore'],
+  [
+    //'OriginStore',
+    //'DestinationStore',
+    'PreferencesStore', 
+    'FavouriteStore',
+    'ViaPointStore',
+    'PositionStore',
+    'ClusterStore'
+  ],
   ({ getStore }) => ({
+    //origin: getStore('OriginStore').getOrigin(),
+    //destination: getStore('DestinationStore').getDestination(),
     language: getStore('PreferencesStore').getLanguage(),
     showFavourites: getStore('FavouriteStore').getStatus() === 'has-data',
     viaPoints: getStore('ViaPointStore').getViaPoints(),
-    journey: getStore('JourneyStore').getJourney(),
     locationState: getStore('PositionStore').getLocationState(),
+    clusters: getStore('ClusterStore').getCluster(),
   }),
 );
 

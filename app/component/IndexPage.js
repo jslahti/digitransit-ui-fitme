@@ -1,4 +1,4 @@
-import cx from 'classnames';
+//import cx from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { intlShape, FormattedMessage } from 'react-intl';
@@ -39,7 +39,7 @@ import {
 } from '../util/modeUtils';
 
 // FITME!
-import FitmeTestBar from './FitmeTestBar';
+//import FitmeTestBar from './FitmeTestBar';
 // FITME!
 
 const StopRouteSearch = withSearchContext(DTAutoSuggest);
@@ -211,7 +211,7 @@ class IndexPage extends React.Component {
 
   /* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */
   render() {
-    const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
+    //const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
     const { intl, config } = this.context;
     const { trafficNowLink, colors, fontWeights } = config;
     const color = colors.primary;
@@ -262,8 +262,6 @@ class IndexPage extends React.Component {
       hoverColor,
       accessiblePrimaryColor,
       refPoint,
-      //searchPanelText: '',
-      // FITME: don't show "Where to:" -message
       searchPanelText: intl.formatMessage({
         id: 'where',
         defaultMessage: 'Where to?',
@@ -403,13 +401,6 @@ class IndexPage extends React.Component {
                     onClickFavourite={this.clickFavourite}
                     lang={lang}
                   />
-                  <FitmeTestBar
-                    className={className}
-                    origin={origin}
-                    destination={destination}
-                    isMobile={breakpoint !== 'large'}
-                    modeSet={config.iconModeSet}
-                  />
                   <CtrlPanel.SeparatorLine usePaddingBottom20 />
                   <>{NearStops(CtrlPanel)}</>
                   <StopRouteSearch {...stopRouteSearchProps} />
@@ -457,13 +448,6 @@ class IndexPage extends React.Component {
                     onClickFavourite={this.clickFavourite}
                     lang={lang}
                     isMobile
-                  />
-                  <FitmeTestBar
-                    className={className}
-                    origin={origin}
-                    destination={destination}
-                    isMobile
-                    modeSet={config.iconModeSet}
                   />
                   <CtrlPanel.SeparatorLine />
                   <>{NearStops(CtrlPanel)}</>

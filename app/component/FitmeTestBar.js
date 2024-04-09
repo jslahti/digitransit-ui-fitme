@@ -264,7 +264,7 @@ const connectedComponent = connectToStores(
     showFavourites: getStore('FavouriteStore').getStatus() === 'has-data',
     viaPoints: getStore('ViaPointStore').getViaPoints(),
     locationState: getStore('PositionStore').getLocationState(),
-    clusters: getStore('ClusterStore').getCluster(),
+    cluster: getStore('ClusterStore').getCluster(),
   }),
 );
 

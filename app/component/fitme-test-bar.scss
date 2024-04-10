@@ -1,8 +1,6 @@
 .fitme-test-bar {
   background-color: #fff;
-  display: flex;
-  z-index: 999;
-  flex-direction: column;
+  display: block;
   justify-content: space-around;
   align-items: initial;
   &.bp-large {

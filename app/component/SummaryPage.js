@@ -2238,6 +2238,7 @@ class SummaryPage extends React.Component {
   */
   render() {
     console.log('========= SummaryPage render ========================');
+    const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
     
     const { match, error } = this.props;
     const { walkPlan, bikePlan, carPlan, parkRidePlan } = this.state;
@@ -2606,7 +2607,6 @@ class SummaryPage extends React.Component {
           );
         }
         console.log('SummaryPage FIRST pos to init SummaryPlanContainer');
-        const className = cx({ 'bp-large': this.props.breakpoint === 'large' });
         content = (
           <>
             <FitmeTestBar

@@ -1,6 +1,11 @@
+// NOTE: class summary-list-items has z-index 9
+// This must be higher than that, so that opening select 
+// options are not hidden behind summary list items.
 .fitme-test-bar {
   background-color: #fff;
   display: block;
+  position: relative;
+  z-index: 10;
   justify-content: space-around;
   align-items: initial;
   &.bp-large {
@@ -11,5 +16,6 @@
 .mobile {
   .fitme-test-bar {
     z-index: 999;
+    margin: 0 9px 0 1.25em;
   }
 }

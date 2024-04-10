@@ -46,11 +46,22 @@ export function getFitMeClusters() {
     const mock_data = [
       {
         title:"Nauvo",
-        via: [
+        /*via: [
           {address:"Saaristotie 4529",city:"Nauvo",locationSlack:1200,lat:60.192561829564454,lon:21.910686096477846},
           {address:"Rantapolku 5",city:"Nauvo",locationSlack:1200,lat:60.1937562468021,lon:21.911866146996186},
           {address:"Nauvonranta 2",city:"Nauvo",locationSlack:1200,lat:60.194092221310825,lon:21.910964469558074},
           {address:"Saaristotie 4549",city:"Nauvo",locationSlack:1200,lat:60.19300985237414,lon:21.907027827268365}
+        ]*/
+        via: [
+          {address:"Puistotie 1",city:"Nauvo",locationSlack:3600,lat:60.1928706,lon:21.909745644227602},
+          {address:"Pappilanpolku 3",city:"Nauvo",locationSlack:3600,lat:60.1944552,lon:21.9090438},
+        ]
+      },
+      {
+        title:"Taideluontopolku ja viihtyisää bistrotunnelmaa",
+        via: [
+          {address:"Österretaisintie 45",city:"Korpo",locationSlack:3600,lat:60.17433847992975,lon:21.666155023123952},
+          {address:"Österretaisintie 120",city:"Pargas",locationSlack:3600,lat:60.1754966,lon:21.676705},
         ]
       }
     ];
@@ -63,10 +74,10 @@ export function getFitMeClusters() {
     // Old: 'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
     // New: 'https://prod-api.zoneatlas.com/collections'
     const p = retryFetch(
-      //'https://prod-api.zoneatlas.com/collections',
-      //options,
-      'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
-      {},
+      'https://prod-api.zoneatlas.com/collections',
+      options,
+      //'https://api.stackexchange.com/2.2/search?order=desc&sort=activity&intitle=perl&site=stackoverflow',
+      //{},
       2,
       200);
     promises.push(p);

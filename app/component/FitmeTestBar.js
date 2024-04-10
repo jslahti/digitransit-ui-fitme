@@ -281,7 +281,6 @@ class FitmeTestBar extends React.Component {
         className={cx(
           'fitme-test-bar',
           this.props.className,
-          'flex-horizontal',
         )}
       >
         <div style={{width: '400px'}}>

@@ -38,10 +38,7 @@ class FitmeTestBar extends React.Component {
     selectedOption: null,
   };
   options = [];
-  //  { value: 'chocolate', label: 'Chocolate' },
-  //  { value: 'strawberry', label: 'Strawberry' },
-  //  { value: 'vanilla', label: 'Vanilla' }
-  //];
+  //  [{ value: '', label: '' }]
   
   /* list of clusters, each object contains 
   title:"Espoo to Rovaniemi via Oulu",
@@ -94,6 +91,56 @@ class FitmeTestBar extends React.Component {
     console.log('=================== FitmeTestBar componentWillUpdate =================================');
     console.log(['this.clusters=',this.clusters]);
   }
+  /*
+    The result contains arrays of arrays.
+    Now that we have only one URL to fetch, there is only one array in result array.
+    title:"Nauvo",
+    via: [
+      {address:"Puistotie 1",city:"Nauvo",locationSlack:3600,lat:60.1928706,lon:21.909745644227602},
+      {address:"Pappilanpolku 3",city:"Nauvo",locationSlack:3600,lat:60.1944552,lon:21.9090438},
+    ]
+  */
+  parseResponse = res => {
+    const cc = []; // cluster candidates
+    const opts = []; // titles for the select-element
+    if (res && Array.isArray(res) && res.length > 0) {
+      res.forEach(arr=>{
+        if (arr && Array.isArray(arr) && arr.length > 0) {
+          arr.forEach((r,r_index)=>{
+            if (r.duration > 0) {
+              opts.push({value:'index-'+r_index,label:r.title});
+              const temp_cluster = {title:'', via:[]};
+              const duration = r.duration*3600; // hour has 3600 seconds
+              temp_cluster.title = r.title;
+              const mi = r.MapItems;
+              if (mi && Array.isArray(mi) && mi.length > 0) {
+                // Assign each viapoint equal share of full duration.
+                const slack = duration/mi.length;
+                mi.forEach(item=>{
+                  const vp = {locationSlack:slack};
+                  if (item.geo && item.geo.coordinates) {
+                    vp.lat = item.geo.coordinates[0];
+                    vp.lon = item.geo.coordinates[1];
+                  }
+                  if (item.Point && item.Point.streetAddress) {
+                    vp.address = item.Point.streetAddress;
+                    //city = ?
+                  }
+                  temp_cluster.via.push(vp);
+                });
+              }
+              if (temp_cluster.via.length > 0) {
+                cc.push(temp_cluster);
+              }
+            }
+          });
+        }
+      });
+    }
+    this.clusters = cc;
+    this.options = opts;
+    this.setState({selectedOption:'index-0'});
+  }
   
   componentDidMount() {
     //const viaPoints = getIntermediatePlaces(this.context.match.location.query);
@@ -103,7 +150,9 @@ class FitmeTestBar extends React.Component {
     getFitMeClusters()
       .then(res => {
         console.log(['res=',res]);
-        if (res && Array.isArray(res) && res.length > 0) {
+        // parse viapoint elements from received data.
+        this.parseResponse(res);
+        /*if (res && Array.isArray(res) && res.length > 0) {
           const opts = [];
           res.forEach((r,i) => {
             opts.push({value:'index-'+i,label:r.title});
@@ -111,7 +160,7 @@ class FitmeTestBar extends React.Component {
           this.clusters = res;
           this.options = opts;
           this.setState({selectedOption:'index-0'});
-        }
+        }*/
       })
       .catch(err => {
         console.log(['err=',err]);
@@ -143,8 +192,9 @@ class FitmeTestBar extends React.Component {
         if (c.via && Array.isArray(c.via) && c.via.length > 0) {
           const vips = [];
           c.via.forEach(v=>{
+            const city = v.city ? ', '+v.city : '';
             vips.push({
-              address:v.address + ', ' + v.city,
+              address: v.address + city,
               locationSlack: v.locationSlack,
               lat: v.lat,
               lon: v.lon

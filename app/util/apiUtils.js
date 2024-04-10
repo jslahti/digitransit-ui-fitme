@@ -88,7 +88,8 @@ export function getFitMeClusters() {
       });
       Promise.all(nested).then(data=>{
         console.log(['getFitMeClusters data=',data]);
-        resolve(mock_data);
+        //resolve(mock_data);
+        resolve(data);
       });
     });
   });
